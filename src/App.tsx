@@ -1,17 +1,7 @@
-import React from "react";
-import "./App.css";
 
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//      <h1>Vision Board App</h1>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
+import React from 'react';
+import './App.css';
+import BoardHome from './boardDisplay/BoardHome';
 
 export interface AppProps {}
 
@@ -26,6 +16,7 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <div>
         <h1>Vision Board App</h1>
+         <BoardHome  />
       </div>
     );
   }
