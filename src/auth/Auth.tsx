@@ -1,3 +1,5 @@
+import React from 'react';
+
 // export interface AuthProps {
     
 // }
@@ -17,3 +19,6 @@
 // }
  
 // export default Auth;
+
+
+
