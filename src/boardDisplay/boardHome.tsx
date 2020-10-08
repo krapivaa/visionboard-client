@@ -45,7 +45,7 @@ import Grid from '@material-ui/core/Grid';
 /* //TODO:
 1.Getteing started with Workouts
 - fetch board function with state
-- ComponentDidMount
+
 */
 
 
@@ -74,7 +74,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       <Grid container spacing={3}>
 
       <Grid item xs={3} style={{ backgroundColor: '#cfe8fc' }}>
-        <BoardCreate  />
+        <BoardCreate token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"} />
         </Grid>
       
         <Grid item xs={9} style={{ backgroundColor: 'lightblue' }}>
@@ -119,3 +119,8 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 }
  
 export default BoardHome;
+
+/*
+token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}
+*/
+

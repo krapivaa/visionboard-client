@@ -6,6 +6,8 @@ import Input from '@material-ui/core/Input';
 import { withStyles } from "@material-ui/core/styles";
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import DeleteIcon  from '@material-ui/icons/Delete';
+import { Description } from '@material-ui/icons';
+import { BoardResponse } from './BoardInterface';
 
 const useStyles = (theme: Theme) => ({
     root: {
@@ -23,12 +25,17 @@ const useStyles = (theme: Theme) => ({
   });
 
 /*//TODO
-passing probs 
-protected view
+USE BOARD INTERFACE
+select option - not working yet - doe not capture data
+Delete/Cancel button
+
+//DONE!
+Have return object in console (except - Share with other user! Yes!
  */
 
 export interface BoardCreateProps {
- 
+ //props here (token)
+ token: any
 }
  
 export interface BoardCreateState {
@@ -65,7 +72,40 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       };
      
       //handleSubmit and fetch
-      
+      handleSubmit = (e: { preventDefault: () => void; }) => {
+        // e.preventDefault();
+        fetch("http://localhost:3000/api/board/create", {
+            method: 'POST',
+            body: JSON.stringify({
+                board: {
+                    boardTitle: this.state.boardTitle, 
+                    description: this.state.description,
+                    tags: this.state.tags, 
+                    sharedBoard: this.state.sharedBoard
+                }}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': this.props.token
+            })
+        }).then((res: any) => res.json())
+        .then((json: BoardResponse) => {
+            console.log (json);
+            this.setState ({
+                boardTitle: '',
+                description: '',
+                tags: '',
+                sharedBoard: false,
+                
+            })
+         
+        //    this.setState 
+        //     boardTitle(''),
+        //     description(''),
+        //     tags(''),
+        //     sharedBoard(false),
+        //     props.fetchBoard()  ??????
+        })
+    }
 
 
 
@@ -83,7 +123,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
       <Input placeholder="Tags" inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
 
-    {/* Material UI Select */}
+    {/* Material UI Select   DO NOT WORK YET!*/}
       {/* <FormControl className={classes.formControl}> */}
         <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
         <Select
@@ -99,7 +139,9 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       {/* </FormControl> */}
 <br />
 
-      <Button onClick={() => alert (this.state.boardTitle) }
+
+{/* <Button onClick={() => alert (this.state.boardTitle) } */}
+      <Button onClick={() => this.handleSubmit }
         variant="contained"
         color="primary"
         className={classes.button}
