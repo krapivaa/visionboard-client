@@ -1,10 +1,28 @@
-export interface Board {
-    owner: number;
-    boardTitle: string;
-    description: string;
-    dateCreated: string;
-    tags: string;
-    sharedBoard: boolean;
-    updatedAt: Date;
-    createdAt: Date;
-}
+
+    export interface Board {
+        boardTitle: string;
+        description: string;
+        tags: string;
+        sharedBoard: boolean;
+    }
+
+ 
+    export interface ReaquestBodyBoard {
+        board: Board;
+    }
+
+
+    export interface BoardResponse {
+        id?: number;
+        owner?: number;
+        boardTitle: string;
+        description: string;
+        tags: string;
+        sharedBoard: boolean;
+        updatedAt?: Date;
+        createdAt?: Date;
+    }
+
+
+      
+
