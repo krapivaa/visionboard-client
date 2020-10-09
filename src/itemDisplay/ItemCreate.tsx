@@ -5,6 +5,11 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from "@material-ui/core/styles";
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 // import cloudinary from 'cloudinary';
+import Input from '@material-ui/core/Input';
+import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import DeleteIcon  from '@material-ui/icons/Delete';
+import { Description } from '@material-ui/icons';
+import { ItemResponse } from './ItemInterface';
 
 
 const useStyles = (theme: Theme) => ({
@@ -20,19 +25,28 @@ const useStyles = (theme: Theme) => ({
             }
         });
    
+/*//TODO
+endpoint fix
+cloudinary
+form wrap up in modal
+
+//DONE!
+Have return object in console, but with hardcoded boardId
+*/
+
 
 export interface ItemCreateProps {
-    // className?:string;
-    // classes:any;
+    token: any
     
    
 }
  
 export interface ItemCreateState {
     //item interface
-    //title: string; etc
-
-    
+    itemTitle: string;
+    notes: string;
+    photo: string;
+      
 }
 
 
@@ -41,20 +55,42 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
    
     constructor(props: ItemCreateProps) {
         super(props);
-        // this.state = { photo : "", title: "Herb"  };
+        this.state = {  
+            itemTitle: "",
+            notes: "",
+            photo: "",
+          };
        
     }
     
-   //Some tetst: 
-//fetching
-// onSubmit( ){
-//     const endpointURL = `http://localhost...`;
-//     const body: ItemResponse = {
-//         title: {
-//             title: this.state.title
-//         }
-//     }
-// }
+//handleSubmit and fetch
+handleSubmit = (e: { preventDefault: () => void; }) => {
+
+
+    //should make it dynamic `${boardId}` props.boardId? ???
+    fetch("http://localhost:3000/api/item/create-new-on-board/2", {
+        method: 'POST',
+        body: JSON.stringify({
+            item: {
+                itemTitle: this.state.itemTitle, 
+                notes: this.state.notes,
+                photo: this.state.photo, 
+            }}),
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': this.props.token
+        })
+    }).then((res: any) => res.json())
+    .then((json: ItemResponse) => {
+        console.log (json);
+        this.setState ({
+            itemTitle: '',
+            notes: '',
+            photo: '',
+        })
+    })
+}
+
 
 
 //CLOUDINARY WIDGET
@@ -109,49 +145,66 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
 
 
     render() { 
+
  const {classes}: any = this.props; 
 
-        return (<div>
-            <p className={classes.title}>ItemCreate</p>
+        return (<div style={{backgroundColor: "white"}}>
+            <p className={classes.title}>Create your item!</p>
 
             {/* //Some tests */}
-        {/* <p>My item name is {this.state.title}</p> */}
-            {/* <button onClick={() => this.onSubmit()}>Click</button>
-            // <input type="text" onChange={(e) => this.setState({title: e.target.value})} /> */}
-            
+            {/* <p>My item name is {this.state.title}</p> */}
+          
+       
+         <form className={classes.root} noValidate autoComplete="off">
      
-            <form className={classes.root}>
-            <TextField id="itemCreate-title" label="Title" variant="standard"
-            
-            />
-            </form>
 
-            <form className={classes.root}>    
-            <TextField id="itemCreate-notes" label="Notes" variant="standard"
-            
-            />
-            </form>
+            <Input placeholder="Title" inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ itemTitle: e.target.value})} />   
 
-             
-            <form  className={classes.root}>  
-            <TextField id="itemCreate-photo" label="Photo" variant="standard"
+            <br/>
 
-            />
+            <Input placeholder="Notes" inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value})} />   
+
+            <br/>
+
+            <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value})} />     
+           
+
+          
            
             
              <CloudinaryContext cloudName="verasenv">
-    {/* <div>
-    //Some tests - will be deleted
-        {/* <Image publicId="sample" width="0.5" crop="scale" /> */}
+                 {/* <div>
+                        //Some tests - will be deleted
+                         {/* <Image publicId="sample" width="0.5" crop="scale" /> */}
           
-{/* //CLOUDINARY WIDGET UPLOAD       */}
-            {/* <div className="upload">
+                {/* //CLOUDINARY WIDGET UPLOAD       */}
+                 {/* <div className="upload">
                 <button onClick={this.uploadWidget.bind(this)} className="upload-button">
                     Add Image
                 </button>
-            </div> */}
+              </div> */}
 
-        </CloudinaryContext>
+            </CloudinaryContext>
+
+        
+             <Button onClick={this.handleSubmit }
+                variant="contained"
+                color="primary"
+                className={classes.button}>
+                 Submit
+            </Button>
+
+
+        {/* //DELETE ? CANCEl ? */}
+             {/* <Button 
+             variant="contained"
+             color="secondary"
+             className={classes.button}
+             startIcon={<DeleteIcon />}
+             >
+             Delete
+            </Button> */}
+
 
             </form>
 

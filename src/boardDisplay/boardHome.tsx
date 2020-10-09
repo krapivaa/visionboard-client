@@ -3,48 +3,23 @@ import React from 'react';
 import '../App.css';
 import BoardCreate from './BoardCreate';
 import BoardUpdate from './BoardUpdate';
-
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
 import BoardDisplay from './BoardDisplay';
-import Typography from '@material-ui/core/Typography';
+import { Theme } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 
 
+const useStyles = (theme: Theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
 
-// const useStyles = makeStyles((theme: Theme) =>
-// createStyles({
-//   root: {
-//     display: 'flex',
-//     flexWrap: 'wrap',
-//     justifyContent: 'space-around',
-//     overflow: 'hidden',
-//     backgroundColor: theme.palette.background.paper,
-//   },
-//   gridList: {
-//     width: 500,
-//     height: 450,
-//     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-//     transform: 'translateZ(0)',
-//   },
-//   titleBar: {
-//     background:
-//       'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-//       'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-//   },
-//   icon: {
-//     color: 'white',
-//   },
-// }),
-// );
+});
 
 /* //TODO:
-1.Getteing started with Workouts
-- fetch board function with state
+
 
 */
 
@@ -68,6 +43,9 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     }
     
     render() { 
+
+      const {classes}: any = this.props;
+
         return ( <div>
             <h2 style={{ paddingLeft: "50px", color: 'darkgrey', textAlign: "center"}} >{this.heading}</h2>
 
@@ -83,42 +61,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
        
       </Grid>
 
-
-
-{/* 
-//Material UI Advanced Grid List
-            <div className="BoardRoot">
-      
-      <GridList cellHeight={200} spacing={1} className="BoardGridList">
-
-        {BoardDisplay.map((board) => (
-          
-          <GridListTile key={board.img} cols={board.featured ? 2 : 1} rows={board.featured ? 2 : 1}>
-            <img src={board.img} alt={board.title} />
-
-            <GridListTileBar
-              title={board.title}
-              titlePosition="top"
-              actionIcon={
-                <IconButton aria-label={`star ${board.title}`} className="BoardIcon">
-                  <StarBorderIcon />
-                </IconButton>
-              }
-              actionPosition="left"
-              className="BoardTitleBar"
-            />
-
-          </GridListTile>
-        ))}
-      </GridList>
-    </div> */}
-
-
         </div> );
     }
 }
  
-export default BoardHome;
+export default withStyles(useStyles)(BoardHome);
 
 /*
 token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}

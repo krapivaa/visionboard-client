@@ -1,9 +1,20 @@
 //worklog Table
 
 //Responsible for mapping through all the items and displaying them 
-
 import React from 'react';
 import '../App.css';
+import { Theme } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
+
+const useStyles = (theme: Theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+
+  });
+
 
 export interface ItemDisplayProps {
     
@@ -19,10 +30,13 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
         // this.state = { :  };
     }
     render() { 
+
+        const {classes}: any = this.props;
+
         return (<div>
             <p style={{color: "Darkgreen"}}>ItemDisplay</p>
         </div>  );
     }
 }
  
-export default ItemDisplay;
+export default withStyles(useStyles)(ItemDisplay);

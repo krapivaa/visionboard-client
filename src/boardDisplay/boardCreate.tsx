@@ -1,13 +1,13 @@
 //Responsibele for creating a board
 import React from 'react';
 import '../App.css';
+import { BoardResponse } from './BoardInterface';
 import { Theme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
 import { withStyles } from "@material-ui/core/styles";
+import Input from '@material-ui/core/Input';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import DeleteIcon  from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
-import { BoardResponse } from './BoardInterface';
 
 const useStyles = (theme: Theme) => ({
     root: {
@@ -15,22 +15,22 @@ const useStyles = (theme: Theme) => ({
         margin: theme.spacing(1),
       },
     },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-      },
-      selectEmpty: {
-        marginTop: theme.spacing(2),
-      },
+    // formControl: {
+    //     margin: theme.spacing(1),
+    //     minWidth: 120,
+    //   },
+    //   selectEmpty: {
+    //     marginTop: theme.spacing(2),
+    //   },
   });
 
 /*//TODO
 USE BOARD INTERFACE
-select option - not working yet - doe not capture data
 Delete/Cancel button
+The form can be wrapped up in Modal
 
 //DONE!
-Have return object in console (except - Share with other user! Yes!
+Have return object in console 
  */
 
 export interface BoardCreateProps {
@@ -48,6 +48,7 @@ export interface BoardCreateState {
 }
  
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
+   
 
     constructor(props: BoardCreateProps) {
         super(props);
@@ -68,8 +69,12 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     //   };
 
       handleChange = (event: React.ChangeEvent<{ value: any }>) => {
-        this.setState(event.target.value);
+        this.setState({sharedBoard: event.target.value});
       };
+
+    // handleChange = (event: { target: { value: any; }; }) => {
+    //     this.setState({sharedBoard: event.target.value});
+    //   };
      
       //handleSubmit and fetch
       handleSubmit = (e: { preventDefault: () => void; }) => {
@@ -96,6 +101,9 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 tags: '',
                 sharedBoard: false,
                 
+            // //for cancel button
+            //     props.toggle('1');
+
             })
          
         //    this.setState 
@@ -123,7 +131,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
       <Input placeholder="Tags" inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
 
-    {/* Material UI Select   DO NOT WORK YET!*/}
+   
       {/* <FormControl className={classes.formControl}> */}
         <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
         <Select
@@ -132,35 +140,37 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
           value={this.state.sharedBoard}
           onChange={this.handleChange}
         >
+        {/* <MenuItem value="">
+            <em></em>
+          </MenuItem> */}
             {/* value={false} */}
-          <MenuItem>No</MenuItem>
-          <MenuItem>Yes</MenuItem>         
+          <MenuItem value='false'>No</MenuItem>
+          <MenuItem value='true' >Yes</MenuItem>         
         </Select>
       {/* </FormControl> */}
-<br />
 
+        <br />
 
-{/* <Button onClick={() => alert (this.state.boardTitle) } */}
-      <Button onClick={() => this.handleSubmit }
+      <Button onClick={this.handleSubmit }
         variant="contained"
         color="primary"
-        className={classes.button}
-       
-      >
+        className={classes.button}>
         Submit
       </Button>
 
-      <Button
+    {/* //Example of delete/cancel
+      <Button outline color="secondary" type="cancel" className="buttonCancelUpdate"onClick={ () => props.toggle('1')}>Cancel</Button> */}
+
+      {/* <Button 
         variant="contained"
         color="secondary"
         className={classes.button}
-        startIcon={<DeleteIcon />}
-      >
+        startIcon={<DeleteIcon />}>
         Delete
-      </Button>
+      </Button> */}
 
 
-    </form>
+        </form>
 
         </div> );
     }

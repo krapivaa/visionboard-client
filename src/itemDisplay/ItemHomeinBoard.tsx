@@ -25,7 +25,7 @@ class ItemHomeinBoard extends React.Component<ItemHomeinBoardProps, ItemHomeinBo
             
             <Container maxWidth="sm" > 
             Display all the items here.
-            <ItemCreate />
+            <ItemCreate token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}/>
             <ItemDisplay />
             </Container>
 
