@@ -13,6 +13,14 @@
   }
 }
 
+.image{
+  display: flex;
+  background-attachment: fixed;
+  background-image: url(./assets/corkBoard.jpg);
+  min-height: 100vh;
+  background-size: cover;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

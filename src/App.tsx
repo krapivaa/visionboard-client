@@ -1,25 +1,19 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import BoardHome from './boardDisplay/BoardHome';
+import Auth from './auth/Auth';
+// import  Login from './auth/Login';
+// import BoardHome from './boardDisplay/boardHome';
 
-export interface AppProps {}
-
-export interface AppState {}
-
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    // this.state = { :  };
-  }
-  render() {
+  function App() {
+    const [token, setToken] = useState("");
     return (
-      <div>
+      <div className="image">
         <h1>Vision Board App</h1>
-         <BoardHome  />
+        <Auth setToken={setToken}/>
+         {/* <BoardHome  /> */}
       </div>
     );
   }
-}
 
 export default App;
