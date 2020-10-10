@@ -1,7 +1,7 @@
-
-import React from 'react';
-import './App.css';
-import BoardHome from './boardDisplay/BoardHome';
+import React from "react";
+import "./App.css";
+import Navigation from "./home/Navigation";
+// import BoardHome from "./boardDisplay/BoardHome";
 
 export interface AppProps {}
 
@@ -15,8 +15,9 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <h1>Vision Board App</h1>
-         <BoardHome  />
+        <Navigation />
+        {/* <h1>Vision Board App</h1> */}
+        {/* <BoardHome /> */}
       </div>
     );
   }
