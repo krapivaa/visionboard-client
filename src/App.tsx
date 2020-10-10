@@ -17,6 +17,7 @@ import Auth from './auth/Auth';
 
 
 
+
 export interface AppProps {}
 
 export interface AppState {}
@@ -29,9 +30,12 @@ class App extends React.Component<AppProps, AppState> {
   render() {
     return (
       <div>
+
         <h1 style={{textAlign:"center"}}>Vision Board App</h1>
-<!--         <Auth setToken={setToken}/>       -->
+        <Navigation />
+        <!--         <Auth setToken={setToken}/>       -->
         <BoardHome />
+
 
       </div>
     );
