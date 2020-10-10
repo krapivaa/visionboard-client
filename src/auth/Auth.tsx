@@ -33,20 +33,26 @@ class Auth extends React.Component<AuthProps, AuthState> {
         bgcolor="background.paper"
         color="text.primary"
         p={2}
+
+        width="22em"
         position="absolute"
-        top={40}
+        paddingLeft="6em"
+        paddingTop="3em"
+        paddingBottom="3em"
+        top={235}
         left="70%"
         zIndex="tooltip"
       >
-        {this.state.isLogin ? 
+       {this.state.isLogin ? 
         <Login setToken={this.props} />
         <Link onClick={() => this.toggle}>Don't have an account?</Link> :
         <Signup setToken={this.props}/>
         <Link onClick={() => this.toggle}>Cancel</Link>
-    }
-      </Box>
+    }      </Box>
     );
   }
 }
 
+
 export default Auth;
+
