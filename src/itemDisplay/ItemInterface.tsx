@@ -1,12 +1,22 @@
+export interface Item {
+    itemTitle: string;
+    notes: string;
+    photo: string;
+}
 
-    export interface Item {
-        id: number;
-        owner: number;
-        itemTitle: string;
-        notes: string;
-        photo: string;
-        dateCreated: string;
-        updatedAt: Date;
-        createdAt: Date;
-    }
+export interface RequestBodyItem {
+    item: Item;
+}
+    
+    
+    
+export interface ItemResponse {
+    id?: number;
+    boardId?: number;
+    itemTitle: string;
+    notes: string;
+    photo: string;
+    updatedAt?: Date;
+    createdAt?: Date;
+}
 
