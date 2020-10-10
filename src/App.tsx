@@ -8,7 +8,7 @@ import Auth from './auth/Auth';
   function App() {
     const [token, setToken] = useState("");
     return (
-      <div className="image">
+      <div className="image1">
         <h1>Vision Board App</h1>
         <Auth setToken={setToken}/>
          {/* <BoardHome  /> */}
