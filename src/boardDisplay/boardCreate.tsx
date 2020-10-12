@@ -35,7 +35,8 @@ Have return object in console
 
 export interface BoardCreateProps {
  //props here (token)
- token: any
+ token: string
+//  fetchBoards: any
 }
  
 export interface BoardCreateState {
@@ -44,7 +45,8 @@ export interface BoardCreateState {
     description: string;
     tags: string;
     sharedBoard: boolean;
-  
+    // fetchBoards: any
+   
 }
  
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
@@ -57,6 +59,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
             description: "",
             tags: "",
             sharedBoard: false
+            // fetchBoard()
           };
     }
 //Example from Material UI
@@ -100,19 +103,10 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 description: '',
                 tags: '',
                 sharedBoard: false,
-                
-            // //for cancel button
-            //     props.toggle('1');
-
-            })
-         
-        //    this.setState 
-        //     boardTitle(''),
-        //     description(''),
-        //     tags(''),
-        //     sharedBoard(false),
-        //     props.fetchBoard()  ??????
+                // props.fetchBoards()
+                })
         })
+        
     }
 
 
@@ -122,7 +116,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     const {classes}: any = this.props;
 
         return ( <div style={{ backgroundColor: 'white' }}>  
-            <h5>Create your Board!</h5>
+            <h4>Create your Board!</h4>
             
     <form className={classes.root} noValidate autoComplete="off">
      <Input placeholder="Title" inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />

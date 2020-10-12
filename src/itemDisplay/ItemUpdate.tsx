@@ -1,5 +1,18 @@
 import React  from 'react';
 import '../App.css';
+import { Theme } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
+
+
+const useStyles = (theme: Theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  
+  });
+
 
 export interface ItemUpdateProps {
     
@@ -15,10 +28,13 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
         // this.state = { :  };
     }
     render() { 
+
+        const {classes}: any = this.props;
+
         return (<div>
             I am ItemUpdate
         </div> );
     }
 }
  
-export default ItemUpdate;
+export default withStyles(useStyles)(ItemUpdate);

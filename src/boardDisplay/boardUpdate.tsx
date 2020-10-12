@@ -1,6 +1,17 @@
 //Responsibel for editing a board
 import React from 'react';
 import '../App.css';
+import { Theme } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
+
+const useStyles = (theme: Theme) => ({
+    root: {
+      '& > *': {
+        margin: theme.spacing(1),
+      },
+    },
+  
+  });
 
 export interface BoardUpdateProps {
     
@@ -16,11 +27,14 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
         // this.state = { :  };
     }
     render() { 
+
+        const {classes}: any = this.props;
+
         return (<div>
             <p>I am update</p>
         </div>);
     }
 }
  
-export default BoardUpdate;
+export default withStyles(useStyles)(BoardUpdate);
 

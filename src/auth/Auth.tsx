@@ -1,5 +1,5 @@
+import React from "react";
 import { Box, Button, Link } from "@material-ui/core";
-import React, { Component } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 
@@ -43,12 +43,13 @@ class Auth extends React.Component<AuthProps, AuthState> {
         left="70%"
         zIndex="tooltip"
       >
-       {this.state.isLogin ? 
+       {/* {this.state.isLogin ? 
         <Login setToken={this.props} />
         <Link onClick={() => this.toggle}>Don't have an account?</Link> :
         <Signup setToken={this.props}/>
         <Link onClick={() => this.toggle}>Cancel</Link>
-    }      </Box>
+    }      */}
+     </Box>
     );
   }
 }

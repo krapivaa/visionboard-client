@@ -2,39 +2,27 @@
 //Responsible for mapping through all the boards and displaying them in cards
 import React from 'react';
 import '../App.css';
-import Container from '@material-ui/core/Container';
 import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
+import BoardCreate from './BoardCreate';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import StarBorderIcon from '@material-ui/icons/StarBorder';
-// import tileData from './tileData';
-import BoardCreate from './BoardCreate';
+import Container from '@material-ui/core/Container';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
+import { BoardResponse } from './BoardInterface';
+
 
 const useStyles = (theme: Theme) => ({
     root: {
-        display: 'flex',
-        // flexWrap: 'wrap', incompatible?
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
+        maxWidth: 345,
       },
-      gridList: {
-        width: 500,
-        height: 450,
-        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-        transform: 'translateZ(0)',
-      },
-      titleBar: {
-        background:
-          'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-          'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-      },
-      icon: {
-        color: 'white',
+      media: {
+        height: 140,
       },
     })
   
@@ -45,54 +33,90 @@ export interface BoardDisplayProps {
 }
  
 export interface BoardDisplayState {
-    
+  boards: BoardResponse
 }
  
 class BoardDisplay extends React.Component<BoardDisplayProps, BoardDisplayState> {
     constructor(props: BoardDisplayProps) {
         super(props);
-        // this.state = { :  };
+        // this.state = {
+        //   boards: []
+        //   };
     }
     render() { 
       
-        // export default function AdvancedGridList() {
-
         const {classes}: any = this.props;
 
+        //mapper example in functional components
+        // const boardMapper  = () {
+        //   return this.props.boards.map((board: any, index: number) => {
+
+ /*
+ We are mapping through our props.boards array.   props.boards is a reference to the boards we pulled from our back-end.  These were objects containing individual board data.  Our callback function, with params 'board' and 'index' is defined according to the callback function of all .map methods: 'board' will represent every board object in our props.boards array each time the map loop runs, while 'index' is the index number of that boardobject in the boards array.
+
+ .map() needs a return for every element in the array we map over.  Without a return, .map() won't build a new array.
+ */
+
     return ( <div style={{ backgroundColor: 'white'  }}>
-            <h5 >All my boards:</h5> 
+            <h4 >All my boards:</h4> 
 
-        <Container maxWidth="sm" style={{ backgroundColor: '#cfe8fc' }} > 
-       My board:<br />     
-        <ItemHomeinBoard />
-        </Container>
+{/* Board:
+Title
+Description
+Tags
+Shared? */}
 
-{/* 
-        <div className={classes.root}>
-      <GridList cellHeight={200} spacing={1} className={classes.gridList}>
-        {tileData.map((tile) => (
-          <GridListTile key={tile.img} cols={tile.featured ? 2 : 1} rows={tile.featured ? 2 : 1}>
-            <img src={tile.img} alt={tile.title} />
-            <GridListTileBar
-              title={tile.title}
-              titlePosition="top"
-              actionIcon={
-                <IconButton aria-label={`star ${tile.title}`} className={classes.icon}>
-                  <StarBorderIcon />
-                </IconButton>
-              }
-              actionPosition="left"
-              className={classes.titleBar}
-            />
-          </GridListTile>
-        ))}
-      </GridList>
-    </div> */}
 
+    <Card className={classes.root}>
+      <CardActionArea>
+        <CardMedia
+          className={classes.media}
+          image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
+          title="My board"
+        />
+
+        <CardContent>
+
+{/* {this.state.boards.map((board: BoardResponse, index:number) =>(<p key={index}>{board}</p>))} */}
+
+          <Typography gutterBottom variant="h5" component="h2">
+            Title
+          </Typography>
+
+          <Typography variant="body2" color="textSecondary" component="p">
+           Description
+          </Typography>
+
+          <Typography variant="body2" color="textSecondary" component="p">
+           Tags
+          </Typography>
+
+        </CardContent>
+
+      </CardActionArea>
+      
+
+      <CardActions>
+          {/* Shared? goes here */}
+        <Button size="small" color="primary">
+          Share
+        </Button>
+        
+        {/* //Go inside the board goes here */}
+        <Button size="small" color="primary">
+          Learn More
+        </Button>
+      </CardActions>
+
+
+    </Card>
 
         </div>);
-    }
-//   }
+
+    //   })
+    // }
+  
+  }
 }
  
 export default withStyles(useStyles)(BoardDisplay);
