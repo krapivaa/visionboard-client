@@ -2,7 +2,7 @@ import { Box, Button, Card, TextField } from "@material-ui/core";
 import React from "react";
 
 export interface SignupProps {
-  setToken: any;
+  token: any;
 }
 
 export interface SignupState {
@@ -39,7 +39,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
     fetch(urlEndpoint, requestOptions)
       .then((res: any) => res.json())
       .then((json: ResponseSignup) => {
-        this.props.setToken(json.sessionToken);
+        this.props.token(json.sessionToken);
         console.log(json);
       });
   }
@@ -94,6 +94,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
           Submit{" "}
         </Button>{" "}
       </form>
+
     );
   }
 }

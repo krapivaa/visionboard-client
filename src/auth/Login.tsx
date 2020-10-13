@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 });
 
 export interface LoginProps {
-  setToken: any;
+  token: any;
 }
 
 export interface LoginState {
@@ -43,7 +43,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     fetch(urlEndpoint, requestOptions)
       .then((res: any) => res.json())
       .then((json: ResponseLogin) => {
-        this.props.setToken(json.sessionToken);
+        this.props.token(json.sessionToken);
         console.log(json);
       });
   }
@@ -53,9 +53,11 @@ class Login extends React.Component<LoginProps, LoginState> {
       <form>
         <img
           src="https://i.dlpng.com/static/png/6545162_preview.png"
+
           style={{ height: "3em" }}
         />{" "}
         <h1>Login</h1>
+
         <TextField
           id="standard-email-input"
           label="Email"
@@ -71,6 +73,7 @@ class Login extends React.Component<LoginProps, LoginState> {
           autoComplete="current-password"
           onChange={(e) => this.setState({ password: e.target.value })}
         />
+
         <br/>
         <br/>
         <Button size="small" onClick={() => this.onSubmit()} variant="contained">

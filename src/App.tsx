@@ -1,48 +1,32 @@
 
-import React, { useState } from 'react';
-import './App.css';
-import Auth from './auth/Auth';
-// import  Login from './auth/Login';
-// import BoardHome from './boardDisplay/boardHome';
+import React from "react";
+import "./App.css";
+import Auth from "./auth/Auth";
+import Navigation from "./home/Navigation";
+import BoardHome from "./boardDisplay/BoardHome";
 
 
-function App() {
-    const [token, setToken] = useState("");
+export interface AppProps {}
+
+export interface AppState {
+  token: any;
+  window: number;
+}
+
+class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
+    this.state = { token: "", window: window.innerWidth };
+  }
+  render() {
     return (
       <div className="image1">
-        {/* <h1>Vision Board App</h1> */}
-        <Auth setToken={setToken}/>
-         {/* <BoardHome  /> */}
-         </div>
-    )
+        <Auth token={this.state.token} />
+        <Navigation window={this.state.window} />
+        <BoardHome token={this.state.token} />
+      </div>
+    );
+  }
 }
-        
-
-
-
-
-
-// export interface AppProps {}
-
-// export interface AppState {}
-
-// class App extends React.Component<AppProps, AppState> {
-//   constructor(props: AppProps) {
-//     super(props);
-//     // this.state = { :  };
-//   }
-//   render() {
-//     return (
-//       <div>
-
-//         <h1 style={{textAlign:"center"}}>Vision Board App</h1>
-//         <Navigation />
-//         <!--         <Auth setToken={setToken}/>       -->
-//         <BoardHome />
-
-
-//       </div>
-//     );
-//   } 
 
 export default App;

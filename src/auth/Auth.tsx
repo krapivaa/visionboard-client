@@ -4,7 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 export interface AuthProps {
-  setToken: any;
+  token: any;
 }
 
 export interface AuthState {
@@ -57,11 +57,11 @@ class Auth extends React.Component<AuthProps, AuthState> {
             {/* <CardMedia>
           <img src="../"/>
         </CardMedia> */}
-            {this.state.isLogin ? (
-              <Login setToken={this.props.setToken} />
-            ) : (
-              <Signup setToken={this.props.setToken} />
-            )}
+        {this.state.isLogin ? (
+          <Login token={this.props.token} />
+        ) : (
+          <Signup token={this.props.token} />
+        )}
             <Button
               onClick={(event) => this.toggle(event)}
               style={{ marginTop: ".5em" }}
