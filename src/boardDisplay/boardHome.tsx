@@ -31,7 +31,6 @@ const useStyles = (theme: Theme) => ({
 
 export interface BoardHomeProps {
   token: string
-  // fetchBoards: any
    
 }
  
@@ -83,7 +82,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
       <Grid container spacing={10}>
 
-      {/* fetchBoards ={fetchBoards}   */}
+    
 
       <Grid item xs={4} >
         <BoardCreate 
@@ -116,7 +115,4 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
  
 export default withStyles(useStyles)(BoardHome);
 
-/*
-token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}
-*/
 

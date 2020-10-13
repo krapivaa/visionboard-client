@@ -40,12 +40,10 @@ export interface BoardCreateProps {
 }
  
 export interface BoardCreateState {
-    // boardInfo: any;
     boardTitle: string;
     description: string;
     tags: string;
     sharedBoard: boolean;
-    // fetchBoards: any
    
 }
  
@@ -59,7 +57,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
             description: "",
             tags: "",
             sharedBoard: false
-            // fetchBoard()
           };
     }
 //Example from Material UI
