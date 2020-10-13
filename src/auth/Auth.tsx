@@ -4,7 +4,7 @@ import Login from "./Login";
 import Signup from "./Signup";
 
 export interface AuthProps {
-  setToken: any;
+  token: any;
 }
 
 export interface AuthState {
@@ -43,9 +43,9 @@ class Auth extends React.Component<AuthProps, AuthState> {
         zIndex="tooltip"
       >
         {this.state.isLogin ? (
-          <Login setToken={this.props.setToken} />
+          <Login token={this.props.token} />
         ) : (
-          <Signup setToken={this.props.setToken} />
+          <Signup token={this.props.token} />
         )}
         <Button onClick={(event) => this.toggle(event)}>
           {this.state.isLogin ? "Don't Have an Account?" : "Cancel"}

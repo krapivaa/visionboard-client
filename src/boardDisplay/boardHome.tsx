@@ -21,7 +21,9 @@ const useStyles = (theme: Theme) => ({
 
 */
 
-export interface BoardHomeProps {}
+export interface BoardHomeProps {
+  token: any;
+}
 
 export interface BoardHomeState {}
 

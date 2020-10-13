@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 });
 
 export interface LoginProps {
-  setToken: any;
+  token: any;
 }
 
 export interface LoginState {
@@ -43,7 +43,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     fetch(urlEndpoint, requestOptions)
       .then((res: any) => res.json())
       .then((json: ResponseLogin) => {
-        this.props.setToken(json.sessionToken);
+        this.props.token(json.sessionToken);
         console.log(json);
       });
   }
@@ -52,8 +52,11 @@ class Login extends React.Component<LoginProps, LoginState> {
     const { classes }: any = this.props;
     return (
       <form>
-          <img src="https://i.dlpng.com/static/png/6545162_preview.png" style={{height: "3em", marginTop: "-3em", marginLeft: "2em"}}/>
-        <h1 style={{paddingLeft:".7em"}}>Login</h1>
+        <img
+          src="https://i.dlpng.com/static/png/6545162_preview.png"
+          style={{ height: "3em", marginTop: "-3em", marginLeft: "2em" }}
+        />
+        <h1 style={{ paddingLeft: ".7em" }}>Login</h1>
         <TextField
           id="standard-email-input"
           label="Email"
@@ -69,9 +72,14 @@ class Login extends React.Component<LoginProps, LoginState> {
           autoComplete="current-password"
           onChange={(e) => this.setState({ password: e.target.value })}
         />
-        <br/>
-        <br/>
-        <Button style={{marginLeft: "3.5em"}} size="small" onClick={() => this.onSubmit()} variant="contained">
+        <br />
+        <br />
+        <Button
+          style={{ marginLeft: "3.5em" }}
+          size="small"
+          onClick={() => this.onSubmit()}
+          variant="contained"
+        >
           {" "}
           Submit{" "}
         </Button>
