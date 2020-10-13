@@ -36,7 +36,7 @@ Have return object in console
 export interface BoardCreateProps {
  //props here (token)
  token: string
-//  fetchBoards: any
+ fetchBoards: any
 }
  
 export interface BoardCreateState {
@@ -80,8 +80,8 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     //   };
      
       //handleSubmit and fetch
-      handleSubmit = (e: { preventDefault: () => void; }) => {
-        // e.preventDefault();
+      handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
         fetch("http://localhost:3000/api/board/create", {
             method: 'POST',
             body: JSON.stringify({
@@ -103,9 +103,10 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 description: '',
                 tags: '',
                 sharedBoard: false,
-                // props.fetchBoards()
-                })
+    
+                }) 
         })
+        .then(this.props.fetchBoards())
         
     }
 
@@ -145,7 +146,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
         <br />
 
-      <Button onClick={this.handleSubmit }
+      <Button onClick={(event) => this.handleSubmit(event) }
         variant="contained"
         color="primary"
         className={classes.button}>

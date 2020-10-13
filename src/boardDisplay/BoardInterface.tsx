@@ -13,7 +13,7 @@
 
 
     export interface BoardResponse {
-        map(arg0: (board: BoardResponse, index: number) => JSX.Element): import("react").ReactNode;
+
         id?: number;
         owner?: number;
         boardTitle: string;

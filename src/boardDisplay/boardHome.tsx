@@ -9,7 +9,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
-import { Board } from './BoardInterface';
+import { BoardResponse, Board } from './BoardInterface';
+
 
 
 const useStyles = (theme: Theme) => ({
@@ -35,7 +36,7 @@ export interface BoardHomeProps {
 }
  
 export interface BoardHomeState {
-    boards: any
+    boards: BoardResponse [];
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
@@ -50,24 +51,27 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
           };
     }
 
-  componentDidMount() {
 
-    const fetchBoards = () => {
+
+  componentDidMount() {
+     this.fetchBoards()
+    
+  }
+    
+ fetchBoards = () => {
       fetch('http://localhost:3000/api/board/mine', {
         method: 'GET',
         headers: new Headers ({
             'Content-Type': 'application/json',
             'Authorization': this.props.token
         })
-    }).then( (res) => res.json())
-    .then((board) => {
-        this.state.boards(board)
+    }).then( (res: any) => res.json())
+    .then((json: BoardResponse) => {
+      console.log(json)
+        // this.state.boards(BoardResponse)
+        // console.log(this.state.boards)
      })
     }
-
-  }
-    
-
 
 
     render() { 
@@ -83,16 +87,13 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
       <Grid item xs={4} >
         <BoardCreate 
-        // fetchBoards ={this.state} 
-        // key={index}
-        token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}  />
+        fetchBoards={this.fetchBoards} 
+        token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjU0ODU2NywiZXhwIjoxNjAyNjM0OTY3fQ.VpebcHEvS1oVYSl2pn9WMAUq_Xk5kVAot6QVABt9ZNQ"}  />
         </Grid>
       
         <Grid item xs={8} >
         <BoardDisplay 
-        // boards={boards}
-        // fetchBoards ={this.state} 
-        // token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"} 
+        
         
         />
         </Grid>
