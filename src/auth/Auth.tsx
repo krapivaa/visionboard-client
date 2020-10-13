@@ -41,7 +41,6 @@ class Auth extends React.Component<AuthProps, AuthState> {
             <Typography>Why you should use our App?</Typography>
           </Box>
         </Grid>
-
         <Grid item xs={4} md={3}>
           <Box
             bgcolor="background.paper"

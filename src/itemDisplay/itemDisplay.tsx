@@ -34,7 +34,7 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
         const {classes}: any = this.props;
 
         return (<div>
-            <p style={{color: "Darkgreen"}}>ItemDisplay</p>
+            <h4 style={{color: "Darkblue"}}>ItemDisplay</h4>
         </div>  );
     }
 }

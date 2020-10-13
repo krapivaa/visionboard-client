@@ -23,6 +23,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { withStyles } from "@material-ui/core/styles";
+import { Button } from "@material-ui/core";
 
 const drawerWidth = 240;
 

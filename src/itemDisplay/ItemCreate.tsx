@@ -4,12 +4,13 @@ import { Theme } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from "@material-ui/core/styles";
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
-// import cloudinary from 'cloudinary';
+// import Cloudinary from 'cloudinary-core'
 import Input from '@material-ui/core/Input';
 import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import DeleteIcon  from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
 import { ItemResponse } from './ItemInterface';
+// import Widget from 'react-cloudinary-upload-widget';
 
 
 const useStyles = (theme: Theme) => ({
@@ -21,7 +22,7 @@ const useStyles = (theme: Theme) => ({
                         }
                     },
             title: {
-                color: "Blue",
+                color: "Black",
             }
         });
    
@@ -36,7 +37,7 @@ Have return object in console, but with hardcoded boardId
 
 
 export interface ItemCreateProps {
-    token: any
+    token: string
     
    
 }
@@ -62,7 +63,13 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
           };
        
     }
+  //Cloudinary direct REST API upload
+//   https://api.cloudinary.com/v1_1/verasenv/auto/upload
     
+
+
+
+
 //handleSubmit and fetch
 handleSubmit = (e: { preventDefault: () => void; }) => {
 
@@ -93,10 +100,22 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
 
 
 
+
+
+
+
+
+
+
+
 //CLOUDINARY WIDGET
 
+// openWidget = () => {
+//     window.cloudinary.createUploadWidget({
+
+    
 // uploadWidget() {
-//     cloudinary.openUploadWidget({
+//     cloudinary.openUploadWidget({    
 //        cloudName: "verasenv",
 //        uploadPreset: "visionitem",
 //        sources: [
@@ -140,8 +159,8 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
 //       if (!err) {    
 //         console.log("Upload Widget event - ", info);
 //       }
-//      });
-//     }
+//      }).open();
+//     };
 
 
     render() { 
@@ -149,7 +168,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
  const {classes}: any = this.props; 
 
         return (<div style={{backgroundColor: "white"}}>
-            <p className={classes.title}>Create your item!</p>
+            <h4 className={classes.title}>Create your item!</h4>
 
             {/* //Some tests */}
             {/* <p>My item name is {this.state.title}</p> */}
@@ -172,7 +191,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
           
            
             
-             <CloudinaryContext cloudName="verasenv">
+             {/* <CloudinaryContext cloudName="verasenv"> */}
                  {/* <div>
                         //Some tests - will be deleted
                          {/* <Image publicId="sample" width="0.5" crop="scale" /> */}
@@ -184,8 +203,9 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
                 </button>
               </div> */}
 
-            </CloudinaryContext>
+            {/* </CloudinaryContext> */}
 
+        <br />
         
              <Button onClick={this.handleSubmit }
                 variant="contained"

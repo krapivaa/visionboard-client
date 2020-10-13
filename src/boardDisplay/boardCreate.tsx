@@ -35,16 +35,16 @@ Have return object in console
 
 export interface BoardCreateProps {
  //props here (token)
- token: any
+ token: string
+ fetchBoards: any
 }
  
 export interface BoardCreateState {
-    // boardInfo: any;
     boardTitle: string;
     description: string;
     tags: string;
     sharedBoard: boolean;
-  
+   
 }
  
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
@@ -77,8 +77,8 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     //   };
      
       //handleSubmit and fetch
-      handleSubmit = (e: { preventDefault: () => void; }) => {
-        // e.preventDefault();
+      handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        e.preventDefault();
         fetch("http://localhost:3000/api/board/create", {
             method: 'POST',
             body: JSON.stringify({
@@ -100,19 +100,11 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 description: '',
                 tags: '',
                 sharedBoard: false,
-                
-            // //for cancel button
-            //     props.toggle('1');
-
-            })
-         
-        //    this.setState 
-        //     boardTitle(''),
-        //     description(''),
-        //     tags(''),
-        //     sharedBoard(false),
-        //     props.fetchBoard()  ??????
+    
+                }) 
         })
+        .then(this.props.fetchBoards())
+        
     }
 
 
@@ -122,7 +114,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     const {classes}: any = this.props;
 
         return ( <div style={{ backgroundColor: 'white' }}>  
-            <h5>Create your Board!</h5>
+            <h4>Create your Board!</h4>
             
     <form className={classes.root} noValidate autoComplete="off">
      <Input placeholder="Title" inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
@@ -151,7 +143,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
         <br />
 
-      <Button onClick={this.handleSubmit }
+      <Button onClick={(event) => this.handleSubmit(event) }
         variant="contained"
         color="primary"
         className={classes.button}>
