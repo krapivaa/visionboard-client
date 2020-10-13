@@ -6,39 +6,43 @@ import Auth from './auth/Auth';
 // import BoardHome from './boardDisplay/boardHome';
 
 
-<!--   function App() {
+function App() {
     const [token, setToken] = useState("");
     return (
       <div className="image1">
-        <h1>Vision Board App</h1>
+        {/* <h1>Vision Board App</h1> */}
         <Auth setToken={setToken}/>
-         {/* <BoardHome  /> */} -->
+         {/* <BoardHome  /> */}
+         </div>
+    )
+}
+        
 
 
 
 
 
-export interface AppProps {}
+// export interface AppProps {}
 
-export interface AppState {}
+// export interface AppState {}
 
-class App extends React.Component<AppProps, AppState> {
-  constructor(props: AppProps) {
-    super(props);
-    // this.state = { :  };
-  }
-  render() {
-    return (
-      <div>
+// class App extends React.Component<AppProps, AppState> {
+//   constructor(props: AppProps) {
+//     super(props);
+//     // this.state = { :  };
+//   }
+//   render() {
+//     return (
+//       <div>
 
-        <h1 style={{textAlign:"center"}}>Vision Board App</h1>
-        <Navigation />
-        <!--         <Auth setToken={setToken}/>       -->
-        <BoardHome />
+//         <h1 style={{textAlign:"center"}}>Vision Board App</h1>
+//         <Navigation />
+//         <!--         <Auth setToken={setToken}/>       -->
+//         <BoardHome />
 
 
-      </div>
-    );
-  }
+//       </div>
+//     );
+//   } 
 
 export default App;

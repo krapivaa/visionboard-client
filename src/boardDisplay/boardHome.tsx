@@ -2,7 +2,7 @@
 import React from 'react';
 import '../App.css';
 import BoardCreate from './BoardCreate';
-import BoardUpdate from './BoardUpdate';
+// import BoardUpdate from './BoardUpdate';
 import BoardDisplay from './BoardDisplay';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";

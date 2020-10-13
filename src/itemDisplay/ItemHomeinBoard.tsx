@@ -4,7 +4,7 @@ import React from 'react';
 import '../App.css';
 import Container from '@material-ui/core/Container';
 import ItemCreate from './ItemCreate';
-import ItemDisplay from './ItemDisplay';
+// import ItemDisplay from './ItemDisplay';
 import ItemUpdate from './ItemUpdate';
 
 export interface ItemHomeinBoardProps {
@@ -26,7 +26,7 @@ class ItemHomeinBoard extends React.Component<ItemHomeinBoardProps, ItemHomeinBo
             <Container maxWidth="sm" > 
             Display all the items here.
             <ItemCreate token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}/>
-            <ItemDisplay />
+            {/* <ItemDisplay /> */}
             </Container>
 
         </div>  );
