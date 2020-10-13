@@ -49,14 +49,15 @@ class Login extends React.Component<LoginProps, LoginState> {
   }
 
   render() {
-    const { classes }: any = this.props;
     return (
       <form>
         <img
           src="https://i.dlpng.com/static/png/6545162_preview.png"
-          style={{ height: "3em", marginTop: "-3em", marginLeft: "2em" }}
-        />
-        <h1 style={{ paddingLeft: ".7em" }}>Login</h1>
+
+          style={{ height: "3em" }}
+        />{" "}
+        <h1>Login</h1>
+
         <TextField
           id="standard-email-input"
           label="Email"
@@ -72,14 +73,10 @@ class Login extends React.Component<LoginProps, LoginState> {
           autoComplete="current-password"
           onChange={(e) => this.setState({ password: e.target.value })}
         />
-        <br />
-        <br />
-        <Button
-          style={{ marginLeft: "3.5em" }}
-          size="small"
-          onClick={() => this.onSubmit()}
-          variant="contained"
-        >
+
+        <br/>
+        <br/>
+        <Button size="small" onClick={() => this.onSubmit()} variant="contained">
           {" "}
           Submit{" "}
         </Button>
@@ -90,13 +87,13 @@ class Login extends React.Component<LoginProps, LoginState> {
 
 export default Login;
 
-export interface User {
+export interface LoginUser {
   email: string;
   password: string;
 }
 
 export interface RequestBodyLogin {
-  user: User;
+  user: LoginUser;
 }
 
 export interface ResponseLogin {

@@ -46,66 +46,62 @@ class Signup extends React.Component<SignupProps, SignupState> {
 
   render() {
     return (
-      <Box
-        bgcolor="background.paper"
-        color="text.primary"
-        p={2}
-        position="absolute"
-        top={40}
-        left="70%"
-        zIndex="tooltip"
-      >
-        <form>
-          <TextField
-            id="standard-firstName-input"
-            label="First Name"
-            type="firstName"
-            autoComplete="current-firstName"
-            onChange={(e) => this.setState({ firstName: e.target.value })}
-          />
-          <br />
-          <TextField
-            id="standard-lastName-input"
-            label="Last Name"
-            type="lastName"
-            autoComplete="current-lastName"
-            onChange={(e) => this.setState({ lastName: e.target.value })}
-          />
-          <br />
-          <TextField
-            id="standard-email-input"
-            label="Email"
-            type="email"
-            autoComplete="current-email"
-            onChange={(e) => this.setState({ email: e.target.value })}
-          />
-          <br />
-          <TextField
-            id="standard-password-input"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            onChange={(e) => this.setState({ password: e.target.value })}
-          />
-          <br />
-          <br />
-          <Button
-            size="small"
-            onClick={() => this.onSubmit()}
-            variant="contained"
-          >
-            {" "}
-            Submit{" "}
-          </Button>{" "}
-        </form>
-      </Box>
+      <form>
+        <img
+          src="https://i.dlpng.com/static/png/6545162_preview.png"
+          style={{ height: "3em" }}
+        />{" "}
+        <h1>Signup</h1>
+        <TextField
+          id="standard-firstName-input"
+          label="First Name"
+          type="firstName"
+          autoComplete="current-firstName"
+          onChange={(e) => this.setState({ firstName: e.target.value })}
+        />
+        <br />
+        <TextField
+          id="standard-lastName-input"
+          label="Last Name"
+          type="lastName"
+          autoComplete="current-lastName"
+          onChange={(e) => this.setState({ lastName: e.target.value })}
+        />
+        <br />
+        <TextField
+          id="standard-email-input"
+          label="Email"
+          type="email"
+          autoComplete="current-email"
+          onChange={(e) => this.setState({ email: e.target.value })}
+        />
+        <br />
+        <TextField
+          id="standard-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+          onChange={(e) => this.setState({ password: e.target.value })}
+        />
+        <br />
+        <br />
+        <Button
+          size="small"
+          onClick={() => this.onSubmit()}
+          variant="contained"
+        >
+          {" "}
+          Submit{" "}
+        </Button>{" "}
+      </form>
+
     );
   }
 }
 
 export default Signup;
 
-export interface User {
+export interface SignupUser {
   firstName: string;
   lastName: string;
   email: string;
@@ -113,7 +109,7 @@ export interface User {
 }
 
 export interface RequestBodySignup {
-  user: User;
+  user: SignupUser;
 }
 
 export interface ResponseSignup {

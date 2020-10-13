@@ -1,8 +1,10 @@
+
 import React from "react";
 import "./App.css";
 import Auth from "./auth/Auth";
-// import Navigation from "./home/Navigation";
+import Navigation from "./home/Navigation";
 import BoardHome from "./boardDisplay/BoardHome";
+
 
 export interface AppProps {}
 
@@ -20,7 +22,7 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <div className="image1">
         <Auth token={this.state.token} />
-        {/* <Navigation window={this.state.window} /> */}
+        <Navigation window={this.state.window} />
         <BoardHome token={this.state.token} />
       </div>
     );
