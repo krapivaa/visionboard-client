@@ -1,25 +1,24 @@
 //Example of Worklog Index - responsible for loading other board components. It is like "board landing page"
-import React from 'react';
-import '../App.css';
-import BoardCreate from './BoardCreate';
-import BoardUpdate from './BoardUpdate';
-import BoardDisplay from './BoardDisplay';
-import { Theme } from '@material-ui/core/styles';
+import React from "react";
+import "../App.css";
+import BoardCreate from "./BoardCreate";
+// import BoardUpdate from "./BoardUpdate";
+import BoardDisplay from "./BoardDisplay";
+import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 import { Container } from '@material-ui/core';
 import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from './BoardInterface';
-
+import Grid from "@material-ui/core/Grid";
 
 
 const useStyles = (theme: Theme) => ({
   root: {
-    '& > *': {
+    "& > *": {
       margin: theme.spacing(1),
     },
   },
-
 });
 
 /* //TODO:
@@ -27,7 +26,6 @@ const useStyles = (theme: Theme) => ({
 
 
 */
-
 
 export interface BoardHomeProps {
   token: string
@@ -112,7 +110,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
         </div> );
     }
 }
- 
+
 export default withStyles(useStyles)(BoardHome);
 
+
+/*
+token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}
+*/
 
