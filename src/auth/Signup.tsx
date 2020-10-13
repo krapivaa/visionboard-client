@@ -100,7 +100,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
 
 export default Signup;
 
-export interface User {
+export interface SignupUser {
   firstName: string;
   lastName: string;
   email: string;
@@ -108,7 +108,7 @@ export interface User {
 }
 
 export interface RequestBodySignup {
-  user: User;
+  user: SignupUser;
 }
 
 export interface ResponseSignup {

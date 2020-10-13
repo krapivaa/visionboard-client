@@ -84,13 +84,13 @@ class Login extends React.Component<LoginProps, LoginState> {
 
 export default Login;
 
-export interface User {
+export interface LoginUser {
   email: string;
   password: string;
 }
 
 export interface RequestBodyLogin {
-  user: User;
+  user: LoginUser;
 }
 
 export interface ResponseLogin {
