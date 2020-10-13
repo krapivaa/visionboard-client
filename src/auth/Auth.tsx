@@ -1,10 +1,10 @@
-import { Box, Button, Link } from "@material-ui/core";
+import { Box, Link, Button } from "@material-ui/core";
 import React, { Component } from "react";
 import Login from "./Login";
 import Signup from "./Signup";
 
 export interface AuthProps {
-  setToken: any;
+  token: any;
 }
 
 export interface AuthState {
@@ -17,7 +17,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
     this.state = { isLogin: true };
   }
 
-  toggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  toggle = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (this.state.isLogin) {
       this.setState({ isLogin: false });
@@ -33,7 +33,6 @@ class Auth extends React.Component<AuthProps, AuthState> {
         bgcolor="background.paper"
         color="text.primary"
         p={2}
-
         width="22em"
         position="absolute"
         paddingLeft="6em"
@@ -43,16 +42,17 @@ class Auth extends React.Component<AuthProps, AuthState> {
         left="70%"
         zIndex="tooltip"
       >
-       {this.state.isLogin ? 
-        <Login setToken={this.props} />
-        <Link onClick={() => this.toggle}>Don't have an account?</Link> :
-        <Signup setToken={this.props}/>
-        <Link onClick={() => this.toggle}>Cancel</Link>
-    }      </Box>
+        {this.state.isLogin ? (
+          <Login token={this.props.token} />
+        ) : (
+          <Signup token={this.props.token} />
+        )}
+        <Button onClick={(event) => this.toggle(event)}>
+          {this.state.isLogin ? "Don't Have an Account?" : "Cancel"}
+        </Button>
+      </Box>
     );
   }
 }
 
-
 export default Auth;
-
