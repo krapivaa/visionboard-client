@@ -35,7 +35,7 @@ Have return object in console
 
 export interface BoardCreateProps {
  //props here (token)
- token: string
+ token: any
  fetchBoards: any
 }
  

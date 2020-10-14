@@ -26,7 +26,7 @@ const useStyles = (theme: Theme) => ({
 */
 
 export interface BoardHomeProps {
-  token: string;
+  token: any;
 }
 
 export interface BoardHomeState {
@@ -52,7 +52,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: this.props.token,
+        "Authorization": this.props.token,
       }),
     })
       .then((res: any) => res.json())
@@ -78,9 +78,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
           <Grid item xs={4}>
             <BoardCreate
               fetchBoards={this.fetchBoards}
-              token={
-                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjU0ODU2NywiZXhwIjoxNjAyNjM0OTY3fQ.VpebcHEvS1oVYSl2pn9WMAUq_Xk5kVAot6QVABt9ZNQ"
-              }
+              token={this.props.token}
             />
           </Grid>
 
