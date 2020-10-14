@@ -10,7 +10,7 @@ const useStyles = makeStyles({
 });
 
 export interface LoginProps {
-  token: any;
+  setToken: any;
 }
 
 export interface LoginState {
@@ -43,7 +43,7 @@ class Login extends React.Component<LoginProps, LoginState> {
     fetch(urlEndpoint, requestOptions)
       .then((res: any) => res.json())
       .then((json: ResponseLogin) => {
-        this.props.token(json.sessionToken);
+        this.props.setToken(json.sessionToken);
         console.log(json);
       });
   }
