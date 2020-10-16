@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 // import Cloudinary from 'cloudinary-core'
 import Input from '@material-ui/core/Input';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import DeleteIcon  from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
 import { ItemResponse } from './ItemInterface';
@@ -21,9 +21,6 @@ const useStyles = (theme: Theme) => ({
             width: '25ch',
                         }
                     },
-            title: {
-                color: "Black",
-            }
         });
    
 /*//TODO
@@ -168,7 +165,12 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
  const {classes}: any = this.props; 
 
         return (<div style={{backgroundColor: "white"}}>
-            <h4 className={classes.title}>Create your item!</h4>
+            
+            <Typography variant="h5" color="textSecondary" component="h2">
+            Create your item!
+            </Typography>
+
+        
 
             {/* //Some tests */}
             {/* <p>My item name is {this.state.title}</p> */}
@@ -206,7 +208,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
             {/* </CloudinaryContext> */}
 
         <br />
-        
+
              <Button onClick={this.handleSubmit }
                 variant="contained"
                 color="primary"

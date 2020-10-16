@@ -5,7 +5,7 @@ import { BoardResponse } from './BoardInterface';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
-import { Button, FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
 import DeleteIcon  from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
 
@@ -114,7 +114,11 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     const {classes}: any = this.props;
 
         return ( <div style={{ backgroundColor: 'white' }}>  
-            <h4>Create your Board!</h4>
+
+    <Typography variant="h5" color="textSecondary" component="h2">
+        Create your Board!
+    </Typography>
+            
             
     <form className={classes.root} noValidate autoComplete="off">
      <Input placeholder="Title" inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />

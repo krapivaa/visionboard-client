@@ -32,7 +32,7 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
         const {classes}: any = this.props;
 
         return (<div>
-            I am ItemUpdate
+           
         </div> );
     }
 }
