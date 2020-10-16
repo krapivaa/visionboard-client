@@ -3,11 +3,11 @@ import React from "react";
 import "../App.css";
 import BoardCreate from "./BoardCreate";
 import BoardUpdate from "./BoardUpdate";
-import BoardDisplay from "./BoardDisplay";
+// import BoardDisplay from "./BoardDisplay";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Container } from "@material-ui/core";
+import { Container, Typography } from "@material-ui/core";
 import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
 
@@ -68,11 +68,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     return (
       <div>
-        <h1
-          style={{ paddingLeft: "50px", color: "purple", textAlign: "center" }}
-        >
-          {this.heading}
-        </h1>
+
+    <Typography variant="body2" color="textSecondary" component="h1" style={{ paddingLeft: "50px", color: "purple", textAlign: "center" }} >
+      {this.heading}  
+    </Typography>
+      
 
         <Grid container spacing={10}>
           <Grid item xs={4}>
@@ -83,7 +83,9 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
           </Grid>
 
           <Grid item xs={8}>
-            <BoardDisplay />
+            {/* <BoardDisplay 
+         
+            /> */}
           </Grid>
         </Grid>
 
