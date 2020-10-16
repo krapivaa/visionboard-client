@@ -1,4 +1,4 @@
-import { Box, Button, Card, TextField } from "@material-ui/core";
+import { Box, Button, Card, TextField, Typography } from "@material-ui/core";
 import React from "react";
 
 export interface SignupProps {
@@ -28,12 +28,12 @@ class Signup extends React.Component<SignupProps, SignupState> {
         password: this.state.password,
       },
     };
-    let loginHeaders = new Headers();
-    loginHeaders.append("Content-Type", "application/json");
+    let signupHeaders = new Headers();
+    signupHeaders.append("Content-Type", "application/json");
 
     const requestOptions = {
       method: "POST",
-      headers: loginHeaders,
+      headers: signupHeaders,
       body: JSON.stringify(body),
     };
     fetch(urlEndpoint, requestOptions)
@@ -47,7 +47,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
   render() {
     return (
       <form>
-        <h1>Signup</h1>
+        <Typography>Signup</Typography>
         <TextField
           id="standard-firstName-input"
           label="First Name"

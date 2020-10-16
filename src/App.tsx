@@ -3,11 +3,11 @@ import "./App.css";
 import Auth from "./auth/Auth";
 import Navigation from "./home/Navigation";
 import BoardHome from "./boardDisplay/BoardHome";
+import AdminCreate from "./admin/AdminCreate";
 import { CssBaseline } from "@material-ui/core";
 import {Theme, withStyles} from "@material-ui/core/styles"
 import StickyFooter from "./home/Footer";
 import { BrowserRouter as Router } from "react-router-dom";
-
 
 const drawerWidth = 240;
 
@@ -61,6 +61,7 @@ class App extends React.Component<AppProps, AppState> {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <BoardHome token={this.state.token} />
+        <AdminCreate setToken={this.setToken}/>
         {/* <BoardHome token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjU0ODU2NywiZXhwIjoxNjAyNjM0OTY3fQ.VpebcHEvS1oVYSl2pn9WMAUq_Xk5kVAot6QVABt9ZNQ"}/> */}
       </main>
     ) : (
