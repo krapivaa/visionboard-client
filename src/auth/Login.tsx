@@ -51,11 +51,7 @@ class Login extends React.Component<LoginProps, LoginState> {
   render() {
     return (
       <form>
-        <img
-          src="https://i.dlpng.com/static/png/6545162_preview.png"
 
-          style={{ height: "3em" }}
-        />{" "}
         <h1>Login</h1>
 
         <TextField

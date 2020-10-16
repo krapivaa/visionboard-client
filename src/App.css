@@ -1,11 +1,15 @@
-.App {
-  text-align: center;
+body,
+html {
+  height: 100%;
+  margin: 0;
 }
 
-.image1 {
-  display: flex;
-  background-attachment: fixed;
-  background-image: url(./assets/corkBoard.jpg);
-  min-height: 100vh;
+.App {
+  height: 100%;
+  margin: 0;
+  text-align: center;
+  background-image: url("./assets/bulletin-board-325721_1280.jpg");
   background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
 }
