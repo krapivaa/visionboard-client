@@ -47,10 +47,6 @@ class Signup extends React.Component<SignupProps, SignupState> {
   render() {
     return (
       <form>
-        <img
-          src="https://i.dlpng.com/static/png/6545162_preview.png"
-          style={{ height: "3em" }}
-        />{" "}
         <h1>Signup</h1>
         <TextField
           id="standard-firstName-input"
