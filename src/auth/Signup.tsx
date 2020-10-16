@@ -47,9 +47,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
   render() {
     return (
       <form>
-        
         <Typography>Signup</Typography>
-        
         <TextField
           id="standard-firstName-input"
           label="First Name"

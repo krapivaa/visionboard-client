@@ -1,7 +1,25 @@
-import { Box, Link, Button, CardMedia, Grid, Typography } from "@material-ui/core";
-import React, { Component } from "react";
+import {  Box, Card, Button, CardMedia, Grid, Typography, CardContent, Theme } from "@material-ui/core";
+import React from "react";
+import {withStyles} from "@material-ui/core/styles"
 import Login from "./Login";
 import Signup from "./Signup";
+import Pin from "../assets/pushpin-147918_960_720.webp"
+
+
+const useStyles = (theme: Theme) =>({
+  root: {
+    maxWidth: 345,
+  },
+  media: {
+    height: 100,
+  },
+  img: {
+    width: "5em",
+    height: "auto",
+    display: "block",
+    backgroundColor: "white"
+  }
+});
 
 export interface AuthProps {
   setToken: any;
@@ -28,6 +46,8 @@ class Auth extends React.Component<AuthProps, AuthState> {
   };
 
   render() {
+    const { classes }: any = this.props;
+
     return (
       <Grid container spacing={4}>
         <Grid item md={1}></Grid>
@@ -42,20 +62,13 @@ class Auth extends React.Component<AuthProps, AuthState> {
           </Box>
         </Grid>
         <Grid item xs={4} md={3}>
-          <Box
-            bgcolor="background.paper"
-            color="text.primary"
-            p={2}
-            // width="22em"
-            // position="fixed"
-            textAlign="center"
-            // top={235}
-            // left="70%"
-            // zIndex="tooltip"
-          >
-            {/* <CardMedia>
-          <img src="../"/>
-        </CardMedia> */}
+        <Card >
+        <CardMedia
+            className={classes.img}
+            component = "img"
+            image={Pin}
+        />
+        <CardContent>
         {this.state.isLogin ? (
           <Login setToken={this.props.setToken} />
         ) : (
@@ -67,11 +80,12 @@ class Auth extends React.Component<AuthProps, AuthState> {
             >
               {this.state.isLogin ? "Don't Have an Account?" : "Cancel"}
             </Button>
-          </Box>
+        </CardContent>
+         </Card>
         </Grid>
       </Grid>
     );
   }
 }
 
-export default Auth;
+export default withStyles(useStyles)(Auth);

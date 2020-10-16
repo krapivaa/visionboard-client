@@ -1,14 +1,11 @@
 import React from "react";
 import {
-  createStyles,
-  makeStyles,
-  useTheme,
   Theme,
 } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-// import Button from "@material-ui/core/Button";
+import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
@@ -23,12 +20,10 @@ import HomeIcon from "@material-ui/icons/Home";
 import PeopleAltRoundedIcon from "@material-ui/icons/PeopleAltRounded";
 import SettingsIcon from "@material-ui/icons/Settings";
 import { withStyles } from "@material-ui/core/styles";
-import { Button } from "@material-ui/core";
 
 const drawerWidth = 240;
 
-const useStyles = (theme: Theme) =>
-  createStyles({
+const useStyles = (theme: Theme) => ({
     root: {
       display: "flex",
     },
@@ -40,12 +35,11 @@ const useStyles = (theme: Theme) =>
     },
     appBar: {
       [theme.breakpoints.up("sm")]: {
-        // width: `calc(100% - ${drawerWidth}px)`,
         width: "100%",
         marginLeft: drawerWidth,
       },
       backgroundColor: "gray",
-      zIndex: 1,
+      zIndex: theme.zIndex.drawer + 1,
     },
     menuButton: {
       marginRight: theme.spacing(2),
@@ -57,13 +51,14 @@ const useStyles = (theme: Theme) =>
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
       width: drawerWidth,
-      zIndex: 0,
     },
   });
 
 export interface NavigationProps {
   classes: any;
+  token: any;
   window: number;
+  clearToken: any;
 }
 
 export interface NavigationState {
@@ -90,31 +85,35 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
         <div className={classes.toolbar} />
         <Divider />
         <List>
-          {["Home", "Shared with Me", "Settings"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index === 0 ? (
-                  <HomeIcon />
-                ) : index === 1 ? (
-                  <PeopleAltRoundedIcon />
-                ) : (
-                  <SettingsIcon />
-                )}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <ListItem button >
+            <ListItemIcon>
+              <HomeIcon/>
+            </ListItemIcon>
+            <ListItemText>Home</ListItemText>
+          </ListItem>
+          <ListItem button >
+            <ListItemIcon>
+              <PeopleAltRoundedIcon/>
+            </ListItemIcon>
+            <ListItemText>Shared with Me</ListItemText>
+          </ListItem>
+          <ListItem button >
+            <ListItemIcon>
+              <SettingsIcon/>
+            </ListItemIcon>
+            <ListItemText>Settings</ListItemText>
+          </ListItem>
         </List>
+        <Button variant="contained" color="primary" onClick={this.props.clearToken} >
+  Logout
+</Button>
       </div>
     );
-
-    // const container =
-    //   window !== undefined ? () => window().document.body : undefined;
 
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
+        <AppBar position="fixed" elevation={1} className={classes.appBar}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -130,10 +129,13 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
             </Typography>
           </Toolbar>
         </AppBar>
-        <nav className={classes.drawer}>
-          <Hidden smUp implementation="css">
+        <>
+          {!this.props.token ? (
+            <></>
+          ): (
+            <nav className={classes.drawer}>
+            <Hidden smUp implementation="css">
             <Drawer
-              // container={container}
               variant="temporary"
               anchor="left"
               open={this.state.mobileOpen}
@@ -159,7 +161,9 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
               {drawer}
             </Drawer>
           </Hidden>
-        </nav>
+          </nav>
+          )}
+</>
       </div>
     );
   }

@@ -50,10 +50,8 @@ class Login extends React.Component<LoginProps, LoginState> {
 
   render() {
     return (
-      <form>
-        
+      <form>       
         <Typography>Login</Typography>
-
         <TextField
           id="standard-email-input"
           label="Email"

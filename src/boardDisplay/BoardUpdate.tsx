@@ -3,6 +3,7 @@ import React from 'react';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
+import { Typography } from '@material-ui/core';
 
 const useStyles = (theme: Theme) => ({
     root: {
@@ -31,7 +32,9 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
         const {classes}: any = this.props;
 
         return (<div>
-            <p>I am update</p>
+             <Typography variant="body2" color="textSecondary" component="h4">
+        I am Update!
+            </Typography>
         </div>);
     }
 }
