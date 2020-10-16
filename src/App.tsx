@@ -3,6 +3,7 @@ import "./App.css";
 import Auth from "./auth/Auth";
 import Navigation from "./home/Navigation";
 import BoardHome from "./boardDisplay/BoardHome";
+import AdminCreate from "./admin/AdminCreate";
 
 export interface AppProps {}
 
@@ -25,8 +26,9 @@ class App extends React.Component<AppProps, AppState> {
     return (
       <div className="image1">
         <Auth setToken={this.setToken} />
-        <Navigation window={this.state.window} />
-        <BoardHome token={this.state.token} />
+        <AdminCreate setToken={this.setToken}/>
+        {/* <Navigation window={this.state.window} />
+        <BoardHome token={this.state.token} /> */}
         {/* <BoardHome token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjU0ODU2NywiZXhwIjoxNjAyNjM0OTY3fQ.VpebcHEvS1oVYSl2pn9WMAUq_Xk5kVAot6QVABt9ZNQ"}/> */}
       </div>
     );
