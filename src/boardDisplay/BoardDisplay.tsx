@@ -50,7 +50,21 @@ const useStyles = makeStyles({
 
     const classes = useStyles();
 
+  //DELETE board
+  const deleteBoard = (board: BoardResponse) => {
+    fetch(`http://localhost:3000/api/board${board.id}`, {
+        method: 'DELETE',
+        headers: new Headers({
+            'Content-Type': 'application/json',
+            'Authorization': props.token
+        })
+    })
+    .then(() => props.fetchBoards())
+}
 
+  
+
+//mapping through
   const boardsMapping =() => {
 {/* {this.state.boards.map((board: BoardResponse, index:number) =>(<p key={index}>{board}</p>))} */}
     return props.boards.map((board: BoardResponse, index: number) => {
@@ -99,6 +113,10 @@ const useStyles = makeStyles({
         {/* //Go inside the board goes here */}
         <Button size="small" color="primary">
           Learn More
+        </Button>
+
+        <Button size="small" color="secondary" onClick={() => {deleteBoard(board)}} >
+          Delete
         </Button>
       </CardActions>
 
