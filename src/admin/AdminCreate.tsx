@@ -2,7 +2,7 @@ import { TextField, Button, Typography } from '@material-ui/core';
 import React from 'react';
 
 export interface AdminCreateProps {
-    setToken: any;
+    token: any;
   }
   
   export interface AdminCreateState {
@@ -39,7 +39,7 @@ export interface AdminCreateProps {
       fetch(urlEndpoint, requestOptions)
         .then((res: any) => res.json())
         .then((json: ResponseSignup) => {
-          this.props.setToken(json.sessionToken);
+          this.props.token(json.sessionToken);
           console.log(json);
         });
     }
