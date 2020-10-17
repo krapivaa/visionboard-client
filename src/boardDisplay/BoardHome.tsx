@@ -3,13 +3,13 @@ import React from "react";
 import "../App.css";
 import BoardCreate from "./BoardCreate";
 import BoardUpdate from "./BoardUpdate";
-// import BoardDisplay from "./BoardDisplay";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { Container, Typography } from "@material-ui/core";
 import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
+import BoardDisplay from "./BoardDisplay";
 
 const useStyles = (theme: Theme) => ({
   root: {
@@ -34,7 +34,7 @@ export interface BoardHomeState {
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
-  heading = "Vision Board";
+ 
 
   constructor(props: BoardHomeProps) {
     super(props);
@@ -57,9 +57,9 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     })
       .then((res: any) => res.json())
       .then((json: BoardResponse) => {
-        console.log(json);
-        // this.state.boards(BoardResponse)
-        // console.log(this.state.boards)
+        console.log(json)
+        this.setState({boards: []})
+        //this.state.boards(BoardResponse)
       });
   };
 
@@ -68,11 +68,6 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     return (
       <div>
-
-    <Typography variant="body2" color="textSecondary" component="h1" style={{ paddingLeft: "50px", color: "purple", textAlign: "center" }} >
-      {this.heading}  
-    </Typography>
-      
 
         <Grid container spacing={10}>
           <Grid item xs={4}>
@@ -83,9 +78,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
           </Grid>
 
           <Grid item xs={8}>
-            {/* <BoardDisplay 
-         
-            /> */}
+            <BoardDisplay 
+            token={this.props.token}
+            fetchBoards={this.fetchBoards}
+            boards={this.state.boards}
+            />
           </Grid>
         </Grid>
 
@@ -103,6 +100,3 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
 export default withStyles(useStyles)(BoardHome);
 
-/*
-token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}
-*/

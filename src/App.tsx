@@ -62,7 +62,6 @@ class App extends React.Component<AppProps, AppState> {
         <div className={classes.toolbar} />
         <BoardHome token={this.state.token} />
         <AdminCreate setToken={this.setToken}/>
-        {/* <BoardHome token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjU0ODU2NywiZXhwIjoxNjAyNjM0OTY3fQ.VpebcHEvS1oVYSl2pn9WMAUq_Xk5kVAot6QVABt9ZNQ"}/> */}
       </main>
     ) : (
       <main className={classes.content}>
