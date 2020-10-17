@@ -34,7 +34,8 @@ Have return object in console, but with hardcoded boardId
 
 
 export interface ItemCreateProps {
-    token: string
+    token: any
+    fetchItems: any
     
    
 }
@@ -68,7 +69,8 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
 
 
 //handleSubmit and fetch
-handleSubmit = (e: { preventDefault: () => void; }) => {
+handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
 
 
     //should make it dynamic `${boardId}` props.boardId? ???
@@ -93,6 +95,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
             photo: '',
         })
     })
+    .then(this.props.fetchItems())
 }
 
 
@@ -209,7 +212,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
 
         <br />
 
-             <Button onClick={this.handleSubmit }
+             <Button onClick={(e) => this.handleSubmit (e)}
                 variant="contained"
                 color="primary"
                 className={classes.button}>

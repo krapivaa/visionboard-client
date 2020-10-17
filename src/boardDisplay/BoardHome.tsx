@@ -93,7 +93,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
         <br />
 
         <Container maxWidth="sm">
-          <ItemHomeinBoard />
+          {/* <ItemHomeinBoard /> */}
         </Container>
         {/* //END */}
       </div>
