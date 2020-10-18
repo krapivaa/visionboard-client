@@ -61,9 +61,27 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
           };
        
     }
-  //Cloudinary direct REST API upload
+  //Cloudinary direct REST API upload IN THE PROCESS
 //   https://api.cloudinary.com/v1_1/verasenv/auto/upload
     
+// handleImageUpload = (event: { target: { files: any; }; }) => {
+//     const data = new FormData()
+//     const { files } = event.target
+//     data.append('file', files[0])
+//     data.append('upload_preset', 'visionitem')
+//     fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
+//         method: 'POST',
+//         body: data,
+//     })
+//     .then((res) => res.json())
+//     .then((file) =>
+//         this.setState({
+//             image: file.secure_url,
+//         })
+//     )
+// }
+
+
 
 
 
@@ -108,7 +126,7 @@ handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
 
 
-//CLOUDINARY WIDGET
+//CLOUDINARY WIDGET - WILL BE DELETED PROBABLY, does not work with typescript
 
 // openWidget = () => {
 //     window.cloudinary.createUploadWidget({
@@ -195,7 +213,7 @@ handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
           
            
-            
+            {/* WILL BE DELETED PROBABLY, does not work with typescript          */}
              {/* <CloudinaryContext cloudName="verasenv"> */}
                  {/* <div>
                         //Some tests - will be deleted

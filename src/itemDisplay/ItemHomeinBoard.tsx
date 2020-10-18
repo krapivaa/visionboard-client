@@ -43,8 +43,8 @@ class ItemHomeinBoard extends React.Component<
   componentDidMount() {
     this.fetchItems();
   }
-  // `http://localhost:3000/api/board/${board.id}`
-  
+  // `http://localhost:3000/api/board/${board.id}` does not work  :(
+
   fetchItems = () => {
     fetch("http://localhost:3000/api/board/:boardId", {
       method: "GET",

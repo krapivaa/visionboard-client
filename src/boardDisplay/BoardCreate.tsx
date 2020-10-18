@@ -112,7 +112,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
     const {classes}: any = this.props;
 
-        return ( <div style={{ backgroundColor: 'white' }}>  
+        return ( <div>  
 
     <Typography variant="h5" color="textSecondary" component="h2">
         Create your Board!

@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
+
 export interface BoardDisplayProps {
     token: any
     fetchBoards: any
@@ -52,7 +53,7 @@ const useStyles = makeStyles({
 
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
-    fetch(`http://localhost:3000/api/board${board.id}`, {
+    fetch(`http://localhost:3000/api/board/${board.id}`, {
         method: 'DELETE',
         headers: new Headers({
             'Content-Type': 'application/json',
@@ -69,7 +70,7 @@ const useStyles = makeStyles({
 {/* {this.state.boards.map((board: BoardResponse, index:number) =>(<p key={index}>{board}</p>))} */}
     return props.boards.map((board: BoardResponse, index: number) => {
    
-   return ( <div style={{ backgroundColor: 'white'  }}>
+   return ( <div>
 
 
 <Card className={classes.root} key={index}>
@@ -78,13 +79,13 @@ const useStyles = makeStyles({
         <CardMedia
           className={classes.media}
           image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
-          title="My board"
+          title={board.boardTitle}
         />
 
         <CardContent>
 
-          <Typography gutterBottom variant="h5" component="h2">
-            {board.boardTitle}
+         <Typography variant="body2" color="textSecondary" component="p">
+           {board.boardTitle}
           </Typography>
 
           <Typography variant="body2" color="textSecondary" component="p">
@@ -95,9 +96,9 @@ const useStyles = makeStyles({
            {board.tags}
           </Typography>
 
-          <Typography variant="body2" color="textSecondary" component="p">
+          {/* <Typography variant="body2" color="textSecondary" component="p">
            {board.sharedBoard}
-          </Typography>
+          </Typography> */}
 
         </CardContent>
 
@@ -111,9 +112,9 @@ const useStyles = makeStyles({
         </Button> */}
         
         {/* //Go inside the board goes here */}
-        <Button size="small" color="primary">
+        {/* <Button size="small" color="primary">
           Learn More
-        </Button>
+        </Button> */}
 
         <Button size="small" color="secondary" onClick={() => {deleteBoard(board)}} >
           Delete
@@ -128,8 +129,33 @@ const useStyles = makeStyles({
   }
  
    return (
-    <div>
-  <Card> {boardsMapping()}</Card>
+    <div style={{ backgroundColor: 'white'  }}>
+ 
+  <Card>
+    <CardActionArea>
+    {/* <CardMedia
+          className={classes.media}
+          image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
+        /> */}
+      
+        <CardContent>
+        {/* <Typography variant="body2" color="textSecondary" component="p">
+           Title
+          </Typography>
+
+          <Typography variant="body2" color="textSecondary" component="p">
+           Description
+          </Typography>
+
+          <Typography variant="body2" color="textSecondary" component="p">
+           Tags
+          </Typography> */}
+
+
+          {boardsMapping()} 
+          </CardContent>
+    </CardActionArea>
+    </Card>
    </div>
    )
  }
