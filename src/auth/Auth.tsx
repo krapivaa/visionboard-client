@@ -1,12 +1,12 @@
-import {  Box, Card, Button, CardMedia, Grid, Typography, CardContent, Theme } from "@material-ui/core";
+import { Box, Card, Button, CardMedia, Grid, Typography, CardContent, Theme } from "@material-ui/core";
 import React from "react";
-import {withStyles} from "@material-ui/core/styles"
+import { withStyles } from "@material-ui/core/styles"
 import Login from "./Login";
 import Signup from "./Signup";
 import Pin from "../assets/pushpin-147918_960_720.webp"
 
 
-const useStyles = (theme: Theme) =>({
+const useStyles = (theme: Theme) => ({
   root: {
     maxWidth: 345,
   },
@@ -51,38 +51,38 @@ class Auth extends React.Component<AuthProps, AuthState> {
 
     return (
       <Grid container spacing={4}>
-        <Grid item md={1}></Grid>
-        <Grid item xs={4} md={5}>
+        <Grid item md={4}></Grid>
+        <Grid item xs={12} md={6}>
           <Box
-          bgcolor="background.paper"
-          color="text.primary"
-          p={2}
-          textAlign="center"
+            bgcolor="background.paper"
+            color="text.primary"
+            p={2}
+            textAlign="center"
           >
             <Typography>Why you should use our App?</Typography>
           </Box>
         </Grid>
         <Grid item xs={4} md={3}>
-        <Card >
-        <CardMedia
-            className={classes.img}
-            component = "img"
-            image={Pin}
-        />
-        <CardContent>
-        {this.state.isLogin ? (
-          <Login setToken={this.props.setToken} />
-        ) : (
-          <Signup setToken={this.props.setToken} />
-        )}
-            <Button
-              onClick={(event) => this.toggle(event)}
-              style={{ marginTop: ".5em" }}
-            >
-              {this.state.isLogin ? "Don't Have an Account?" : "Cancel"}
-            </Button>
-        </CardContent>
-         </Card>
+          <Card >
+            <CardMedia
+              className={classes.img}
+              component="img"
+              image={Pin}
+            />
+            <CardContent>
+              {this.state.isLogin ? (
+                <Login setToken={this.props.setToken} />
+              ) : (
+                  <Signup setToken={this.props.setToken} />
+                )}
+              <Button
+                onClick={(event) => this.toggle(event)}
+                style={{ marginTop: ".5em" }}
+              >
+                {this.state.isLogin ? "Don't Have an Account?" : "Cancel"}
+              </Button>
+            </CardContent>
+          </Card>
         </Grid>
       </Grid>
     );

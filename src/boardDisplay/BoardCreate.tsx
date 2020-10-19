@@ -34,7 +34,6 @@ Have return object in console
  */
 
 export interface BoardCreateProps {
- //props here (token)
  token: any
  fetchBoards: any
 }
@@ -113,7 +112,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
     const {classes}: any = this.props;
 
-        return ( <div style={{ backgroundColor: 'white' }}>  
+        return ( <div>  
 
     <Typography variant="h5" color="textSecondary" component="h2">
         Create your Board!
@@ -122,9 +121,9 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
             
     <form className={classes.root} noValidate autoComplete="off">
      <Input placeholder="Title" inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
-
+<br />
       <Input placeholder="Description" inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ description: e.target.value})}/>
-
+<br />
       <Input placeholder="Tags" inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
 
    

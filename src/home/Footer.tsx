@@ -14,13 +14,17 @@ function Copyright() {
   );
 }
 
+const drawerWidth = 240;
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    // minHeight: '100vh',
   },
   footer: {
+    [theme.breakpoints.up("sm")]: {
+      paddingLeft: drawerWidth,
+    },
     padding: theme.spacing(3, 2),
     marginTop: 'auto',
     backgroundColor:
