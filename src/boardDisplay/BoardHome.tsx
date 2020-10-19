@@ -6,8 +6,8 @@ import BoardUpdate from "./BoardUpdate";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Container, Typography } from "@material-ui/core";
-import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
+// import { Container, Typography } from "@material-ui/core";
+// import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
 
@@ -34,7 +34,7 @@ export interface BoardHomeState {
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
- 
+
 
   constructor(props: BoardHomeProps) {
     super(props);
@@ -69,17 +69,18 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     return (
       <div>
-<Container>
-        {/* <Grid container spacing={10} > */}
-         
-          <Grid item xs={4} style={{ backgroundColor: 'white' }}>
+
+
+
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6} md={4}>
+
             <BoardCreate
               fetchBoards={this.fetchBoards}
-              token={this.props.token}
-            />
+              token={this.props.token} />
           </Grid>
-
-       <Grid item xs={4}>
+          
+       <Grid item xs={12}>
             <BoardDisplay 
             token={this.props.token}
             fetchBoards={this.fetchBoards}
@@ -87,14 +88,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
             />
        </Grid>
 
-        {/* </Grid> */}
-</Container>
-
+        </Grid> 
 
         {/* HERE JUST FOR TESTING */}
           {/* <ItemHomeinBoard /> */}
         
-         
       </div>
     );
   }

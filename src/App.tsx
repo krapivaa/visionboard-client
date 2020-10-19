@@ -5,7 +5,7 @@ import Navigation from "./home/Navigation";
 import BoardHome from "./boardDisplay/BoardHome";
 import AdminCreate from "./admin/AdminCreate";
 import { CssBaseline } from "@material-ui/core";
-import {Theme, withStyles} from "@material-ui/core/styles"
+import { Theme, withStyles } from "@material-ui/core/styles"
 import StickyFooter from "./home/Footer";
 import { BrowserRouter as Router } from "react-router-dom";
 
@@ -20,14 +20,17 @@ const useStyles = (theme: Theme) => ({
     width: drawerWidth,
   },
   content: {
+    [theme.breakpoints.up("sm")]: {
+      width: "100%",
+    },
+    width: `calc(100% - ${drawerWidth}px)`,
     flexGrow: 1,
     padding: theme.spacing(3),
-    width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: drawerWidth,
   }
 });
 
-export interface AppProps {}
+export interface AppProps { }
 
 export interface AppState {
   token: any;
@@ -40,18 +43,22 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { token: "", window: window.innerWidth };
   }
 
-  setToken = (token: any) => {
-    if (localStorage.getItem('token')){
-      token = localStorage.getItem('token')
-      this.setState({token: token})
-    // } else {
-    //   localStorage.setItem('token', token)
-    //   this.setState({token: token})
-  }}
+
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.setState({ token: localStorage.getItem('token') })
+    }
+  }
+
+  setToken = (newToken: any) => {
+    localStorage.setItem('token', newToken)
+    this.setState({ token: newToken })
+  }
+
 
   clearToken = () => {
     localStorage.clear();
-    this.setState({token: ""})
+    this.setState({ token: "" })
   }
 
   protectedViews = () => {
@@ -61,14 +68,16 @@ class App extends React.Component<AppProps, AppState> {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <BoardHome token={this.state.token} />
-        {/* <AdminCreate setToken={this.setToken}/> */}
+
+        {/* <AdminCreate setToken={this.setToken} /> */}
+
       </main>
     ) : (
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-      <Auth setToken={this.setToken} />
-      </main>
-    )
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Auth setToken={this.setToken} />
+        </main>
+      )
   }
 
   render() {
@@ -76,14 +85,14 @@ class App extends React.Component<AppProps, AppState> {
 
     return (
       <div>
-      <div className="App">
-        <CssBaseline/>
-        <Router>
-        <Navigation token={this.state.token} window={this.state.window} clearToken ={this.clearToken} />
-        {this.protectedViews()}
-        </Router>
-      </div>
-      <StickyFooter/>
+        <div className="App">
+          <CssBaseline />
+          <Router>
+            <Navigation token={this.state.token} window={this.state.window} clearToken={this.clearToken} />
+            {this.protectedViews()}
+          </Router>
+        </div>
+        <StickyFooter />
       </div>
     );
   }

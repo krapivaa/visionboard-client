@@ -24,15 +24,15 @@ import { withStyles } from "@material-ui/core/styles";
 const drawerWidth = 240;
 
 const useStyles = (theme: Theme) => ({
-    root: {
-      display: "flex",
+  root: {
+    display: "flex",
+  },
+  drawer: {
+    [theme.breakpoints.up("sm")]: {
+      width: drawerWidth,
+      flexShrink: 0,
     },
-    drawer: {
-      [theme.breakpoints.up("sm")]: {
-        width: drawerWidth,
-        flexShrink: 0,
-      },
-    },
+
     appBar: {
       [theme.breakpoints.up("sm")]: {
         width: "100%",
@@ -41,18 +41,18 @@ const useStyles = (theme: Theme) => ({
       backgroundColor: "brown",
       zIndex: theme.zIndex.drawer + 1,
     },
-    menuButton: {
-      marginRight: theme.spacing(2),
-      [theme.breakpoints.up("sm")]: {
-        display: "none",
-      },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
     },
+  },
 
-    toolbar: theme.mixins.toolbar,
-    drawerPaper: {
-      width: drawerWidth,
-    },
-  });
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+});
 
 export interface NavigationProps {
   classes: any;
@@ -87,25 +87,25 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
         <List>
           <ListItem button >
             <ListItemIcon>
-              <HomeIcon/>
+              <HomeIcon />
             </ListItemIcon>
             <ListItemText>Home</ListItemText>
           </ListItem>
           <ListItem button >
             <ListItemIcon>
-              <PeopleAltRoundedIcon/>
+              <PeopleAltRoundedIcon />
             </ListItemIcon>
             <ListItemText>Shared with Me</ListItemText>
           </ListItem>
           <ListItem button >
             <ListItemIcon>
-              <SettingsIcon/>
+              <SettingsIcon />
             </ListItemIcon>
             <ListItemText>Settings</ListItemText>
           </ListItem>
         </List>
         <Button variant="contained" color="primary" onClick={this.props.clearToken} >
-  Logout
+          Logout
 </Button>
       </div>
     );
@@ -132,38 +132,38 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
         <>
           {!this.props.token ? (
             <></>
-          ): (
-            <nav className={classes.drawer}>
-            <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              anchor="left"
-              open={this.state.mobileOpen}
-              onClose={this.handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true,
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          </nav>
-          )}
-</>
+          ) : (
+              <nav className={classes.drawer}>
+                <Hidden smUp implementation="css">
+                  <Drawer
+                    variant="temporary"
+                    anchor="left"
+                    open={this.state.mobileOpen}
+                    onClose={this.handleDrawerToggle}
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    ModalProps={{
+                      keepMounted: true,
+                    }}
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                  <Drawer
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    variant="permanent"
+                    open
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+              </nav>
+            )}
+        </>
       </div>
     );
   }
