@@ -13,7 +13,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -70,16 +70,16 @@ const useStyles = makeStyles({
 {/* {this.state.boards.map((board: BoardResponse, index:number) =>(<p key={index}>{board}</p>))} */}
     return props.boards.map((board: BoardResponse, index: number) => {
    
-   return ( <div>
+   return ( 
 
-
-<Card className={classes.root} key={index}>
+<Grid item xs={12}>
+    <Card className={classes.root} key={index}>
 
       <CardActionArea>
         <CardMedia
           className={classes.media}
           image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
-          title={board.boardTitle}
+        //   title={board.boardTitle}
         />
 
         <CardContent>
@@ -120,42 +120,15 @@ const useStyles = makeStyles({
           Delete
         </Button>
       </CardActions>
-
-
     </Card>
-
-   </div> );
+ </Grid>
+       );
     })
   }
  
    return (
     <div style={{ backgroundColor: 'white'  }}>
- 
-  <Card>
-    <CardActionArea>
-    {/* <CardMedia
-          className={classes.media}
-          image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
-        /> */}
-      
-        <CardContent>
-        {/* <Typography variant="body2" color="textSecondary" component="p">
-           Title
-          </Typography>
-
-          <Typography variant="body2" color="textSecondary" component="p">
-           Description
-          </Typography>
-
-          <Typography variant="body2" color="textSecondary" component="p">
-           Tags
-          </Typography> */}
-
-
-          {boardsMapping()} 
-          </CardContent>
-    </CardActionArea>
-    </Card>
+      {boardsMapping()}    
    </div>
    )
  }

@@ -58,7 +58,8 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       .then((res: any) => res.json())
       .then((json: BoardResponse) => {
         console.log(json)
-        this.setState({boards: []})
+        this.setState({boards: [json]})
+        console.log(this.state.boards);
         //this.state.boards(BoardResponse)
       });
   };
@@ -68,33 +69,32 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     return (
       <div>
-
-        <Grid container spacing={10}>
+<Container>
+        {/* <Grid container spacing={10} > */}
          
-          <Grid item xs={4} style={{ backgroundColor: 'white' }}>
+          {/* <Grid item xs={4} style={{ backgroundColor: 'white' }}>
             <BoardCreate
               fetchBoards={this.fetchBoards}
               token={this.props.token}
             />
-          </Grid>
+          </Grid> */}
 
-          <Grid item xs={4}>
+       <Grid item xs={4}>
             <BoardDisplay 
             token={this.props.token}
             fetchBoards={this.fetchBoards}
             boards={this.state.boards}
             />
-          </Grid>
+       </Grid>
 
-        </Grid>
+        {/* </Grid> */}
+</Container>
+
 
         {/* HERE JUST FOR TESTING */}
-        <br />
-
-        <Container maxWidth="sm">
           {/* <ItemHomeinBoard /> */}
-        </Container>
-        {/* //END */}
+        
+         
       </div>
     );
   }
