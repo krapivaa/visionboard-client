@@ -34,7 +34,8 @@ Have return object in console, but with hardcoded boardId
 
 
 export interface ItemCreateProps {
-    token: string
+    token: any
+    fetchItems: any
     
    
 }
@@ -60,15 +61,34 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
           };
        
     }
-  //Cloudinary direct REST API upload
+  //Cloudinary direct REST API upload IN THE PROCESS
 //   https://api.cloudinary.com/v1_1/verasenv/auto/upload
     
+// handleImageUpload = (event: { target: { files: any; }; }) => {
+//     const data = new FormData()
+//     const { files } = event.target
+//     data.append('file', files[0])
+//     data.append('upload_preset', 'visionitem')
+//     fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
+//         method: 'POST',
+//         body: data,
+//     })
+//     .then((res) => res.json())
+//     .then((file) =>
+//         this.setState({
+//             image: file.secure_url,
+//         })
+//     )
+// }
+
+
 
 
 
 
 //handleSubmit and fetch
-handleSubmit = (e: { preventDefault: () => void; }) => {
+handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
 
 
     //should make it dynamic `${boardId}` props.boardId? ???
@@ -93,6 +113,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
             photo: '',
         })
     })
+    .then(this.props.fetchItems())
 }
 
 
@@ -105,7 +126,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
 
 
 
-//CLOUDINARY WIDGET
+//CLOUDINARY WIDGET - WILL BE DELETED PROBABLY, does not work with typescript
 
 // openWidget = () => {
 //     window.cloudinary.createUploadWidget({
@@ -192,7 +213,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
 
           
            
-            
+            {/* WILL BE DELETED PROBABLY, does not work with typescript          */}
              {/* <CloudinaryContext cloudName="verasenv"> */}
                  {/* <div>
                         //Some tests - will be deleted
@@ -209,7 +230,7 @@ handleSubmit = (e: { preventDefault: () => void; }) => {
 
         <br />
 
-             <Button onClick={this.handleSubmit }
+             <Button onClick={(e) => this.handleSubmit (e)}
                 variant="contained"
                 color="primary"
                 className={classes.button}>

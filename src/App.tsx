@@ -43,6 +43,7 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { token: "", window: window.innerWidth };
   }
 
+
   componentDidMount() {
     if (localStorage.getItem('token')) {
       this.setState({ token: localStorage.getItem('token') })
@@ -53,6 +54,7 @@ class App extends React.Component<AppProps, AppState> {
     localStorage.setItem('token', newToken)
     this.setState({ token: newToken })
   }
+
 
   clearToken = () => {
     localStorage.clear();
@@ -66,7 +68,9 @@ class App extends React.Component<AppProps, AppState> {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <BoardHome token={this.state.token} />
+
         {/* <AdminCreate setToken={this.setToken} /> */}
+
       </main>
     ) : (
         <main className={classes.content}>

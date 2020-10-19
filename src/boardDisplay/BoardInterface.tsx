@@ -13,13 +13,12 @@
 
 
     export interface BoardResponse {
-
         id?: number;
         owner?: number;
         boardTitle: string;
         description: string;
         tags: string;
-        sharedBoard: boolean;
+        sharedBoard?: boolean;
         updatedAt?: Date;
         createdAt?: Date;
     }

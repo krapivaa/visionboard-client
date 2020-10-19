@@ -2,14 +2,14 @@
 import React from "react";
 import "../App.css";
 import BoardCreate from "./BoardCreate";
-// import BoardUpdate from "./BoardUpdate";
-// import BoardDisplay from "./BoardDisplay";
+import BoardUpdate from "./BoardUpdate";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 // import { Container, Typography } from "@material-ui/core";
 // import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
+import BoardDisplay from "./BoardDisplay";
 
 const useStyles = (theme: Theme) => ({
   root: {
@@ -34,7 +34,7 @@ export interface BoardHomeState {
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
-  // heading = "Vision Board";
+
 
   constructor(props: BoardHomeProps) {
     super(props);
@@ -57,9 +57,10 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     })
       .then((res: any) => res.json())
       .then((json: BoardResponse) => {
-        console.log(json);
-        // this.state.boards(BoardResponse)
-        // console.log(this.state.boards)
+        console.log(json)
+        this.setState({boards: [json]})
+        console.log(this.state.boards);
+        //this.state.boards(BoardResponse)
       });
   };
 
@@ -69,33 +70,33 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     return (
       <div>
 
-        {/* <Typography variant="body2" color="textSecondary" component="h1" style={{ paddingLeft: "50px", color: "purple", textAlign: "center" }} >
-      {this.heading}  
-    </Typography> */}
 
 
         <Grid container spacing={1}>
           <Grid item xs={12} sm={6} md={4}>
+
             <BoardCreate
               fetchBoards={this.fetchBoards}
               token={this.props.token} />
           </Grid>
+          
+       <Grid item xs={12}>
+            <BoardDisplay 
+            token={this.props.token}
+            fetchBoards={this.fetchBoards}
+            boards={this.state.boards}
+            />
+       </Grid>
 
-          <Grid item xs={12}>
-            {/* <BoardDisplay /> */}
-          </Grid>
-        </Grid>
+        </Grid> 
 
         {/* HERE JUST FOR TESTING */}
-        {/* <br /> */}
-
-        {/* <Container maxWidth="sm">
-          <ItemHomeinBoard />
-        </Container> */}
-        {/* //END */}
+          {/* <ItemHomeinBoard /> */}
+        
       </div>
     );
   }
 }
 
 export default withStyles(useStyles)(BoardHome);
+
