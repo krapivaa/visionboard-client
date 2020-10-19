@@ -32,7 +32,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
         const {classes}: any = this.props;
 
         return (<div>
-             <Typography variant="body2" color="textSecondary" component="h4">
+             <Typography variant="h4" color="textSecondary" component="h4">
         I am Update!
             </Typography>
         </div>);

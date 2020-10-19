@@ -6,12 +6,28 @@ import Container from "@material-ui/core/Container";
 import ItemCreate from "./ItemCreate";
 import ItemUpdate from "./ItemUpdate";
 import ItemDisplay from "./ItemDisplay";
+import { withStyles, Theme } from "@material-ui/core/styles";
+import { ItemResponse } from "./ItemInterface";
 
-export interface ItemHomeinBoardProps {}
 
-export interface ItemHomeinBoardProps {}
 
-export interface ItemHomeinBoardState {}
+const useStyles = (theme: Theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+});
+
+export interface ItemHomeinBoardProps {
+  token: any;
+}
+
+
+
+export interface ItemHomeinBoardState {
+  items: ItemResponse[];
+}
 
 class ItemHomeinBoard extends React.Component<
   ItemHomeinBoardProps,
@@ -19,16 +35,45 @@ class ItemHomeinBoard extends React.Component<
 > {
   constructor(props: ItemHomeinBoardProps) {
     super(props);
-    // this.state = { :  };
+    this.state = {
+      items: [],
+    };
   }
+
+  componentDidMount() {
+    this.fetchItems();
+  }
+  // `http://localhost:3000/api/board/${board.id}` does not work  :(
+
+  fetchItems = () => {
+    fetch("http://localhost:3000/api/board/:boardId", {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        "Authorization": this.props.token,
+      }),
+    })
+      .then((res: any) => res.json())
+      .then((json: ItemResponse) => {
+        console.log(json);
+  
+      });
+  };
+
+
+
   render() {
+
+    const { classes }: any = this.props;
+
     return (
+
       <div>
         <Container maxWidth="sm">
           <ItemCreate
-            token={
-              ""
-            }
+            fetchItems={this.fetchItems}
+            token={this.props.token}
+            
           />
 
           <ItemDisplay />
@@ -38,4 +83,4 @@ class ItemHomeinBoard extends React.Component<
   }
 }
 
-export default ItemHomeinBoard;
+export default withStyles(useStyles)(ItemHomeinBoard);
