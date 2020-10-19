@@ -21,7 +21,7 @@ const useStyles = (theme: Theme) => ({
   },
   content: {
     [theme.breakpoints.up("sm")]: {
-      width: "100 %",
+      width: "100%",
     },
     width: `calc(100% - ${drawerWidth}px)`,
     flexGrow: 1,
