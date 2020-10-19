@@ -3,7 +3,7 @@ import "./App.css";
 import Auth from "./auth/Auth";
 import Navigation from "./home/Navigation";
 import BoardHome from "./boardDisplay/BoardHome";
-import AdminCreate from "./admin/AdminCreate";
+import Admin from "./admin/Admin";
 import { CssBaseline } from "@material-ui/core";
 import { Theme, withStyles } from "@material-ui/core/styles"
 import StickyFooter from "./home/Footer";
@@ -67,9 +67,10 @@ class App extends React.Component<AppProps, AppState> {
     return this.state.token === localStorage.getItem('token') ? (
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <BoardHome token={this.state.token} />
 
-        {/* <AdminCreate setToken={this.setToken} /> */}
+        <Admin token={this.state.token}/>
+
+        <BoardHome token={this.state.token} />
 
       </main>
     ) : (

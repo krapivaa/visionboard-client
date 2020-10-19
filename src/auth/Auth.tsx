@@ -17,7 +17,8 @@ const useStyles = (theme: Theme) => ({
     width: "5em",
     height: "auto",
     display: "block",
-    backgroundColor: "white"
+    backgroundColor: "white",
+    marginLeft: "6em"
   }
 });
 
