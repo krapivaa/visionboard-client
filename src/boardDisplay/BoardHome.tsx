@@ -2,13 +2,13 @@
 import React from "react";
 import "../App.css";
 import BoardCreate from "./BoardCreate";
-import BoardUpdate from "./BoardUpdate";
+// import BoardUpdate from "./BoardUpdate";
 // import BoardDisplay from "./BoardDisplay";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import { Container, Typography } from "@material-ui/core";
-import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
+// import { Container, Typography } from "@material-ui/core";
+// import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
 
 const useStyles = (theme: Theme) => ({
@@ -34,7 +34,7 @@ export interface BoardHomeState {
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
-  heading = "Vision Board";
+  // heading = "Vision Board";
 
   constructor(props: BoardHomeProps) {
     super(props);
@@ -69,32 +69,29 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     return (
       <div>
 
-    <Typography variant="body2" color="textSecondary" component="h1" style={{ paddingLeft: "50px", color: "purple", textAlign: "center" }} >
+        {/* <Typography variant="body2" color="textSecondary" component="h1" style={{ paddingLeft: "50px", color: "purple", textAlign: "center" }} >
       {this.heading}  
-    </Typography>
-      
+    </Typography> */}
 
-        <Grid container spacing={10}>
-          <Grid item xs={4}>
+
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={6} md={4}>
             <BoardCreate
               fetchBoards={this.fetchBoards}
-              token={this.props.token}
-            />
+              token={this.props.token} />
           </Grid>
 
-          <Grid item xs={8}>
-            {/* <BoardDisplay 
-         
-            /> */}
+          <Grid item xs={12}>
+            {/* <BoardDisplay /> */}
           </Grid>
         </Grid>
 
         {/* HERE JUST FOR TESTING */}
-        <br />
+        {/* <br /> */}
 
-        <Container maxWidth="sm">
+        {/* <Container maxWidth="sm">
           <ItemHomeinBoard />
-        </Container>
+        </Container> */}
         {/* //END */}
       </div>
     );
@@ -102,7 +99,3 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 }
 
 export default withStyles(useStyles)(BoardHome);
-
-/*
-token={"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTYwMjE4ODcwMywiZXhwIjoxNjAyMjc1MTAzfQ.Y4yEAqaRbsepRjeU8oL2GZIcCc0OSzPn5jI4boK70z4"}
-*/
