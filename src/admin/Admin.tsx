@@ -5,9 +5,9 @@ import AdminCreate from './AdminCreate';
 export interface AdminProps {
     token: any
 }
- 
+
 export interface AdminState {
-    user: UserResponse
+    userData: UserResponse[]
 }
 
 export interface UserResponse {
@@ -21,19 +21,16 @@ export interface UserResponse {
     createdAt?: Date;
     updatedAt?: Date;
 }
- 
+
 class Admin extends React.Component<AdminProps, AdminState> {
     constructor(props: AdminProps) {
         super(props);
-        this.state = { user: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: ""
-        } };
+        this.state = {
+            userData: []
+        };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const fetchUsers = () => {
             fetch("http://localhost:3000/api/user/admin/view-all", {
                 method: "GET",
@@ -42,20 +39,23 @@ class Admin extends React.Component<AdminProps, AdminState> {
                     "Authorization": this.props.token
                 })
             })
-            .then( (res: any) => res.json())
-            .then((userData) => {console.log(userData)})
+                .then((res: any) => res.json())
+                .then((userData) => {
+                    console.log(userData)
+                    this.setState({ userData: userData })
+                })
         }
         fetchUsers()
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <>
                 <AdminCreate token={this.props.token} />
-                {/* <AdminTable token={this.props.token} /> */}
+                {/* <AdminTable userData={this.state.userData} token={this.props.token} /> */}
             </>
-         );
+        );
     }
 }
- 
+
 export default Admin;

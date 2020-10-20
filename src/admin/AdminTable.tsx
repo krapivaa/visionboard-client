@@ -4,7 +4,7 @@ import { Button, Card, Table } from '@material-ui/core';
 // export interface AdminTableProps {
 //     token: any;
 // }
- 
+
 // export interface AdminTableState {
 //     user: 
 //     firstName: string,
@@ -12,13 +12,13 @@ import { Button, Card, Table } from '@material-ui/core';
 //     email: string,
 //     password: string
 // }
- 
+
 // class AdminTable extends React.Component<AdminTableProps, AdminTableState> {
 //     constructor(props: AdminTableProps) {
 //         super(props);
 //         this.state = { firstName: "", lastName: "", email: "", password: "" };
 
-            
+
 //     adminMapper = () => {
 //         return this.props.user.map((user, index) => {
 //           return (
@@ -40,5 +40,5 @@ import { Button, Card, Table } from '@material-ui/core';
 //          );
 //     }
 // }
- 
+
 // export default AdminTable;
