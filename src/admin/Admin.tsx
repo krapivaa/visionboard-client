@@ -1,6 +1,8 @@
 import React from 'react';
 import AdminCreate from './AdminCreate';
-// import AdminTable from './AdminTable';
+import EditUser from './EditUser';
+import AdminTable from './AdminTable';
+import DeleteUser from './DeleteUser';
 
 export interface AdminProps {
     token: any
@@ -51,8 +53,11 @@ class Admin extends React.Component<AdminProps, AdminState> {
     render() { 
         return ( 
             <>
+            
                 <AdminCreate token={this.props.token} />
-                {/* <AdminTable token={this.props.token} /> */}
+                <AdminTable />
+                <EditUser token={this.props.token}/>
+                <DeleteUser token={this.props.token}/>
             </>
          );
     }

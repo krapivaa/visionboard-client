@@ -1,5 +1,7 @@
 import React from 'react';
 import { DataGrid, ColDef, RowsProp } from '@material-ui/data-grid';
+import EditUser from './EditUser';
+import DeleteUser from './DeleteUser';
 
 const columns: ColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
