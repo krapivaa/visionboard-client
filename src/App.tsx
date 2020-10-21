@@ -68,7 +68,7 @@ class App extends React.Component<AppProps, AppState> {
       <main className={classes.content}>
         <div className={classes.toolbar} />
 
-        <Admin token={this.state.token}/>
+        {/* <Admin token={this.state.token}/> */}
 
         <BoardHome token={this.state.token} />
 
