@@ -1,5 +1,6 @@
 import React from 'react';
 import AdminCreate from './AdminCreate';
+import { UserResponse } from './AdminInterface';
 import EditUser from './EditUser';
 import AdminTable from './AdminTable';
 import DeleteUser from './DeleteUser';
@@ -7,35 +8,24 @@ import DeleteUser from './DeleteUser';
 export interface AdminProps {
     token: any
 }
- 
+
 export interface AdminState {
-    user: UserResponse
+    userData: UserResponse[],
+    userId: number
 }
 
-export interface UserResponse {
-    id?: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    colorScheme?: number;
-    isAdmin?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
-}
- 
+
+
 class Admin extends React.Component<AdminProps, AdminState> {
     constructor(props: AdminProps) {
         super(props);
-        this.state = { user: {
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: ""
-        } };
+        this.state = {
+            userData: [],
+            userId: 0,
+        }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         const fetchUsers = () => {
             fetch("http://localhost:3000/api/user/admin/view-all", {
                 method: "GET",
@@ -44,23 +34,30 @@ class Admin extends React.Component<AdminProps, AdminState> {
                     "Authorization": this.props.token
                 })
             })
-            .then( (res: any) => res.json())
-            .then((userData) => {console.log(userData)})
+                .then((res: any) => res.json())
+                .then((userData) => {
+                    console.log(userData)
+                    this.setState({ userData: userData })
+                    console.log(this.state.userData)
+                })
         }
         fetchUsers()
     }
 
-    render() { 
-        return ( 
+    selectUser = (userId: number) => {
+        this.setState({ userId: userId })
+    }
+
+    render() {
+        return (
             <>
-            
+                <AdminTable selectUser={this.selectUser} userData={this.state.userData} />           
                 <AdminCreate token={this.props.token} />
-                <AdminTable />
                 <EditUser token={this.props.token}/>
                 <DeleteUser token={this.props.token}/>
             </>
-         );
+        );
     }
 }
- 
+
 export default Admin;

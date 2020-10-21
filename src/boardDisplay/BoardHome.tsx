@@ -93,17 +93,19 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
   render() {
     const {classes}: any = this.props;
 
-    return (<div>
+  return (<div>
 
 
 
         <Grid container spacing={10} style={{ backgroundColor: 'white'}} >
 
           <Grid item xs={6} sm={6} md={4} >
+
             <BoardCreate
               fetchBoards={this.fetchBoards}
               token={this.props.token} />
           </Grid>
+
           
        <Grid item xs={6}>
             <BoardDisplay 

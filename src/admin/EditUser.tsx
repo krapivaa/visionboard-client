@@ -6,6 +6,7 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 // function rand() {
 //     return Math.round(Math.random() * 20) - 10;
 //   }
+
   
 //   function getModalStyle() {
 //     const top = 50 + rand();
@@ -17,6 +18,7 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 //       transform: `translate(-${top}%, -${left}%)`,
 //     };
 //   }
+
   
   const useStyles = (theme: Theme) =>
     createStyles({

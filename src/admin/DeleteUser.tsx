@@ -17,7 +17,8 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 //       transform: `translate(-${top}%, -${left}%)`,
 //     };
 //   }
-  
+
+
   const useStyles = (theme: Theme) =>
     createStyles({
       paper: {
@@ -32,9 +33,10 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 
 export interface DeleteUserProps {
     token: any;
-  }
-  
-  export interface DeleteUserState {
+}
+
+ 
+export interface DeleteUserState {
     open: boolean;
     password: string;
     isAdmin: boolean;

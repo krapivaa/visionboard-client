@@ -19,8 +19,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import BoardUpdate from './BoardUpdate';
 
 
-
-
 export interface BoardDisplayProps {
     token: any
     fetchBoards: any
@@ -33,8 +31,6 @@ export interface BoardDisplayProps {
   }
 
 
-
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -43,6 +39,7 @@ const useStyles = makeStyles({
     height: 140,
   },
 });
+
 
  /*
  We are mapping through our props.boards array.   props.boards is a reference to the boards we pulled from our back-end.  These were objects containing individual board data.  Our callback function, with params 'board' and 'index' is defined according to the callback function of all .map methods: 'board' will represent every board object in our props.boards array each time the map loop runs, while 'index' is the index number of that boardobject in the boards array.
@@ -113,9 +110,9 @@ const useStyles = makeStyles({
         {/* <Button size="small" color="primary">
           Share
         </Button> */}
-        
-        {/* //Go inside the board goes here */}
-        {/* <Button size="small" color="primary">
+
+              {/* //Go inside the board goes here */}
+              {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
 
@@ -148,6 +145,7 @@ const useStyles = makeStyles({
    </Grid>
        );
     })
+    )
   }
  
    return (
@@ -159,11 +157,3 @@ const useStyles = makeStyles({
 
   
  export default BoardDisplay;
-
-
-
-
-      
-
-
-         

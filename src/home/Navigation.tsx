@@ -33,14 +33,15 @@ const useStyles = (theme: Theme) => ({
       flexShrink: 0,
     }
   },
-    appBar: {
-      [theme.breakpoints.up("sm")]: {
-        width: "100%",
-        marginLeft: drawerWidth,
-      },
-      backgroundColor: "brown",
-      zIndex: theme.zIndex.drawer + 1,
+  appBar: {
+    [theme.breakpoints.up("sm")]: {
+      width: "100%",
+      marginLeft: drawerWidth,
+
     },
+    backgroundColor: "brown",
+    zIndex: theme.zIndex.drawer + 1,
+  },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up("sm")]: {
