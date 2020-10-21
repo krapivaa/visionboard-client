@@ -31,21 +31,44 @@ export interface BoardHomeProps {
 
 export interface BoardHomeState {
   boards: BoardResponse[];
+  updateActive: boolean;
+  boardToUpdate: object  
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
+
 
 
   constructor(props: BoardHomeProps) {
     super(props);
     this.state = {
       boards: [],
+      updateActive: false,
+      boardToUpdate: {}
     };
   }
 
   componentDidMount() {
     this.fetchBoards();
   }
+
+//CHANGE THOSE STATES TO CLASS
+// editUpdateBoard = (board: any) => {
+//     this.BoardToUpdate(board)
+// }
+
+
+// TOGGLE ??
+// updateOn = () => {
+//     this.UpdateActive(true);
+// }
+
+// updateOff = () => {
+//     this.UpdateActive(false);
+// }
+
+
+
 
   fetchBoards = () => {
     fetch("http://localhost:3000/api/board/mine", {
@@ -58,39 +81,63 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       .then((res: any) => res.json())
       .then((json: BoardResponse[]) => {
         console.log(json)
-        this.setState({ boards: json })
+        this.setState({boards: json})
         console.log(this.state.boards);
-        //this.state.boards(BoardResponse)
       });
   };
 
-  render() {
-    const { classes }: any = this.props;
 
-    return (
-      <div>
-        <Grid container spacing={1}>
-          <Grid item xs={12} sm={6} md={4} style={{ backgroundColor: 'white' }} >
+
+
+
+  render() {
+    const {classes}: any = this.props;
+
+  return (<div>
+
+
+
+        <Grid container spacing={10} style={{ backgroundColor: 'white'}} >
+
+          <Grid item xs={6} sm={6} md={4} >
+
             <BoardCreate
               fetchBoards={this.fetchBoards}
               token={this.props.token} />
           </Grid>
-          <Grid item xs={12}>
-            <BoardDisplay
-              token={this.props.token}
-              fetchBoards={this.fetchBoards}
-              boards={this.state.boards}
+
+          
+       <Grid item xs={6}>
+            <BoardDisplay 
+            token={this.props.token}
+            fetchBoards={this.fetchBoards}
+            boards={this.state.boards}
+            boardToUpdate={this.state.boardToUpdate}
             />
-          </Grid>
-        </Grid>
+       </Grid>
+
+       {/* <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}> */}
+
+       {/* {this.state.updateActive ?
+            <BoardUpdate
+              fetchBoards={this.fetchBoards}
+              token={this.props.token} 
+              boardToUpdate={this.state.boardToUpdate}
+              // updateOff={this.state.updateOff}
+              />
+        : <></>}    */}
+           {/* </Grid>  */}
+
+
+        </Grid> 
 
         {/* HERE JUST FOR TESTING */}
-        {/* <ItemHomeinBoard /> */}
-
-      </div>
-    );
+          {/* <ItemHomeinBoard /> */}
+        
+      </div>);
   }
 }
+
 
 export default withStyles(useStyles)(BoardHome);
 

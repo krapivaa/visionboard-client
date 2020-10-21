@@ -47,60 +47,59 @@ export interface BoardCreateState {
 }
 
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
+ 
+    constructor(props: BoardCreateProps) {
+        super(props);
+        this.state = {  
+            boardTitle: "",
+            description: "",
+            tags: "",
+            sharedBoard: false
+          };
+    }
+//Example from Material UI
+    // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    //     setAge(event.target.value as string);
+    //   };
 
+    // handleChange = (event: {target: {sharedBoard: boolean, value: boolean }}) => {
+    //     this.setState({sharedBoard: event.target.value});
+    //   };
 
-  constructor(props: BoardCreateProps) {
-    super(props);
-    this.state = {
-      boardTitle: "",
-      description: "",
-      tags: "",
-      sharedBoard: false
-    };
-  }
-  //Example from Material UI
-  // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-  //     setAge(event.target.value as string);
-  //   };
+      handleChange = (event: React.ChangeEvent<{ value: any }>) => {
+        this.setState({sharedBoard: event.target.value});
+      };
 
-  // handleChange = (event: {target: {sharedBoard: boolean, value: boolean }}) => {
-  //     this.setState({sharedBoard: event.target.value});
-  //   };
-
-  handleChange = (event: React.ChangeEvent<{ value: any }>) => {
-    this.setState({ sharedBoard: event.target.value });
-  };
-
-  // handleChange = (event: { target: { value: any; }; }) => {
-  //     this.setState({sharedBoard: event.target.value});
-  //   };
-
-  //handleSubmit and fetch
-  handleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
-    fetch("http://localhost:3000/api/board/create", {
-      method: 'POST',
-      body: JSON.stringify({
-        board: {
-          boardTitle: this.state.boardTitle,
-          description: this.state.description,
-          tags: this.state.tags,
-          sharedBoard: this.state.sharedBoard
-        }
-      }),
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        'Authorization': this.props.token
-      })
-    }).then((res: any) => res.json())
-      .then((json: BoardResponse) => {
-        console.log(json);
-        this.setState({
-          boardTitle: '',
-          description: '',
-          tags: '',
-          sharedBoard: false,
-
+    // handleChange = (event: { target: { value: any; }; }) => {
+    //     this.setState({sharedBoard: event.target.value});
+    //   };
+     
+      //handleSubmit and fetch
+      handleSubmit = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
+        fetch("http://localhost:3000/api/board/create", {
+            method: 'POST',
+            body: JSON.stringify({
+                board: {
+                    boardTitle: this.state.boardTitle, 
+                    description: this.state.description,
+                    tags: this.state.tags, 
+                    sharedBoard: this.state.sharedBoard
+                }}),
+            headers: new Headers({
+                'Content-Type': 'application/json',
+                'Authorization': this.props.token
+            })
+        }).then((res: any) => res.json())
+        .then((json: BoardResponse) => {
+            console.log (json);
+            this.setState ({
+                boardTitle: '',
+                description: '',
+                tags: '',
+                sharedBoard: false,
+    
+                }) 
         })
       })
       .then(this.props.fetchBoards())
@@ -147,12 +146,12 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
         <br />
 
-        <Button onClick={(event) => this.handleSubmit(event)}
-          variant="contained"
-          color="primary"
-          type="submit"
-          className={classes.button}>
-          Submit
+      <Button onClick={(event) => this.handleSubmit(event) }
+        variant="contained"
+        color="primary"
+        type="submit"
+        className={classes.button}>
+        Submit
       </Button>
 
         {/* //Example of delete/cancel
