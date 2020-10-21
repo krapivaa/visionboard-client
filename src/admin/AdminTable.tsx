@@ -1,44 +1,25 @@
 import React from 'react';
-import { Button, Card, Table } from '@material-ui/core';
+import { DataGrid, ColDef, RowsProp } from '@material-ui/data-grid';
+import EditUser from './EditUser';
+import DeleteUser from './DeleteUser';
 
-// export interface AdminTableProps {
-//     token: any;
-// }
- 
-// export interface AdminTableState {
-//     user: 
-//     firstName: string,
-//     lastName: string,
-//     email: string,
-//     password: string
-// }
- 
-// class AdminTable extends React.Component<AdminTableProps, AdminTableState> {
-//     constructor(props: AdminTableProps) {
-//         super(props);
-//         this.state = { firstName: "", lastName: "", email: "", password: "" };
+const columns: ColDef[] = [
+  { field: 'id', headerName: 'ID', width: 70 },
+  { field: 'firstName', headerName: 'First name', width: 130 },
+  { field: 'lastName', headerName: 'Last name', width: 130 },
+  { field: 'email', headerName: 'Email', width: 130 },
+  { field: 'password', headerName: 'Password', width: 130 },
+  { field: 'isAdmin', headerName: 'isAdmin', width: 130 }
+];
 
-            
-//     adminMapper = () => {
-//         return this.props.user.map((user, index) => {
-//           return (
-//             <tr key={index}>
-//             <td>{user.firsName}</td>
-//             <td>{user.lastName}</td>
-//             <td>{user.email}</td>
-//             <td>{user.password}</td>
-//             </tr>
-//           );
-//         });
-//       };
-
-//     render() { 
-//         return ( 
-//             <Table>
-//             <tbody>{this.adminMapper()}</tbody>
-//             </Table>
-//          );
-//     }
-// }
+const rows: RowsProp = [
  
-// export default AdminTable;
+];
+
+export default function DataTable() {
+  return (
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+    </div>
+  );
+}

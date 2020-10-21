@@ -30,18 +30,18 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
       },
     });
 
-export interface EditUserProps {
+export interface DeleteUserProps {
     token: any;
   }
   
-  export interface EditUserState {
+  export interface DeleteUserState {
     open: boolean;
     password: string;
     isAdmin: boolean;
   }
 
-class EditUser extends React.Component<EditUserProps, EditUserState> {
-    constructor(props: EditUserProps) {
+class DeleteUser extends React.Component<DeleteUserProps, DeleteUserState> {
+    constructor(props: DeleteUserProps) {
       super(props);
       this.state = { open: false, password: "", isAdmin: false };
     }
@@ -53,12 +53,12 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
             isAdmin: this.state.isAdmin
           },
         };
-        let editUserHeaders = new Headers();
-        editUserHeaders.append("Content-Type", "application/json");
+        let deleteUserHeaders = new Headers();
+        deleteUserHeaders.append("Content-Type", "application/json");
     
         const requestOptions = {
-          method: "PUT",
-          headers: editUserHeaders,
+          method: "DELETE",
+          headers: deleteUserHeaders,
           body: JSON.stringify(body),
         };
         fetch(urlEndpoint, requestOptions)
@@ -83,9 +83,7 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
       };
   return (
     <>
-    <button type="button" onClick={handleOpen}>
-  Edit User
-</button>
+    <button onClick={handleOpen}>Delete</button>
     <Modal
     open={this.state.open}
     onClose={handleClose}>
@@ -95,41 +93,18 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
             p={2}
             textAlign="center"
           >
-        <form>
-        <Typography>Edit User</Typography>
-        <TextField
-          id="standard-password-input"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          onChange={(e) => this.setState({ password: e.target.value })}
-        />
-        <br />
-        <br />
-        <Button
-          size="small"
-          onClick={() => this.onSubmit()}
-          variant="contained"
-        >
-          {" "}
-          Submit{" "}
-        </Button>
-        {" "}
+<>
+    <Typography>Are you sure you want to delete?</Typography>
+    {""}
 
-        <Button
-          size="small"
-          onClick={handleClose}
-          variant="contained"
-        >
-          {" "}
-          Close X{" "}
-        </Button>{" "}
-        </form>
-        </Box>
-        </Modal>
+    <Button onClick={this.onSubmit}>Submit</Button>
+    <Button onClick={handleClose}>Close X</Button>
+</>
+</Box>
+    </Modal>
         </>
   );
   }
 };
 
-export default withStyles(useStyles)(EditUser);
+export default withStyles(useStyles)(DeleteUser);
