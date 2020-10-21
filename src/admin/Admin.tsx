@@ -1,33 +1,26 @@
 import React from 'react';
 import AdminCreate from './AdminCreate';
-// import AdminTable from './AdminTable';
+import { UserResponse } from './AdminInterface';
+import AdminTable from './AdminTable';
 
 export interface AdminProps {
     token: any
 }
 
 export interface AdminState {
-    userData: UserResponse[]
+    userData: UserResponse[],
+    userId: number
 }
 
-export interface UserResponse {
-    id?: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    colorScheme?: number;
-    isAdmin?: boolean;
-    createdAt?: Date;
-    updatedAt?: Date;
-}
+
 
 class Admin extends React.Component<AdminProps, AdminState> {
     constructor(props: AdminProps) {
         super(props);
         this.state = {
-            userData: []
-        };
+            userData: [],
+            userId: 0,
+        }
     }
 
     componentDidMount() {
@@ -43,16 +36,21 @@ class Admin extends React.Component<AdminProps, AdminState> {
                 .then((userData) => {
                     console.log(userData)
                     this.setState({ userData: userData })
+                    console.log(this.state.userData)
                 })
         }
         fetchUsers()
     }
 
+    selectUser = (userId: number) => {
+        this.setState({ userId: userId })
+    }
+
     render() {
         return (
             <>
-                <AdminCreate token={this.props.token} />
-                {/* <AdminTable userData={this.state.userData} token={this.props.token} /> */}
+                {/* <AdminCreate token={this.props.token} /> */}
+                <AdminTable selectUser={this.selectUser} userData={this.state.userData} />
             </>
         );
     }
