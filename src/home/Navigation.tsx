@@ -31,7 +31,8 @@ const useStyles = (theme: Theme) => ({
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
       flexShrink: 0,
-    },
+    }
+  },
 
     appBar: {
       [theme.breakpoints.up("sm")]: {

@@ -76,7 +76,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     //   };
      
       //handleSubmit and fetch
-      handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         fetch("http://localhost:3000/api/board/create", {
             method: 'POST',
@@ -149,6 +149,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       <Button onClick={(event) => this.handleSubmit(event) }
         variant="contained"
         color="primary"
+        type="submit"
         className={classes.button}>
         Submit
       </Button>
