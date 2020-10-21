@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import { Button, Grid } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import { makeStyles } from '@material-ui/core/styles';
+import BoardUpdate from './BoardUpdate';
 
 
 
@@ -27,6 +28,8 @@ export interface BoardDisplayProps {
   
   export interface BoardDisplayState {
     boards: BoardResponse
+    boardToUpdate: object
+  
   }
 
 
@@ -53,7 +56,7 @@ const useStyles = makeStyles({
 
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
-    fetch(`http://localhost:3000/api/board/${board.id}`, {
+    fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
         method: 'DELETE',
         headers: new Headers({
             'Content-Type': 'application/json',
@@ -72,7 +75,7 @@ const useStyles = makeStyles({
    
    return ( 
 
-<Grid item xs={12}>
+<Grid item xs={6}>
     <Card className={classes.root} key={index}>
 
       <CardActionArea>
@@ -105,7 +108,7 @@ const useStyles = makeStyles({
       </CardActionArea>
       
 
-      <CardActions>
+      {/* <CardActions> */}
           {/* Shared? goes here */}
         {/* <Button size="small" color="primary">
           Share
@@ -116,18 +119,39 @@ const useStyles = makeStyles({
           Learn More
         </Button> */}
 
-        <Button size="small" color="secondary" onClick={() => {deleteBoard(board)}} >
+{/* {updateActive ? */}
+            {/* <BoardUpdate
+              fetchBoards={props.fetchBoards}
+              token={props.token} 
+              boardToUpdate={props.boardToUpdate}
+              // updateOff={this.state.updateOff}
+              /> */}
+        {/* : <></> */}
+        {/* </CardActions> */}
+
+        <CardActions>
+        <Button onClick={() => {deleteBoard(board)}} 
+        //  size="small" 
+        variant="contained"
+        color="secondary" 
+          >
           Delete
         </Button>
       </CardActions>
     </Card>
- </Grid>
+            <BoardUpdate
+              fetchBoards={props.fetchBoards}
+              token={props.token} 
+              boardToUpdate={props.boardToUpdate}
+              // updateOff={this.state.updateOff}
+              />
+   </Grid>
        );
     })
   }
  
    return (
-    <div style={{ backgroundColor: 'white'  }}>
+    <div style={{ backgroundColor: 'white'}}>
       {boardsMapping()}    
    </div>
    )
