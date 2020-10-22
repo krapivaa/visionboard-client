@@ -33,6 +33,7 @@ const useStyles = (theme: Theme) => ({
 
 export interface AuthProps {
   setToken: any;
+  setIsAdmin: any;
 }
 
 export interface AuthState {
@@ -87,9 +88,9 @@ class Auth extends React.Component<AuthProps, AuthState> {
             />
             <CardContent>
               {this.state.isLogin ? (
-                <Login setToken={this.props.setToken} />
+                <Login setToken={this.props.setToken} setIsAdmin={this.props.setIsAdmin} />
               ) : (
-                  <Signup setToken={this.props.setToken} />
+                  <Signup setToken={this.props.setToken} setIsAdmin={this.props.setIsAdmin} />
                 )}
               <Button
                 onClick={(event) => this.toggle(event)}

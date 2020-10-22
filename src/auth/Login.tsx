@@ -11,6 +11,7 @@ const useStyles = makeStyles({
 
 export interface LoginProps {
   setToken: any;
+  setIsAdmin: any;
 }
 
 export interface LoginState {
@@ -44,13 +45,14 @@ class Login extends React.Component<LoginProps, LoginState> {
       .then((res: any) => res.json())
       .then((json: ResponseLogin) => {
         this.props.setToken(json.sessionToken);
+        this.props.setIsAdmin(json.user.isAdmin)
         console.log(json);
       });
   }
 
   render() {
     return (
-      <form>       
+      <form>
         <Typography>Login</Typography>
         <TextField
           id="standard-email-input"
@@ -68,8 +70,8 @@ class Login extends React.Component<LoginProps, LoginState> {
           onChange={(e) => this.setState({ password: e.target.value })}
         />
 
-        <br/>
-        <br/>
+        <br />
+        <br />
         <Button size="small" onClick={() => this.onSubmit()} variant="contained">
           {" "}
           Submit{" "}
@@ -91,7 +93,19 @@ export interface RequestBodyLogin {
 }
 
 export interface ResponseLogin {
-  user: string;
+  user: User;
   message: string;
   sessionToken: string;
+}
+
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  colorScheme: number;
+  isAdmin: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

@@ -3,11 +3,12 @@ import React from "react";
 import "../App.css";
 import BoardCreate from "./BoardCreate";
 import BoardUpdate from "./BoardUpdate";
+import { Route, Switch } from "react-router-dom";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 // import { Container, Typography } from "@material-ui/core";
-// import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
+import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
 
@@ -32,13 +33,10 @@ export interface BoardHomeProps {
 export interface BoardHomeState {
   boards: BoardResponse[];
   updateActive: boolean;
-  boardToUpdate: object  
+  boardToUpdate: object
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
-
-
-
   constructor(props: BoardHomeProps) {
     super(props);
     this.state = {
@@ -52,23 +50,20 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     this.fetchBoards();
   }
 
-//CHANGE THOSE STATES TO CLASS
-// editUpdateBoard = (board: any) => {
-//     this.BoardToUpdate(board)
-// }
+  //CHANGE THOSE STATES TO CLASS
+  // editUpdateBoard = (board: any) => {
+  //     this.BoardToUpdate(board)
+  // }
 
 
-// TOGGLE ??
-// updateOn = () => {
-//     this.UpdateActive(true);
-// }
+  // TOGGLE ??
+  // updateOn = () => {
+  //     this.UpdateActive(true);
+  // }
 
-// updateOff = () => {
-//     this.UpdateActive(false);
-// }
-
-
-
+  // updateOff = () => {
+  //     this.UpdateActive(false);
+  // }
 
   fetchBoards = () => {
     fetch("http://localhost:3000/api/board/mine", {
@@ -79,46 +74,46 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       }),
     })
       .then((res: any) => res.json())
-      .then((json: BoardResponse[]) => {
+      .then((json: any) => {
         console.log(json)
-        this.setState({boards: json})
+        this.setState({ boards: json })
         console.log(this.state.boards);
       });
   };
 
-
-
-
-
   render() {
-    const {classes}: any = this.props;
+    const { classes }: any = this.props;
 
-  return (<div>
+    return (<div>
+      {/* <Grid container spacing={10} style={{ backgroundColor: 'white' }} > */}
+      {/* <Switch>
+        <Route exact path="/home" > */}
+      <Grid item xs={6} sm={6} md={4} >
+        <BoardCreate
+          fetchBoards={this.fetchBoards}
+          token={this.props.token} />
+      </Grid>
+      <Grid item xs={6}>
+        <BoardDisplay
+          token={this.props.token}
+          fetchBoards={this.fetchBoards}
+          boards={this.state.boards}
+          boardToUpdate={this.state.boardToUpdate}
+        />
+      </Grid>
+      {/* </Route>
+        <Route exact path="/my-board"> */}
+      <ItemHomeinBoard token={this.props.token} />
+      {/* </Route>
+      </Switch> */}
 
 
 
-        <Grid container spacing={10} style={{ backgroundColor: 'white'}} >
 
-          <Grid item xs={6} sm={6} md={4} >
 
-            <BoardCreate
-              fetchBoards={this.fetchBoards}
-              token={this.props.token} />
-          </Grid>
+      {/* <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}> */}
 
-          
-       <Grid item xs={6}>
-            <BoardDisplay 
-            token={this.props.token}
-            fetchBoards={this.fetchBoards}
-            boards={this.state.boards}
-            boardToUpdate={this.state.boardToUpdate}
-            />
-       </Grid>
-
-       {/* <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}> */}
-
-       {/* {this.state.updateActive ?
+      {/* {this.state.updateActive ?
             <BoardUpdate
               fetchBoards={this.fetchBoards}
               token={this.props.token} 
@@ -126,15 +121,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
               // updateOff={this.state.updateOff}
               />
         : <></>}    */}
-           {/* </Grid>  */}
+      {/* </Grid>  */}
 
 
-        </Grid> 
-
-        {/* HERE JUST FOR TESTING */}
-          {/* <ItemHomeinBoard /> */}
-        
-      </div>);
+      {/* </Grid> */}
+    </div>);
   }
 }
 
