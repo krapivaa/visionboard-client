@@ -23,7 +23,7 @@ const useStyles = (theme: Theme) => ({
     height: "auto",
     display: "block",
     backgroundColor: "white",
-    marginLeft: "10em"
+    marginLeft: "20em"
   },
   collage: {
     width: "auto",
