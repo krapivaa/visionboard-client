@@ -22,10 +22,11 @@ import BoardUpdate from './BoardUpdate';
 export interface BoardDisplayProps {
     token: any
     fetchBoards: any
+    boards: BoardResponse
   }
   
   export interface BoardDisplayState {
-    boards: BoardResponse
+    
     boardToUpdate: object
   
   }
@@ -47,28 +48,27 @@ const useStyles = makeStyles({
  */
 
 
- const BoardDisplay = (props:any) => {
+export default function BoardDisplay(props: any) {
 
     const classes = useStyles();
 
   //DELETE board
-  const deleteBoard = (board: BoardResponse) => {
-    fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
-        method: 'DELETE',
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': props.token
-        })
-    })
-    .then(() => props.fetchBoards())
-}
+//   const deleteBoard = (board: BoardResponse) => {
+//     fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
+//         method: 'DELETE',
+//         headers: new Headers({
+//             'Content-Type': 'application/json',
+//             'Authorization': props.token
+//         })
+//     })
+//     .then(() => props.fetchBoards())
+// }
 
   
 
 //mapping through
   const boardsMapping =() => {
-{/* {this.state.boards.map((board: BoardResponse, index:number) =>(<p key={index}>{board}</p>))} */}
-    return props.boards.map((board: BoardResponse, index: number) => {
+    return (props.boards.map((board: BoardResponse, index: number) => {
    
    return ( 
 
@@ -127,13 +127,13 @@ const useStyles = makeStyles({
         {/* </CardActions> */}
 
         <CardActions>
-        <Button onClick={() => {deleteBoard(board)}} 
+        {/* `<Button onClick={() => {deleteBoard(board)}} 
         //  size="small" 
         variant="contained"
         color="secondary" 
           >
           Delete
-        </Button>
+        </Button>` */}
       </CardActions>
     </Card>
             <BoardUpdate
@@ -146,7 +146,7 @@ const useStyles = makeStyles({
        );
     })
     
-  }
+    )}
  
    return (
     <div style={{ backgroundColor: 'white'}}>
@@ -156,4 +156,4 @@ const useStyles = makeStyles({
  }
 
   
- export default BoardDisplay;
+ 

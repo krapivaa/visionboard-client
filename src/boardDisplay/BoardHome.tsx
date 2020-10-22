@@ -79,7 +79,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       }),
     })
       .then((res: any) => res.json())
-      .then((json: BoardResponse[]) => {
+      .then((json: any) => {
         console.log(json)
         this.setState({boards: json})
         console.log(this.state.boards);

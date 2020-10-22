@@ -4,7 +4,7 @@ import Auth from "./auth/Auth";
 import Navigation from "./home/Navigation";
 import BoardHome from "./boardDisplay/BoardHome";
 import Admin from "./admin/Admin";
-import { CssBaseline } from "@material-ui/core";
+import { CssBaseline, Grid } from "@material-ui/core";
 import { Theme, withStyles } from "@material-ui/core/styles"
 import StickyFooter from "./home/Footer";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -13,7 +13,7 @@ const drawerWidth = 240;
 
 const useStyles = (theme: Theme) => ({
   root: {
-    display: 'flex',
+    display: 'inline-flex',
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -21,12 +21,13 @@ const useStyles = (theme: Theme) => ({
   },
   content: {
     [theme.breakpoints.up("sm")]: {
-      width: "100%",
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth
     },
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: "100%",
     flexGrow: 1,
     padding: theme.spacing(3),
-    marginLeft: drawerWidth,
+    marginLeft: "0",
   }
 });
 
@@ -64,15 +65,15 @@ class App extends React.Component<AppProps, AppState> {
   protectedViews = () => {
     const { classes }: any = this.props;
 
-    return this.state.token === localStorage.getItem('token') ? (
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Admin token={this.state.token} />
-
-        {/* <BoardHome token={this.state.token} /> */}
-
-      </main>
-    ) : (
+    return this.state.token === localStorage.getItem('token')
+      // && this. 
+      ? (
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Admin token={this.state.token} />
+          {/* <BoardHome token={this.state.token} /> */}
+        </main>
+      ) : (
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Auth setToken={this.setToken} />
@@ -89,7 +90,13 @@ class App extends React.Component<AppProps, AppState> {
           <CssBaseline />
           <Router>
             <Navigation token={this.state.token} window={this.state.window} clearToken={this.clearToken} />
-            {this.protectedViews()}
+            <Grid container
+              direction="row"
+              wrap="wrap"
+              justify="space-evenly"
+              alignItems="center">
+              {this.protectedViews()}
+            </Grid>
           </Router>
         </div>
         <StickyFooter />
