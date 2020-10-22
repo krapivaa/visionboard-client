@@ -51,10 +51,8 @@ class Admin extends React.Component<AdminProps, AdminState> {
     render() {
         return (
             <>
-                <AdminTable selectUser={this.selectUser} userData={this.state.userData} />           
+                <AdminTable selectUser={this.selectUser} userData={this.state.userData} userId={this.state.userId} token={this.props.token}/>           
                 <AdminCreate token={this.props.token} />
-                <EditUser token={this.props.token}/>
-                <DeleteUser token={this.props.token}/>
             </>
         );
     }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { withStyles } from "@material-ui/core/styles"
 import { Theme, createStyles } from '@material-ui/core/styles';
-import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Checkbox, Modal, TextField, Typography } from '@material-ui/core';
 
 // function rand() {
 //     return Math.round(Math.random() * 20) - 10;
@@ -34,6 +34,7 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 
 export interface EditUserProps {
     token: any;
+    userId: number;
   }
   
   export interface EditUserState {
@@ -48,7 +49,7 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
       this.state = { open: false, password: "", isAdmin: false };
     }
       onSubmit() {
-        const urlEndpoint = "http://localhost:3000/api/user/admin/update/:userId";
+        const urlEndpoint = `http://localhost:3000/api/user/admin/edit/${this.props.userId}`;
         const body = {
           user: {
             password: this.state.password,
@@ -57,21 +58,24 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
         };
         let editUserHeaders = new Headers();
         editUserHeaders.append("Content-Type", "application/json");
+        editUserHeaders.append("Authorization", this.props.token);
     
         const requestOptions = {
           method: "PUT",
           headers: editUserHeaders,
-          body: JSON.stringify(body),
+          body: JSON.stringify(body)
         };
+        console.log(this.props.token)
         fetch(urlEndpoint, requestOptions)
           .then((res: any) => res.json())
           .then((json) => {
-            this.props.token(json.sessionToken);
-            console.log(json);
+            this.handleClose()
           });
       }
 
-      
+      handleClose = () => {
+        this.setState({open: false})
+      };
 
   render(){
     const { classes }: any = this.props;
@@ -85,9 +89,11 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
       };
   return (
     <>
-    <button type="button" onClick={handleOpen}>
-  Edit User
-</button>
+    <Button style={{marginRight: "10px", marginLeft: "10px"}} type="button" size="small"
+          onClick={handleOpen}
+          variant="contained">
+            Edit User
+</Button>
     <Modal
     open={this.state.open}
     onClose={handleClose}>
@@ -105,6 +111,11 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
           type="password"
           autoComplete="current-password"
           onChange={(e) => this.setState({ password: e.target.value })}
+        />
+        {" "}
+        <Checkbox
+        
+          onChange={(e) => this.setState({ isAdmin: true})}
         />
         <br />
         <br />
