@@ -73,6 +73,7 @@ class App extends React.Component<AppProps, AppState> {
 
     return this.state.token === localStorage.getItem('token')
       && this.state.isAdmin ? (
+
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Admin token={this.state.token} />
@@ -100,6 +101,7 @@ class App extends React.Component<AppProps, AppState> {
           <CssBaseline />
           <Router>
             <Navigation token={this.state.token} isAdmin={this.state.isAdmin} window={this.state.window} clearToken={this.clearToken} />
+
             <Grid container
               direction="row"
               wrap="wrap"

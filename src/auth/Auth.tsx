@@ -23,7 +23,8 @@ const useStyles = (theme: Theme) => ({
     height: "auto",
     display: "block",
     backgroundColor: "white",
-    marginLeft: "6em"
+
+    marginLeft: "20em"
   },
   collage: {
     width: "auto",
@@ -64,20 +65,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
       // className={classes.root}
       >
         <Grid
-          item
-        >
-          <Box
-            // bgcolor="background.paper"
-            width="50%"
-            color="text.primary"
-            p={2}
-            textAlign="center"
-          >
-            <Typography>Why you should use our App?</Typography>
-            <img src={Collage} alt="Vision Board Intro Page Collage" className={classes.collage} />
-          </Box>
-        </Grid>
-        <Grid
+
           item className={classes.card}
         >
           <Card >
@@ -101,6 +89,22 @@ class Auth extends React.Component<AuthProps, AuthState> {
             </CardContent>
           </Card>
         </Grid>
+
+        <Grid
+          item
+        >
+          {/* <Box
+            // bgcolor="background.paper"
+            width="50%"
+            color="text.primary"
+            p={2}
+            textAlign="center"
+          > */}
+            <Typography>Why you should use our App?</Typography>
+            <img src={Collage} alt="Vision Board Intro Page Collage" className={classes.collage} />
+          {/* </Box> */}
+        </Grid>
+        
       </div>
     );
   }

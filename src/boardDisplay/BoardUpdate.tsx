@@ -30,8 +30,9 @@ export interface BoardUpdateState {
     updateBoardTitle: string;
     updateDescription: string;
     updateTags: string;
-    updateSharedBoard: boolean;
-    boardId: number
+    // updateSharedBoard: boolean;
+    // boardId: number
+    
     
 }
 // //DELETE board
@@ -56,8 +57,9 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
             updateBoardTitle: props.boardToUpdate.boardTitle,
             updateDescription: props.boardToUpdate.description,
             updateTags: props.boardToUpdate.tags,
-            updateSharedBoard: props.boardToUpdate.sharedBoard,
-            boardId: props.boardToUpdate.id
+            // updateSharedBoard: props.boardToUpdate.sharedBoard,
+            // boardId: props.boardToUpdate.id
+            
           };
           console.log(this.state)
     }
@@ -65,8 +67,8 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
 
    handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();  
-
-    fetch(`http://localhost:3000/api/board/update/${this.state.boardId}`, {
+console.log(this.props.boardToUpdate)
+    fetch(`http://localhost:3000/api/board/update/${this.props.boardToUpdate.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 //CHANGE
@@ -74,7 +76,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
                     boardTitle: this.state.updateBoardTitle, 
                     description: this.state.updateDescription,
                     tags: this.state.updateTags, 
-                    sharedBoard: this.state.updateSharedBoard
+                    // sharedBoard: this.state.updateSharedBoard
                 }}),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -83,15 +85,15 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
         }).then((res: any) => {
             this.props.fetchBoards()
         })
-        // .then(() => this.props.updateOff())
+        //  this.props.updateOff())
     }
 
 
 
 
-    handleChange = (event: React.ChangeEvent<{ value: any }>) => {
-        this.setState({updateSharedBoard: event.target.value});
-      };
+    // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
+    //     this.setState({updateSharedBoard: event.target.value});
+    //   };
 
 
 
@@ -102,6 +104,8 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
     const { classes }: any = this.props;
 
 
+
+
         return (<div>
 
 
@@ -110,19 +114,19 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
             </Typography>
 
 
-            <form className={classes.root}>
+            <form className={classes.root} >
 
-                <Input placeholder="Edit Title:" inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ updateBoardTitle: e.target.value})} />
+                <Input placeholder="Edit Title:"  defaultValue={this.state.updateBoardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ updateBoardTitle: e.target.value})} />
             <br />
 
-                <Input placeholder="Edit Description:" inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ updateDescription: e.target.value})}/>
+                <Input placeholder="Edit Description:" defaultValue={this.state.updateDescription}  inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ updateDescription: e.target.value})}/>
             <br />
 
-                 <Input placeholder="Edit Tags:" inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ updateTags: e.target.value})} />
+                 <Input placeholder="Edit Tags:" defaultValue={this.state.updateTags}  inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ updateTags: e.target.value})} />
 
             <br />
             {/* <FormControl className={classes.formControl}> */}
-                    <InputLabel id="boardUpdate-select-label">Edit if you want to share:</InputLabel>
+                    {/* <InputLabel id="boardUpdate-select-label">Edit if you want to share:</InputLabel>
                   
                     <Select
                         labelId="yes-no-simple-select"
@@ -132,19 +136,20 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
                     >
                  <MenuItem value='false'>No</MenuItem>
                 <MenuItem value='true' >Yes</MenuItem>         
-                </Select>
+                </Select> */}
              {/* </FormControl> */}
 
         <br />
 
-                <Button onClick={(event) => this.handleSubmit(event) }
+                <Button 
+                onClick={(e) => this.handleSubmit(e) }
                     variant="contained"
                     color="secondary"
                     className={classes.button}>
-                        Update my board
+                        Update your board info
                 </Button>
+           
             </form>
-
         </div>);
     }
 }

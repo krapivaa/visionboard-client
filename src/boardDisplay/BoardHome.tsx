@@ -82,38 +82,35 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
   };
 
   render() {
-    const { classes }: any = this.props;
 
-    return (<div>
-      {/* <Grid container spacing={10} style={{ backgroundColor: 'white' }} > */}
-      {/* <Switch>
-        <Route exact path="/home" > */}
-      <Grid item xs={6} sm={6} md={4} >
-        <BoardCreate
-          fetchBoards={this.fetchBoards}
-          token={this.props.token} />
-      </Grid>
-      <Grid item xs={6}>
-        <BoardDisplay
-          token={this.props.token}
-          fetchBoards={this.fetchBoards}
-          boards={this.state.boards}
-          boardToUpdate={this.state.boardToUpdate}
-        />
-      </Grid>
-      {/* </Route>
-        <Route exact path="/my-board"> */}
-      <ItemHomeinBoard token={this.props.token} />
-      {/* </Route>
-      </Switch> */}
+    const {classes}: any = this.props;
+
+  return (<div>
 
 
 
+        <Grid container spacing={5}  >
 
+          <Grid item xs={6} sm={6} md={4} >
 
-      {/* <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}> */}
+            <BoardCreate
+              fetchBoards={this.fetchBoards}
+              token={this.props.token} />
+          </Grid>
 
-      {/* {this.state.updateActive ?
+          
+       <Grid item xs={6} >
+            <BoardDisplay 
+            token={this.props.token}
+            fetchBoards={this.fetchBoards}
+            boards={this.state.boards}
+            boardToUpdate={this.state.boardToUpdate}
+            />
+       </Grid>
+
+       {/* <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}> */}
+
+       {/* {this.state.updateActive ?
             <BoardUpdate
               fetchBoards={this.fetchBoards}
               token={this.props.token} 
@@ -124,8 +121,9 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       {/* </Grid>  */}
 
 
-      {/* </Grid> */}
-    </div>);
+
+  
+      </div>);
   }
 }
 
