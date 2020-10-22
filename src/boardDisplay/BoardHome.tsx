@@ -97,9 +97,9 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
 
 
-        <Grid container spacing={10} style={{ backgroundColor: 'white'}} >
+        <Grid container spacing={10}  >
 
-          <Grid item xs={6} sm={6} md={4} >
+          <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}>
             <BoardCreate
               fetchBoards={this.fetchBoards}
               token={this.props.token} />

@@ -4,7 +4,6 @@ import React from 'react';
 import '../App.css';
 import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import BoardCreate from './BoardCreate';
-import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -15,8 +14,9 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Button, Grid } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
-import { makeStyles } from '@material-ui/core/styles';
 import BoardUpdate from './BoardUpdate';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
 
 
 
@@ -29,30 +29,58 @@ export interface BoardDisplayProps {
   export interface BoardDisplayState {
     boards: BoardResponse
     boardToUpdate: object
+    open: boolean
   
   }
 
 
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        maxWidth: 345,
+      },
+      media: {
+        height: 150,
+      },
+      paper: {
+        position: 'absolute',
+        width: 400,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+  }),
+);
 
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: 140,
-  },
-});
-
- /*
- We are mapping through our props.boards array.   props.boards is a reference to the boards we pulled from our back-end.  These were objects containing individual board data.  Our callback function, with params 'board' and 'index' is defined according to the callback function of all .map methods: 'board' will represent every board object in our props.boards array each time the map loop runs, while 'index' is the index number of that boardobject in the boards array.
- .map() needs a return for every element in the array we map over.  Without a return, .map() won't build a new array.
- */
 
 
  const BoardDisplay = (props:any) => {
 
     const classes = useStyles();
+    // const [modalStyle] = React.useState(getModalStyle);
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    // const body = (
+    //   <div style={modalStyle} className={classes.paper}>
+    //     <h2 id="simple-modal-title">Text in a modal</h2>
+    //     <p id="simple-modal-description">
+    //       Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+    //     </p>
+    //     <SimpleModal />
+    //   </div>
+    // );
+
+
 
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
@@ -82,20 +110,19 @@ const useStyles = makeStyles({
         <CardMedia
           className={classes.media}
           image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
-        //   title={board.boardTitle}
         />
 
         <CardContent>
 
-         <Typography variant="body2" color="textSecondary" component="p">
+         <Typography variant="h3" color="textSecondary" component="p">
            {board.boardTitle}
           </Typography>
 
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="h4" color="textSecondary" component="p">
            {board.description}
           </Typography>
 
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="h6" color="textSecondary" component="p">
            {board.tags}
           </Typography>
 
@@ -135,16 +162,55 @@ const useStyles = makeStyles({
         variant="contained"
         color="secondary" 
           >
-          Delete
+          Delete 
         </Button>
-      </CardActions>
-    </Card>
-            <BoardUpdate
+
+
+
+        <Button onClick={handleOpen}
+        type="button"
+        variant="contained"
+        color="secondary" 
+        >
+        Update
+       </Button>
+     
+     
+      <Modal 
+      //  style={modalStyle}
+       className={classes.paper}
+        open={open}
+        onClose={handleClose}
+        // aria-labelledby="simple-modal-title"
+        // aria-describedby="simple-modal-description"
+      >
+       
+      
+        
+         <BoardUpdate
               fetchBoards={props.fetchBoards}
               token={props.token} 
-              boardToUpdate={props.boardToUpdate}
+              boardToUpdate={board}
               // updateOff={this.state.updateOff}
               />
+
+        </Modal>
+
+
+      </CardActions>
+    </Card>
+
+
+
+            {/* <BoardUpdate
+              fetchBoards={props.fetchBoards}
+              token={props.token} 
+              boardToUpdate={board}
+              // updateOff={this.state.updateOff}
+              /> */}
+
+
+
    </Grid>
        );
     })
