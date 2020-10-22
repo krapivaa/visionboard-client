@@ -67,8 +67,7 @@ class App extends React.Component<AppProps, AppState> {
     return this.state.token === localStorage.getItem('token') ? (
       <main className={classes.content}>
         <div className={classes.toolbar} />
-
-        {/* <Admin token={this.state.token}/> */}
+        <Admin token={this.state.token} />
 
         <BoardHome token={this.state.token} />
 

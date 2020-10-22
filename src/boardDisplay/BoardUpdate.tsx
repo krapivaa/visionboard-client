@@ -8,13 +8,13 @@ import { BoardResponse } from './BoardInterface';
 import BoardDisplay from './BoardDisplay';
 
 const useStyles = (theme: Theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-      },
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
     },
-  
-  });
+  },
+
+});
 
 export interface BoardUpdateProps {
     boardToUpdate: any;
@@ -24,8 +24,9 @@ export interface BoardUpdateProps {
     // updateOff: boolean
    
 }
- 
+
 export interface BoardUpdateState {
+
     updateBoardTitle: string;
     updateDescription: string;
     updateTags: string;
@@ -34,7 +35,20 @@ export interface BoardUpdateState {
     
     
 }
- 
+// //DELETE board
+// const deleteBoard = (board: BoardResponse) => {
+//   fetch(`http://localhost:3000/api/board/${board.id}`, {
+//     method: 'DELETE',
+//     headers: new Headers({
+//       'Content-Type': 'application/json',
+//       'Authorization': props.token
+//     })
+//   })
+//     .then(() => props.fetchBoards())
+// }
+
+
+
 class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
 
     constructor(props: BoardUpdateProps) {
@@ -87,7 +101,8 @@ console.log(this.props.boardToUpdate)
 
     render() { 
 
-        const {classes}: any = this.props;
+    const { classes }: any = this.props;
+
 
 
 
@@ -138,6 +153,6 @@ console.log(this.props.boardToUpdate)
         </div>);
     }
 }
- 
+
 export default withStyles(useStyles)(BoardUpdate);
 

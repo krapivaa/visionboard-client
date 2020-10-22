@@ -19,8 +19,6 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
 
-
-
 export interface BoardDisplayProps {
     token: any
     fetchBoards: any
@@ -55,6 +53,7 @@ export interface BoardDisplayProps {
     },
   }),
 );
+
 
 
 
@@ -143,9 +142,9 @@ export interface BoardDisplayProps {
         {/* <Button size="small" color="primary">
           Share
         </Button> */}
-        
-        {/* //Go inside the board goes here */}
-        {/* <Button size="small" color="primary">
+
+              {/* //Go inside the board goes here */}
+              {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
 
@@ -218,6 +217,7 @@ export interface BoardDisplayProps {
    </Grid>
        );
     })
+    )
   }
  
    return (
@@ -229,11 +229,3 @@ export interface BoardDisplayProps {
 
   
  export default BoardDisplay;
-
-
-
-
-      
-
-
-         

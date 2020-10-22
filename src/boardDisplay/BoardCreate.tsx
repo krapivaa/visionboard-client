@@ -6,7 +6,7 @@ import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
 import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import DeleteIcon  from '@material-ui/icons/Delete';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
 
 const useStyles = (theme: Theme) => ({
@@ -18,15 +18,17 @@ const useStyles = (theme: Theme) => ({
       padding: 5,
       border: '2px solid brown',
 
+
     },
-    // formControl: {
-    //     margin: theme.spacing(1),
-    //     minWidth: 120,
-    //   },
-    //   selectEmpty: {
-    //     marginTop: theme.spacing(2),
-    //   },
-  });
+  },
+  // formControl: {
+  //     margin: theme.spacing(1),
+  //     minWidth: 120,
+  //   },
+  //   selectEmpty: {
+  //     marginTop: theme.spacing(2),
+  //   },
+});
 
 /*//TODO
 USE BOARD INTERFACE
@@ -38,10 +40,10 @@ Have return object in console
  */
 
 export interface BoardCreateProps {
- token: any
- fetchBoards: any
+  token: any
+  fetchBoards: any
 }
- 
+
 export interface BoardCreateState {
     boardTitle: string;
     description: string;
@@ -49,10 +51,9 @@ export interface BoardCreateState {
     // sharedBoard: boolean;
    
 }
- 
-class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
-   
 
+class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
+ 
     constructor(props: BoardCreateProps) {
         super(props);
         this.state = {  
@@ -110,16 +111,18 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
 
 
-    render() { 
 
-    const {classes}: any = this.props;
+  render() {
+
+    const { classes }: any = this.props;
 
         return ( <div >  
 
                  
     <form className={classes.root} noValidate autoComplete="off">
 
-    <Typography variant="h5" color="textSecondary" component="h2">
+
+      <Typography variant="h5" color="textSecondary" component="h2">
         Create your Board!
     </Typography>
 
@@ -132,6 +135,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
    
       {/* <FormControl className={classes.formControl}> */}
         {/* <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
+
         <Select
           labelId="yes-no-simple-select"
           id="yes-no select"
@@ -147,6 +151,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         </Select> */}
       {/* </FormControl> */}
 
+
         <br />
 
       <Button onClick={(event) => this.handleSubmit(event) }
@@ -157,10 +162,10 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         Submit
       </Button>
 
-    {/* //Example of delete/cancel
+        {/* //Example of delete/cancel
       <Button outline color="secondary" type="cancel" className="buttonCancelUpdate"onClick={ () => props.toggle('1')}>Cancel</Button> */}
 
-      {/* <Button 
+        {/* <Button 
         variant="contained"
         color="secondary"
         className={classes.button}
@@ -169,10 +174,10 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       </Button> */}
 
 
-        </form>
+      </form>
 
-        </div> );
-    }
+    </div>);
+  }
 }
- 
+
 export default withStyles(useStyles)(BoardCreate);
