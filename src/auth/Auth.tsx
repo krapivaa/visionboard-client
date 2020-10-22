@@ -4,14 +4,19 @@ import { withStyles } from "@material-ui/core/styles"
 import Login from "./Login";
 import Signup from "./Signup";
 import Pin from "../assets/pushpin-147918_960_720.webp"
+import Collage from "../assets/VisionBoardInspo.png"
 
 
 const useStyles = (theme: Theme) => ({
   root: {
-    maxWidth: 345,
+    maxWidth: "80%",
   },
-  media: {
-    height: 100,
+  card: {
+    [theme.breakpoints.up("sm")]: {
+      width: "30%",
+      height: "auto"
+    },
+    width: "auto"
   },
   img: {
     width: "5em",
@@ -19,6 +24,10 @@ const useStyles = (theme: Theme) => ({
     display: "block",
     backgroundColor: "white",
     marginLeft: "6em"
+  },
+  collage: {
+    width: "auto",
+    height: "75vh"
   }
 });
 
@@ -50,19 +59,26 @@ class Auth extends React.Component<AuthProps, AuthState> {
     const { classes }: any = this.props;
 
     return (
-      <Grid container spacing={4}>
-        <Grid item md={4}></Grid>
-        <Grid item xs={12} md={6}>
+      <div
+      // className={classes.root}
+      >
+        <Grid
+          item
+        >
           <Box
-            bgcolor="background.paper"
+            // bgcolor="background.paper"
+            width="50%"
             color="text.primary"
             p={2}
             textAlign="center"
           >
             <Typography>Why you should use our App?</Typography>
+            <img src={Collage} alt="Vision Board Intro Page Collage" className={classes.collage} />
           </Box>
         </Grid>
-        <Grid item xs={4} md={3}>
+        <Grid
+          item className={classes.card}
+        >
           <Card >
             <CardMedia
               className={classes.img}
@@ -84,7 +100,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
             </CardContent>
           </Card>
         </Grid>
-      </Grid>
+      </div>
     );
   }
 }
