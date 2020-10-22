@@ -12,6 +12,7 @@ export interface AdminProps {
 export interface AdminState {
     userData: UserResponse[],
     userId: number
+    isAdmin: boolean | undefined
 }
 
 
@@ -22,37 +23,38 @@ class Admin extends React.Component<AdminProps, AdminState> {
         this.state = {
             userData: [],
             userId: 0,
+            isAdmin: false
         }
     }
 
     componentDidMount() {
-        const fetchUsers = () => {
-            fetch("http://localhost:3000/api/user/admin/view-all", {
-                method: "GET",
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    "Authorization": this.props.token
-                })
-            })
-                .then((res: any) => res.json())
-                .then((userData) => {
-                    console.log(userData)
-                    this.setState({ userData: userData })
-                    console.log(this.state.userData)
-                })
-        }
-        fetchUsers()
+    
+        this.fetchUsers()
     }
-
-    selectUser = (userId: number) => {
-        this.setState({ userId: userId })
+    fetchUsers = () => {
+        fetch("http://localhost:3000/api/user/admin/view-all", {
+            method: "GET",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Authorization": this.props.token
+            })
+        })
+            .then((res: any) => res.json())
+            .then((userData) => {
+                console.log(userData)
+                this.setState({ userData: userData })
+                console.log(this.state.userData)
+            })
+    }
+    selectUser = (row: UserResponse) => {
+        console.log(row)
+        this.setState({ userId: row.id, isAdmin: row.isAdmin })
     }
 
     render() {
         return (
             <>
-                <AdminTable selectUser={this.selectUser} userData={this.state.userData} userId={this.state.userId} token={this.props.token}/>           
-                <AdminCreate token={this.props.token} />
+                <AdminTable selectUser={this.selectUser} userData={this.state.userData} userId={this.state.userId} token={this.props.token} fetchUsers={this.fetchUsers} isAdmin={this.state.isAdmin}/>           
             </>
         );
     }

@@ -34,6 +34,7 @@ import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
 export interface DeleteUserProps {
     token: any;
     userId: number
+    fetchUsers: any
 }
 
  

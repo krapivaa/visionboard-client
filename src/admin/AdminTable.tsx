@@ -36,6 +36,7 @@ import Paper from '@material-ui/core/Paper';
 import { Button, Checkbox, Toolbar, Typography } from '@material-ui/core';
 import EditUser from './EditUser'
 import DeleteUser from './DeleteUser';
+import AdminCreate from './AdminCreate';
 
 const useStyles = makeStyles({
     table: {
@@ -56,7 +57,7 @@ export default function AdminTable(props: any) {
                 <TableRow key={row.id}>
                     <TableCell padding="checkbox">
                         <Checkbox
-                            onChange={() => { props.selectUser(row.id) }}
+                            onChange={() => { props.selectUser(row) }}
                         // checked={isItemSelected}
                         // inputProps={{ 'aria-labelledby': labelId }}
                         />
@@ -78,8 +79,9 @@ export default function AdminTable(props: any) {
         <div>
             <Toolbar component={Paper} className={classes.toolBar}>
                 <Typography>Vision Board Users</Typography>
-                <EditUser token={props.token} userId={props.userId}/>
-                <DeleteUser token={props.token} userId={props.userId}/>
+                <AdminCreate token={props.token} fetchUsers={props.fetchUsers}/>
+                <EditUser token={props.token} userId={props.userId} fetchUsers={props.fetchUsers} isAdmin={props.isAdmin}/>
+                <DeleteUser token={props.token} userId={props.userId} fetchUsers={props.fetchUsers}/>
             </Toolbar>
             <TableContainer component={Paper} className={classes.table} aria-label="simple table">
                 <Table >
