@@ -3,6 +3,7 @@ import React from "react";
 
 export interface SignupProps {
   setToken: any;
+  setIsAdmin: any;
 }
 
 export interface SignupState {
@@ -10,12 +11,13 @@ export interface SignupState {
   lastName: string;
   email: string;
   password: string;
+  isAdmin: boolean | undefined;
 }
 
 class Signup extends React.Component<SignupProps, SignupState> {
   constructor(props: SignupProps) {
     super(props);
-    this.state = { firstName: "", lastName: "", email: "", password: "" };
+    this.state = { firstName: "", lastName: "", email: "", password: "", isAdmin: undefined };
   }
 
   onSubmit() {
@@ -40,6 +42,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
       .then((res: any) => res.json())
       .then((json: ResponseSignup) => {
         this.props.setToken(json.sessionToken);
+        this.props.setIsAdmin(json.user.isAdmin)
         console.log(json);
       });
   }
@@ -109,7 +112,19 @@ export interface RequestBodySignup {
 }
 
 export interface ResponseSignup {
-  user: string;
+  user: User;
   message: string;
   sessionToken: string;
+}
+
+export interface User {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  colorScheme: number;
+  isAdmin: boolean;
+  createdAt: Date;
+  updatedAt: Date;
 }

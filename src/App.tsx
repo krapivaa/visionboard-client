@@ -35,13 +35,14 @@ export interface AppProps { }
 
 export interface AppState {
   token: any;
+  isAdmin: boolean | undefined;
   window: number;
 }
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { token: "", window: window.innerWidth };
+    this.state = { token: "", isAdmin: undefined, window: window.innerWidth };
   }
 
 
@@ -49,6 +50,11 @@ class App extends React.Component<AppProps, AppState> {
     if (localStorage.getItem('token')) {
       this.setState({ token: localStorage.getItem('token') })
     }
+  }
+
+  setIsAdmin = (newIsAdmin: any) => {
+    this.setState({ isAdmin: newIsAdmin })
+    console.log("ADMIN??: ", this.state.isAdmin)
   }
 
   setToken = (newToken: any) => {
@@ -66,19 +72,24 @@ class App extends React.Component<AppProps, AppState> {
     const { classes }: any = this.props;
 
     return this.state.token === localStorage.getItem('token')
-      // && this. 
-      ? (
+      && this.state.isAdmin ? (
+
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Admin token={this.state.token} />
-          {/* <BoardHome token={this.state.token} /> */}
         </main>
-      ) : (
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Auth setToken={this.setToken} />
-        </main>
-      )
+      ) : this.state.token === localStorage.getItem('token')
+        ? (
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <BoardHome token={this.state.token} />
+          </main>
+        ) : (
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Auth setToken={this.setToken} setIsAdmin={this.setIsAdmin} />
+          </main>
+        )
   }
 
   render() {
@@ -89,7 +100,8 @@ class App extends React.Component<AppProps, AppState> {
         <div className="App">
           <CssBaseline />
           <Router>
-            <Navigation token={this.state.token} window={this.state.window} clearToken={this.clearToken} />
+            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} window={this.state.window} clearToken={this.clearToken} />
+
             <Grid container
               direction="row"
               wrap="wrap"

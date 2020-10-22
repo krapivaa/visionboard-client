@@ -19,6 +19,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
 
+
 export interface BoardDisplayProps {
     token: any
     fetchBoards: any
@@ -57,9 +58,6 @@ export interface BoardDisplayProps {
 );
 
 
-
-
-
 export default function BoardDisplay(props: any) {
 
     const classes = useStyles();
@@ -85,20 +83,20 @@ export default function BoardDisplay(props: any) {
     // );
 
 
-
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
     fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
-        method: 'DELETE',
-        headers: new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': props.token
-        })
+      method: 'DELETE',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': props.token
+      })
     })
-    .then(() => props.fetchBoards())
-}
+      .then(() => props.fetchBoards())
+  }
 
-  
+
+
 
 //mapping through
   const boardsMapping =() => {
@@ -106,8 +104,9 @@ export default function BoardDisplay(props: any) {
    
    return ( 
 
-<Grid item xs={6}>
-    <Card className={classes.root} key={index}>
+        <Grid item xs={6}>
+          <Card className={classes.root} key={index}>
+
 
       <CardActionArea>
         <CardMedia
@@ -115,7 +114,8 @@ export default function BoardDisplay(props: any) {
           image="https://thumbs.dreamstime.com/b/dream-big-set-goals-take-action-words-letter-motivational-business-typography-quotes-concept-142734995.jpg"
         />
 
-        <CardContent>
+              <CardContent>
+
 
          <Typography variant="h3" color="textSecondary" component="p">
            {board.boardTitle}
@@ -129,33 +129,26 @@ export default function BoardDisplay(props: any) {
            {board.tags}
           </Typography>
 
-          {/* <Typography variant="body2" color="textSecondary" component="p">
-           {board.sharedBoard}
-          </Typography> */}
+              </CardContent>
 
-        </CardContent>
+            </CardActionArea>
 
-      </CardActionArea>
-      
 
-      {/* <CardActions> */}
-          {/* Shared? goes here */}
-        {/* <Button size="small" color="primary">
-          Share
-        </Button> */}
+            {/* <CardActions> */}
 
-              {/* //Go inside the board goes here */}
-              {/* <Button size="small" color="primary">
+            {/* //Go inside the board goes here */}
+            {/* <Button size="small" color="primary">
           Learn More
         </Button> */}
 
-{/* {updateActive ? */}
+            {/* {updateActive ? */}
             {/* <BoardUpdate
               fetchBoards={props.fetchBoards}
               token={props.token} 
               boardToUpdate={props.boardToUpdate}
               // updateOff={this.state.updateOff}
               /> */}
+
         {/* : <></> */}
         {/* </CardActions> */}
 

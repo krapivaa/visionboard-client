@@ -23,6 +23,7 @@ const useStyles = (theme: Theme) => ({
     height: "auto",
     display: "block",
     backgroundColor: "white",
+
     marginLeft: "20em"
   },
   collage: {
@@ -33,6 +34,7 @@ const useStyles = (theme: Theme) => ({
 
 export interface AuthProps {
   setToken: any;
+  setIsAdmin: any;
 }
 
 export interface AuthState {
@@ -63,6 +65,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
       // className={classes.root}
       >
         <Grid
+
           item className={classes.card}
         >
           <Card >
@@ -73,9 +76,9 @@ class Auth extends React.Component<AuthProps, AuthState> {
             />
             <CardContent>
               {this.state.isLogin ? (
-                <Login setToken={this.props.setToken} />
+                <Login setToken={this.props.setToken} setIsAdmin={this.props.setIsAdmin} />
               ) : (
-                  <Signup setToken={this.props.setToken} />
+                  <Signup setToken={this.props.setToken} setIsAdmin={this.props.setIsAdmin} />
                 )}
               <Button
                 onClick={(event) => this.toggle(event)}
@@ -86,6 +89,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
             </CardContent>
           </Card>
         </Grid>
+
         <Grid
           item
         >

@@ -32,7 +32,7 @@ export interface ItemHomeinBoardState {
 class ItemHomeinBoard extends React.Component<
   ItemHomeinBoardProps,
   ItemHomeinBoardState
-> {
+  > {
   constructor(props: ItemHomeinBoardProps) {
     super(props);
     this.state = {
@@ -56,7 +56,7 @@ class ItemHomeinBoard extends React.Component<
       .then((res: any) => res.json())
       .then((json: ItemResponse) => {
         console.log(json);
-  
+
       });
   };
 
@@ -69,15 +69,13 @@ class ItemHomeinBoard extends React.Component<
     return (
 
       <div>
-        <Container maxWidth="sm">
-          <ItemCreate
-            fetchItems={this.fetchItems}
-            token={this.props.token}
-            
-          />
+        <ItemCreate
+          fetchItems={this.fetchItems}
+          token={this.props.token}
 
-          <ItemDisplay />
-        </Container>
+        />
+
+        <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} />
       </div>
     );
   }
