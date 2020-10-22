@@ -105,6 +105,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 tags: '',
                 // sharedBoard: false, 
                 }) 
+
               this.props.fetchBoards()    
         })    
     }

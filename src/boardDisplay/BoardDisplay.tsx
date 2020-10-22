@@ -22,9 +22,11 @@ import Modal from '@material-ui/core/Modal';
 export interface BoardDisplayProps {
     token: any
     fetchBoards: any
+    boards: BoardResponse
   }
   
   export interface BoardDisplayState {
+
     // boards: BoardResponse
     // boardToUpdate: object
     // open: boolean
@@ -58,7 +60,7 @@ export interface BoardDisplayProps {
 
 
 
- const BoardDisplay = (props:any) => {
+export default function BoardDisplay(props: any) {
 
     const classes = useStyles();
     // const [modalStyle] = React.useState(getModalStyle);
@@ -100,8 +102,7 @@ export interface BoardDisplayProps {
 
 //mapping through
   const boardsMapping =() => {
-{/* {this.state.boards.map((board: BoardResponse, index:number) =>(<p key={index}>{board}</p>))} */}
-    return props.boards.map((board: BoardResponse, index: number) => {
+    return (props.boards.map((board: BoardResponse, index: number) => {
    
    return ( 
 
@@ -159,6 +160,7 @@ export interface BoardDisplayProps {
         {/* </CardActions> */}
 
         <CardActions>
+
         <Button onClick={() => {deleteBoard(board)}} 
          size="small" 
         variant="outlined"
@@ -217,8 +219,8 @@ export interface BoardDisplayProps {
    </Grid>
        );
     })
-    )
-  }
+    
+    )}
  
    return (
     <div>
@@ -228,4 +230,4 @@ export interface BoardDisplayProps {
  }
 
   
- export default BoardDisplay;
+ 
