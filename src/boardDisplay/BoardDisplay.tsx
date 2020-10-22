@@ -27,9 +27,9 @@ export interface BoardDisplayProps {
   }
   
   export interface BoardDisplayState {
-    boards: BoardResponse
-    boardToUpdate: object
-    open: boolean
+    // boards: BoardResponse
+    // boardToUpdate: object
+    // open: boolean
   
   }
 
@@ -37,7 +37,10 @@ export interface BoardDisplayProps {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
-        maxWidth: 345,
+        
+        maxWidth: 450,
+        padding: 5,
+        margin: 10,
       },
       media: {
         height: 150,
@@ -109,7 +112,7 @@ export interface BoardDisplayProps {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://www.mysticbutterfly.co.uk/wp-content/uploads/2018/04/AdobeStock_75917970.jpeg"
+          image="https://thumbs.dreamstime.com/b/dream-big-set-goals-take-action-words-letter-motivational-business-typography-quotes-concept-142734995.jpg"
         />
 
         <CardContent>
@@ -158,8 +161,8 @@ export interface BoardDisplayProps {
 
         <CardActions>
         <Button onClick={() => {deleteBoard(board)}} 
-        //  size="small" 
-        variant="contained"
+         size="small" 
+        variant="outlined"
         color="secondary" 
           >
           Delete 
@@ -168,8 +171,9 @@ export interface BoardDisplayProps {
 
 
         <Button onClick={handleOpen}
+        size="small" 
         type="button"
-        variant="contained"
+        variant="outlined"
         color="secondary" 
         >
         Update
@@ -217,7 +221,7 @@ export interface BoardDisplayProps {
   }
  
    return (
-    <div style={{ backgroundColor: 'white'}}>
+    <div>
       {boardsMapping()}    
    </div>
    )

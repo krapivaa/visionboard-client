@@ -12,8 +12,12 @@ import { Description } from '@material-ui/icons';
 const useStyles = (theme: Theme) => ({
     root: {
       '& > *': {
-        margin: theme.spacing(1),
+        margin: theme.spacing(2),
       },
+      backgroundColor: 'white',
+      padding: 5,
+      border: '2px solid brown',
+
     },
     // formControl: {
     //     margin: theme.spacing(1),
@@ -110,14 +114,15 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
     const {classes}: any = this.props;
 
-        return ( <div>  
+        return ( <div >  
+
+                 
+    <form className={classes.root} noValidate autoComplete="off">
 
     <Typography variant="h5" color="textSecondary" component="h2">
         Create your Board!
     </Typography>
-            
-            
-    <form className={classes.root} noValidate autoComplete="off">
+
      <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
 <br />
       <Input placeholder="Description"  value={this.state.description}  inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ description: e.target.value})}/>

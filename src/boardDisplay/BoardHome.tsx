@@ -97,15 +97,15 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
 
 
-        <Grid container spacing={10}  >
+        <Grid container spacing={5}  >
 
-          <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}>
+          <Grid item xs={6} sm={6} md={4} >
             <BoardCreate
               fetchBoards={this.fetchBoards}
               token={this.props.token} />
           </Grid>
           
-       <Grid item xs={6}>
+       <Grid item xs={6} >
             <BoardDisplay 
             token={this.props.token}
             fetchBoards={this.fetchBoards}
@@ -129,9 +129,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
         </Grid> 
 
-        {/* HERE JUST FOR TESTING */}
-          {/* <ItemHomeinBoard /> */}
-        
+  
       </div>);
   }
 }
