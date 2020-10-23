@@ -21,9 +21,10 @@ import HomeIcon from "@material-ui/icons/Home";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
-import { Omit } from '@material-ui/types';
+import { Link, Route, useRouteMatch, Switch } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles";
+import { BoardResponse } from "../boardDisplay/BoardInterface";
+import ItemHomeinBoard from "../itemDisplay/ItemHomeinBoard";
 
 const drawerWidth = 240;
 
@@ -60,25 +61,23 @@ const useStyles = (theme: Theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  logoutButton: {
+    marginTop: "2em"
+  }
 });
 
 export interface NavigationProps {
   classes: any;
   token: any;
   isAdmin: boolean | undefined;
-  window: number;
   clearToken: any;
+  boards: BoardResponse[];
+  boardSelected: {};
 }
 
 export interface NavigationState {
   mobileOpen: boolean;
   nestedMenuOpen: boolean;
-}
-
-export interface ListItemLinkProps {
-  icon?: React.ReactElement;
-  primary: string;
-  to: string;
 }
 
 class Navigation extends React.Component<NavigationProps, NavigationState> {
@@ -96,57 +95,78 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
     this.state.nestedMenuOpen ? this.setState({ nestedMenuOpen: false }) : this.setState({ nestedMenuOpen: true })
   };
 
-  // ListItemLink(props: ListItemLinkProps) {
-  //   const { primary, to } = props;
+  boardListMapping = () => {
+    return (this.props.boards.map((board: BoardResponse, index: number) => {
+      // let match = useRouteMatch();
+      // var itemRouteUrl = `${match.url}/${board.id}`
+      var itemRouteUrl = `/display-board-contents/${board.id}`
+      console.log(itemRouteUrl)
+      return (
+        <li>
+          <ListItem button
+            // className={classes.nested}
+            key={index}
+          >
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <Link to={itemRouteUrl}>
+                {board.boardTitle}
+              </Link>
+            </ListItemText>
+          </ListItem>
+        </li>
+      );
+    })
+    )
+  }
 
-  //   const renderLink = React.useMemo(
-  //     () =>
-  //       React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
-  //         <RouterLink to={to} ref={ref} {...itemProps} />
-  //       )),
-  //     [to],
-  //   );
+  // itemSwitch = () => {
+  //   console.log(this.props.boardSelected)
+  //   let match = useRouteMatch();
+  //   let itemRoutePath = `${match.path}/${this.props.boardSelected}`
 
   //   return (
-  //     <li>
-  //       <ListItem button component={renderLink}>
-  //         <ListItemIcon>
-  //           <DashboardIcon/>
-  //         </ListItemIcon>
-  //         <ListItemText primary={primary} />
-  //       </ListItem>
-  //     </li>
-  //   );
+  //     <Switch>
+  //       <Route path={itemRoutePath} >
+  //         <ItemHomeinBoard token={this.props.token} boardSelected={this.props.boardSelected} />
+  //       </Route>
+  //     </Switch>
+  //   )
   // }
 
   render() {
     const { classes }: any = this.props;
-    // const { window }: any = this.props;
-
     const drawer = (
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List component="nav" >
-          <ListItem button onClick={this.handleMenuClick} >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText>My Boards</ListItemText>
-            {this.state.nestedMenuOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={this.state.nestedMenuOpen} timeout="auto" unmountOnExit >
-            <List component="div" disablePadding >
-              <ListItem button className={classes.nested} >
+        {!this.props.isAdmin ? (
+          <>
+            <List component="nav" >
+              <ListItem button onClick={this.handleMenuClick} >
                 <ListItemIcon>
-                  <DashboardIcon />
+                  <HomeIcon />
                 </ListItemIcon>
-                <ListItemText>Board 1</ListItemText>
+                <ListItemText>
+                  <Link to="/home">
+                    My Boards
+                  </Link>
+                </ListItemText>
+                {this.state.nestedMenuOpen ? <ExpandLess /> : <ExpandMore />}
               </ListItem>
+              <Collapse in={this.state.nestedMenuOpen} timeout="auto" unmountOnExit >
+                <List component="div" disablePadding >
+                  {this.boardListMapping()}
+                </List>
+              </Collapse>
             </List>
-          </Collapse>
-        </List>
-        <Button variant="contained" color="primary" onClick={this.props.clearToken} >
+            {/* {this.itemSwitch()} */}
+          </>
+        ) : <></>
+        }
+        <Button variant="contained" className={classes.logoutButton} onClick={this.props.clearToken} >
           Logout
         </Button>
       </div>
@@ -167,13 +187,12 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              Vision Board
+              <Link to="/home">Vision Board</Link>
             </Typography>
           </Toolbar>
         </AppBar>
         <>
           {!this.props.token
-            // || this.props.isAdmin 
             ? (
               <></>
             ) : (
