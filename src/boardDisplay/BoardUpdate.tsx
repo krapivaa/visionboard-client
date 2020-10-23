@@ -50,6 +50,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
     }
 
 
+
    handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();  
 console.log(this.props.boardToUpdate)
@@ -71,7 +72,7 @@ console.log(this.props.boardToUpdate)
         })
     }
 
-
+    
 
     // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
     //     this.setState({updateSharedBoard: event.target.value});
@@ -123,9 +124,10 @@ console.log(this.props.boardToUpdate)
                     variant="contained"
                     color="secondary"
                     className={classes.button}>
-                        Update your board info
+                        Update
                 </Button>
-           
+
+          
             </form>
         </div>);
     }

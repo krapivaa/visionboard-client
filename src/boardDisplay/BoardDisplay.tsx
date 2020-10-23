@@ -12,7 +12,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Button, Fab, Grid } from '@material-ui/core';
+import { Box, Button, Fab, Grid } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -164,13 +164,26 @@ export default function BoardDisplay(props: any) {
         onClose={handleClose}
         // aria-labelledby="simple-modal-title"
         // aria-describedby="simple-modal-description"
+
       >
-              
+
+     <Box>
          <BoardUpdate
               fetchBoards={props.fetchBoards}
               token={props.token} 
               boardToUpdate={board}
               />
+
+      <Button
+           onClick={handleClose}
+           size="small"
+            variant="contained"
+            color="primary"
+        >
+          Close 
+        </Button>      
+      </Box>
+   
 
         </Modal>
 
