@@ -10,17 +10,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
 
 const useStyles = (theme: Theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(2),
-      },
-      backgroundColor: 'white',
-      padding: 5,
-      border: '2px solid brown',
-
-
+  root: {
+    '& > *': {
+      margin: theme.spacing(2),
     },
+    backgroundColor: 'white',
+    padding: 5,
+    border: '2px solid brown',
+
+
   },
+
   // formControl: {
   //     margin: theme.spacing(1),
   //     minWidth: 120,
@@ -45,70 +45,71 @@ export interface BoardCreateProps {
 }
 
 export interface BoardCreateState {
-    boardTitle: string;
-    description: string;
-    tags: string;
-    // sharedBoard: boolean;
-   
+  boardTitle: string;
+  description: string;
+  tags: string;
+  // sharedBoard: boolean;
+
 }
 
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
- 
-    constructor(props: BoardCreateProps) {
-        super(props);
-        this.state = {  
-            boardTitle: "",
-            description: "",
-            tags: "",
-            // sharedBoard: false
-          };
-    }
-//Example from Material UI
-    // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    //     setAge(event.target.value as string);
-    //   };
 
-    // handleChange = (event: {target: {sharedBoard: boolean, value: boolean }}) => {
-    //     this.setState({sharedBoard: event.target.value});
-    //   };
+  constructor(props: BoardCreateProps) {
+    super(props);
+    this.state = {
+      boardTitle: "",
+      description: "",
+      tags: "",
+      // sharedBoard: false
+    };
+  }
+  //Example from Material UI
+  // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  //     setAge(event.target.value as string);
+  //   };
 
-      // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
-      //   this.setState({sharedBoard: event.target.value});
-      // };
+  // handleChange = (event: {target: {sharedBoard: boolean, value: boolean }}) => {
+  //     this.setState({sharedBoard: event.target.value});
+  //   };
 
-    // handleChange = (event: { target: { value: any; }; }) => {
-    //     this.setState({sharedBoard: event.target.value});
-    //   };
-     
-      //handleSubmit and fetch
-      handleSubmit = (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        fetch("http://localhost:3000/api/board/create", {
-            method: 'POST',
-            body: JSON.stringify({
-                board: {
-                    boardTitle: this.state.boardTitle, 
-                    description: this.state.description,
-                    tags: this.state.tags, 
-                    // sharedBoard: this.state.sharedBoard
-                }}),
-            headers: new Headers({
-                'Content-Type': 'application/json',
-                'Authorization': this.props.token
-            })
-        }).then((res: any) => res.json())
-        .then((json: BoardResponse) => {
-            console.log (json);
-            this.setState ({
-                boardTitle: '',
-                description: '',
-                tags: '',
-                // sharedBoard: false, 
-                }) 
+  // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
+  //   this.setState({sharedBoard: event.target.value});
+  // };
 
-              this.props.fetchBoards()    
-        })    
-    }
+  // handleChange = (event: { target: { value: any; }; }) => {
+  //     this.setState({sharedBoard: event.target.value});
+  //   };
+
+  //handleSubmit and fetch
+  handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/api/board/create", {
+      method: 'POST',
+      body: JSON.stringify({
+        board: {
+          boardTitle: this.state.boardTitle,
+          description: this.state.description,
+          tags: this.state.tags,
+          // sharedBoard: this.state.sharedBoard
+        }
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': this.props.token
+      })
+    }).then((res: any) => res.json())
+      .then((json: BoardResponse) => {
+        console.log(json);
+        this.setState({
+          boardTitle: '',
+          description: '',
+          tags: '',
+          // sharedBoard: false, 
+        })
+
+        this.props.fetchBoards()
+      })
+  }
 
 
 
@@ -117,24 +118,24 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
     const { classes }: any = this.props;
 
-        return ( <div >  
-
-                 
-    <form className={classes.root} noValidate autoComplete="off">
+    return (<div >
 
 
-      <Typography variant="h5" color="textSecondary" component="h2">
-        Create your Board!
+      <form className={classes.root} noValidate autoComplete="off">
+
+
+        <Typography variant="h5" color="textSecondary" component="h2">
+          Create your Board!
     </Typography>
 
-     <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
-<br />
-      <Input placeholder="Description"  value={this.state.description}  inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ description: e.target.value})}/>
-<br />
-      <Input placeholder="Tags"  value={this.state.tags}   inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
+        <Input placeholder="Title" value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value })} />
+        <br />
+        <Input placeholder="Description" value={this.state.description} inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ description: e.target.value })} />
+        <br />
+        <Input placeholder="Tags" value={this.state.tags} inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value })} />
 
-   
-      {/* <FormControl className={classes.formControl}> */}
+
+        {/* <FormControl className={classes.formControl}> */}
         {/* <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
 
         <Select
@@ -146,21 +147,21 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         {/* <MenuItem value="">
             <em></em>
           </MenuItem> */}
-            {/* value={false} */}
-          {/* <MenuItem value='false'>No</MenuItem>
+        {/* value={false} */}
+        {/* <MenuItem value='false'>No</MenuItem>
           <MenuItem value='true' >Yes</MenuItem>         
         </Select> */}
-      {/* </FormControl> */}
+        {/* </FormControl> */}
 
 
         <br />
 
-      <Button onClick={(event) => this.handleSubmit(event) }
-        variant="contained"
-        color="primary"
-        type="submit"
-        className={classes.button}>
-        Submit
+        <Button onClick={(event) => this.handleSubmit(event)}
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={classes.button}>
+          Submit
       </Button>
 
         {/* //Example of delete/cancel

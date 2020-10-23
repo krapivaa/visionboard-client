@@ -28,6 +28,7 @@ const useStyles = (theme: Theme) => ({
 
 export interface BoardHomeProps {
   token: any;
+  setBoards: any;
 }
 
 export interface BoardHomeState {
@@ -78,52 +79,38 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
         console.log(json)
         this.setState({ boards: json })
         console.log(this.state.boards);
+        this.props.setBoards(json)
       });
   };
 
   render() {
 
-    const {classes}: any = this.props;
+    const { classes }: any = this.props;
 
-  return (<div>
-
-
-
-        <Grid container spacing={5}  >
-
-          <Grid item xs={6} sm={6} md={4} >
-
-            <BoardCreate
-              fetchBoards={this.fetchBoards}
-              token={this.props.token} />
-          </Grid>
-
-          
-       <Grid item xs={6} >
-            <BoardDisplay 
-            token={this.props.token}
-            fetchBoards={this.fetchBoards}
-            boards={this.state.boards}
-            boardToUpdate={this.state.boardToUpdate}
-            />
-       </Grid>
-
-       {/* <Grid item xs={6} sm={6} md={4}  style={{ backgroundColor: 'white'}}> */}
-
-       {/* {this.state.updateActive ?
-            <BoardUpdate
-              fetchBoards={this.fetchBoards}
-              token={this.props.token} 
-              boardToUpdate={this.state.boardToUpdate}
-              // updateOff={this.state.updateOff}
+    return (<div>
+      <Switch>
+        <Route exact path="/home" >
+          <Grid container spacing={5}  >
+            <Grid item xs={6} sm={6} md={4} >
+              <BoardCreate
+                fetchBoards={this.fetchBoards}
+                token={this.props.token} />
+            </Grid>
+            <Grid item xs={6} >
+              <BoardDisplay
+                token={this.props.token}
+                fetchBoards={this.fetchBoards}
+                boards={this.state.boards}
+                boardToUpdate={this.state.boardToUpdate}
               />
-        : <></>}    */}
-      {/* </Grid>  */}
-
-
-
-  
-      </div>);
+            </Grid>
+          </Grid>
+        </Route>
+        {/* <Route exact path="/display-board-contents" >
+          <ItemHomeinBoard token={this.props.token} boardSelected={this.state.boardToUpdate} />
+        </Route> */}
+      </Switch>
+    </div>);
   }
 }
 

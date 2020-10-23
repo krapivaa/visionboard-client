@@ -24,6 +24,7 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import { Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 import { Omit } from '@material-ui/types';
 import { withStyles } from "@material-ui/core/styles";
+import { BoardResponse } from "../boardDisplay/BoardInterface";
 
 const drawerWidth = 240;
 
@@ -60,25 +61,22 @@ const useStyles = (theme: Theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  logoutButton: {
+    marginTop: "2em"
+  }
 });
 
 export interface NavigationProps {
   classes: any;
   token: any;
   isAdmin: boolean | undefined;
-  window: number;
   clearToken: any;
+  boards: BoardResponse[]
 }
 
 export interface NavigationState {
   mobileOpen: boolean;
   nestedMenuOpen: boolean;
-}
-
-export interface ListItemLinkProps {
-  icon?: React.ReactElement;
-  primary: string;
-  to: string;
 }
 
 class Navigation extends React.Component<NavigationProps, NavigationState> {
@@ -96,57 +94,55 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
     this.state.nestedMenuOpen ? this.setState({ nestedMenuOpen: false }) : this.setState({ nestedMenuOpen: true })
   };
 
-  // ListItemLink(props: ListItemLinkProps) {
-  //   const { primary, to } = props;
+  componentDidMount() {
+    this.boardListMapping()
+  }
 
-  //   const renderLink = React.useMemo(
-  //     () =>
-  //       React.forwardRef<any, Omit<RouterLinkProps, 'to'>>((itemProps, ref) => (
-  //         <RouterLink to={to} ref={ref} {...itemProps} />
-  //       )),
-  //     [to],
-  //   );
-
-  //   return (
-  //     <li>
-  //       <ListItem button component={renderLink}>
-  //         <ListItemIcon>
-  //           <DashboardIcon/>
-  //         </ListItemIcon>
-  //         <ListItemText primary={primary} />
-  //       </ListItem>
-  //     </li>
-  //   );
-  // }
+  boardListMapping = () => {
+    return (this.props.boards.map((board: BoardResponse) => {
+      var itemRouteUrl = `display-board-contents/${board.id}`
+      console.log(itemRouteUrl)
+      return (
+        <li>
+          <ListItem button
+          // className={classes.nested}
+          >
+            <ListItemIcon>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText><RouterLink to={itemRouteUrl}>{board.boardTitle}</RouterLink></ListItemText>
+          </ListItem>
+        </li>
+      );
+    })
+    )
+  }
 
   render() {
     const { classes }: any = this.props;
-    // const { window }: any = this.props;
 
     const drawer = (
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List component="nav" >
-          <ListItem button onClick={this.handleMenuClick} >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText>My Boards</ListItemText>
-            {this.state.nestedMenuOpen ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={this.state.nestedMenuOpen} timeout="auto" unmountOnExit >
-            <List component="div" disablePadding >
-              <ListItem button className={classes.nested} >
-                <ListItemIcon>
-                  <DashboardIcon />
-                </ListItemIcon>
-                <ListItemText>Board 1</ListItemText>
-              </ListItem>
-            </List>
-          </Collapse>
-        </List>
-        <Button variant="contained" color="primary" onClick={this.props.clearToken} >
+        {!this.props.isAdmin ? (
+          <List component="nav" >
+            <ListItem button onClick={this.handleMenuClick} >
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText><RouterLink to="/home">My Boards</RouterLink></ListItemText>
+              {this.state.nestedMenuOpen ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={this.state.nestedMenuOpen} timeout="auto" unmountOnExit >
+              <List component="div" disablePadding >
+                {this.boardListMapping}
+              </List>
+            </Collapse>
+          </List>
+        ) : <></>
+        }
+        <Button variant="contained" className={classes.logoutButton} onClick={this.props.clearToken} >
           Logout
         </Button>
       </div>
@@ -173,7 +169,6 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
         </AppBar>
         <>
           {!this.props.token
-            // || this.props.isAdmin 
             ? (
               <></>
             ) : (
