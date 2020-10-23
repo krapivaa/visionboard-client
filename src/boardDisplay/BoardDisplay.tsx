@@ -17,27 +17,29 @@ import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import { Link, Route } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 import Input from '@material-ui/core/Input';
 
-
-
 export interface BoardDisplayProps {
-    token: any
-    fetchBoards: any
-    boards: BoardResponse
-  }
-  
-  export interface BoardDisplayState {
+  token: any
+  fetchBoards: any
+  boards: BoardResponse
+}
 
-    // boards: BoardResponse
-    // boardToUpdate: object
-    // open: boolean
- 
-  }
+export interface BoardDisplayState {
 
+  // boards: BoardResponse
+  // boardToUpdate: object
+  // open: boolean
+
+}
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -76,7 +78,6 @@ export default function BoardDisplay(props: any) {
       setOpen(false);
     };
 
-
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
     fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
@@ -89,18 +90,14 @@ export default function BoardDisplay(props: any) {
       .then(() => props.fetchBoards())
   }
 
-
-
 //mapping through
   const boardsMapping =() => {
     return (props.boards.map((board: BoardResponse, index: number) => {
-   
-   return ( 
-
+      var itemRouteUrl = `display-board-contents/${board.id}`
+      console.log(itemRouteUrl)
+      return (
         <Grid item xs={6}>
           <Card className={classes.root} key={index}>
-
-
       <CardActionArea>
         {board.image ? 
         <CardMedia
@@ -128,9 +125,52 @@ export default function BoardDisplay(props: any) {
           </Typography>
 
               </CardContent>
-
             </CardActionArea>
+            <CardActions>
+              <Button
+                size="small"
+                variant="outlined"
+                color="secondary">
+                <Link to={itemRouteUrl} >View</Link>
+              </Button>
+              <Button onClick={() => { deleteBoard(board) }}
+                size="small"
+                variant="outlined"
+                color="secondary"
+              >
+                Delete
+              </Button>
+              <Button onClick={handleOpen}
+                size="small"
+                type="button"
+                variant="outlined"
+                color="secondary"
+              >
+                Update
+              </Button>
+              <Modal
+                //  style={modalStyle}
+                className={classes.paper}
+                open={open}
+                onClose={handleClose}
+              // aria-labelledby="simple-modal-title"
+              // aria-describedby="simple-modal-description"
+              >
+                <BoardUpdate
+                  fetchBoards={props.fetchBoards}
+                  token={props.token}
+                  boardToUpdate={board}
+                // updateOff={this.state.updateOff}
+                />
+              </Modal>
+            </CardActions>
+          </Card>
+        </Grid>
+      );
+    })
 
+    )
+  }
 
         <CardActions style={{ alignItems: 'center', padding: '10px'}}>
 
@@ -202,5 +242,3 @@ export default function BoardDisplay(props: any) {
    )
  }
 
-  
- 

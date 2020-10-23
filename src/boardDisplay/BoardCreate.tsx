@@ -10,6 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Description } from '@material-ui/icons';
 
 const useStyles = (theme: Theme) => ({
+
     root: {
       '& > *': {
         margin: theme.spacing(2),
@@ -102,7 +103,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     }
 
 
-
      handleImageUpload = (event: any) => {
       const data = new FormData()
       const { files } = event.target
@@ -134,11 +134,9 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     <form className={classes.root} noValidate autoComplete="on">
 
 
-      <Typography variant="h5" color="textSecondary" component="h2">
-        Create your Board!
-    </Typography>
-
-             
+        <Typography variant="h5" color="textSecondary" component="h2">
+          Create your Board!
+    </Typography>     
 
      <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
 <br />
@@ -146,8 +144,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 <br />
       <Input placeholder="Tags"  value={this.state.tags}   inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
 
-   
-      {/* <FormControl className={classes.formControl}> */}
+        {/* <FormControl className={classes.formControl}> */}
         {/* <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
 
         <Select
@@ -159,11 +156,11 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         {/* <MenuItem value="">
             <em></em>
           </MenuItem> */}
-            {/* value={false} */}
-          {/* <MenuItem value='false'>No</MenuItem>
+        {/* value={false} */}
+        {/* <MenuItem value='false'>No</MenuItem>
           <MenuItem value='true' >Yes</MenuItem>         
         </Select> */}
-      {/* </FormControl> */}
+        {/* </FormControl> */}
 
         <br />
        
@@ -176,12 +173,12 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
        
         <br />
 
-      <Button onClick={(event) => this.handleSubmit(event) }
-        variant="contained"
-        color="primary"
-        type="submit"
-        className={classes.button}>
-        Submit
+        <Button onClick={(event) => this.handleSubmit(event)}
+          variant="contained"
+          color="primary"
+          type="submit"
+          className={classes.button}>
+          Submit
       </Button>
 
   

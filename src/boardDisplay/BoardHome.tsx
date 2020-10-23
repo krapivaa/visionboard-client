@@ -32,6 +32,8 @@ const useStyles = (theme: Theme) => ({
 
 export interface BoardHomeProps {
   token: any;
+  setBoards: any;
+  setSelectedBoard: any;
 }
 
 export interface BoardHomeState {
@@ -68,13 +70,13 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
         console.log(json)
         this.setState({ boards: json })
         console.log(this.state.boards);
+        this.props.setBoards(json)
       });
   };
 
   render() {
 
-    const {classes}: any = this.props;
-
+    const { classes }: any = this.props;
 
   return (<div>
 
@@ -98,11 +100,9 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
             fetchBoards={this.fetchBoards}
             boards={this.state.boards}
             boardToUpdate={this.state.boardToUpdate}
-            />
-       </Grid>
-
-      </Grid> 
-  
+          />
+        </Grid>
+      </Grid>
     </div>);
   }
 }

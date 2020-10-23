@@ -8,6 +8,7 @@ import ItemUpdate from "./ItemUpdate";
 import ItemDisplay from "./ItemDisplay";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import { ItemResponse } from "./ItemInterface";
+import { BoardResponse } from "../boardDisplay/BoardInterface";
 
 
 
@@ -21,9 +22,8 @@ const useStyles = (theme: Theme) => ({
 
 export interface ItemHomeinBoardProps {
   token: any;
+  boardSelected: any;
 }
-
-
 
 export interface ItemHomeinBoardState {
   items: ItemResponse[];
@@ -46,7 +46,9 @@ class ItemHomeinBoard extends React.Component<
   // `http://localhost:3000/api/board/${board.id}` does not work  :(
 
   fetchItems = () => {
-    fetch("http://localhost:3000/api/board/:boardId", {
+    var boardId = this.props.boardSelected.id
+    console.log(boardId)
+    fetch(`http://localhost:3000/api/board/${boardId}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -72,9 +74,8 @@ class ItemHomeinBoard extends React.Component<
         <ItemCreate
           fetchItems={this.fetchItems}
           token={this.props.token}
-
+          boardSelected={this.props.boardSelected}
         />
-
         <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} />
       </div>
     );
