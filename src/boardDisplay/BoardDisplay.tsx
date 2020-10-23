@@ -12,11 +12,15 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Fab, Grid } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import Input from '@material-ui/core/Input';
 
 
 
@@ -31,14 +35,13 @@ export interface BoardDisplayProps {
     // boards: BoardResponse
     // boardToUpdate: object
     // open: boolean
-  
+ 
   }
 
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-      root: {
-        
+      root: {      
         maxWidth: 450,
         padding: 5,
         margin: 10,
@@ -49,6 +52,7 @@ export interface BoardDisplayProps {
       paper: {
         position: 'absolute',
         width: 400,
+        height: 300,
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
@@ -61,8 +65,8 @@ export interface BoardDisplayProps {
 export default function BoardDisplay(props: any) {
 
     const classes = useStyles();
-    // const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+    
 
     const handleOpen = () => {
       setOpen(true);
@@ -71,16 +75,6 @@ export default function BoardDisplay(props: any) {
     const handleClose = () => {
       setOpen(false);
     };
-
-    // const body = (
-    //   <div style={modalStyle} className={classes.paper}>
-    //     <h2 id="simple-modal-title">Text in a modal</h2>
-    //     <p id="simple-modal-description">
-    //       Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-    //     </p>
-    //     <SimpleModal />
-    //   </div>
-    // );
 
 
   //DELETE board
@@ -97,7 +91,6 @@ export default function BoardDisplay(props: any) {
 
 
 
-
 //mapping through
   const boardsMapping =() => {
     return (props.boards.map((board: BoardResponse, index: number) => {
@@ -109,19 +102,24 @@ export default function BoardDisplay(props: any) {
 
 
       <CardActionArea>
+        {board.image ? 
         <CardMedia
           className={classes.media}
-          image="https://thumbs.dreamstime.com/b/dream-big-set-goals-take-action-words-letter-motivational-business-typography-quotes-concept-142734995.jpg"
-        />
+          image={board.image}
+          /> :
 
+           <CloudinaryContext cloudName="verasenv"> 
+                <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />     
+           </CloudinaryContext>  
+}
               <CardContent>
 
 
-         <Typography variant="h3" color="textSecondary" component="p">
+         <Typography variant="h4" color="textSecondary" component="p">
            {board.boardTitle}
           </Typography>
 
-          <Typography variant="h4" color="textSecondary" component="p">
+          <Typography variant="h5" color="textSecondary" component="p">
            {board.description}
           </Typography>
 
@@ -134,45 +132,30 @@ export default function BoardDisplay(props: any) {
             </CardActionArea>
 
 
-            {/* <CardActions> */}
+        <CardActions style={{ alignItems: 'center', padding: '10px'}}>
 
-            {/* //Go inside the board goes here */}
-            {/* <Button size="small" color="primary">
-          Learn More
-        </Button> */}
-
-            {/* {updateActive ? */}
-            {/* <BoardUpdate
-              fetchBoards={props.fetchBoards}
-              token={props.token} 
-              boardToUpdate={props.boardToUpdate}
-              // updateOff={this.state.updateOff}
-              /> */}
-
-        {/* : <></> */}
-        {/* </CardActions> */}
-
-        <CardActions>
-
-        <Button onClick={() => {deleteBoard(board)}} 
-         size="small" 
-        variant="outlined"
-        color="secondary" 
-          >
-          Delete 
-        </Button>
-
-
-
-        <Button onClick={handleOpen}
+       
+        <Fab onClick={handleOpen}
         size="small" 
         type="button"
-        variant="outlined"
-        color="secondary" 
+        // variant="outlined"
+        color="primary" 
         >
-        Update
-       </Button>
+        <EditIcon />
+        {/* Update */}
+       </Fab>
      
+
+       <Fab onClick={() => {deleteBoard(board)}} 
+        // style={{ marginLeft: '3em'}}
+         size="small" 
+        // variant="outlined"
+        color="secondary" 
+        // startIcon={<DeleteIcon />}
+          >
+          <DeleteIcon />
+        </Fab>
+
      
       <Modal 
       //  style={modalStyle}
@@ -182,42 +165,26 @@ export default function BoardDisplay(props: any) {
         // aria-labelledby="simple-modal-title"
         // aria-describedby="simple-modal-description"
       >
-       
-      
-        
+              
          <BoardUpdate
               fetchBoards={props.fetchBoards}
               token={props.token} 
               boardToUpdate={board}
-              // updateOff={this.state.updateOff}
               />
 
         </Modal>
 
-
       </CardActions>
     </Card>
+</Grid>
 
-
-
-            {/* <BoardUpdate
-              fetchBoards={props.fetchBoards}
-              token={props.token} 
-              boardToUpdate={board}
-              // updateOff={this.state.updateOff}
-              /> */}
-
-
-
-   </Grid>
        );
     })
-    
-    )}
+)}
  
    return (
     <div>
-      {boardsMapping()}    
+      {boardsMapping()}   
    </div>
    )
  }

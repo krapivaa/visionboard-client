@@ -21,6 +21,7 @@
         sharedBoard?: boolean;
         updatedAt?: Date;
         createdAt?: Date;
+        image?: string
     }
 
 

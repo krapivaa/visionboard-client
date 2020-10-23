@@ -13,6 +13,9 @@ const useStyles = (theme: Theme) => ({
     root: {
       '& > *': {
         margin: theme.spacing(2),
+        // width: '25ch',
+        
+
       },
       backgroundColor: 'white',
       padding: 5,
@@ -20,24 +23,9 @@ const useStyles = (theme: Theme) => ({
 
 
     },
-  },
-  // formControl: {
-  //     margin: theme.spacing(1),
-  //     minWidth: 120,
-  //   },
-  //   selectEmpty: {
-  //     marginTop: theme.spacing(2),
-  //   },
 });
 
-/*//TODO
-USE BOARD INTERFACE
-Delete/Cancel button
-The form can be wrapped up in Modal
 
-//DONE!
-Have return object in console 
- */
 
 export interface BoardCreateProps {
   token: any
@@ -48,6 +36,7 @@ export interface BoardCreateState {
     boardTitle: string;
     description: string;
     tags: string;
+    image: string;
     // sharedBoard: boolean;
    
 }
@@ -60,7 +49,8 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
             boardTitle: "",
             description: "",
             tags: "",
-            // sharedBoard: false
+            image: ""
+            // sharedBoard: false,
           };
     }
 //Example from Material UI
@@ -90,7 +80,8 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                     boardTitle: this.state.boardTitle, 
                     description: this.state.description,
                     tags: this.state.tags, 
-                    // sharedBoard: this.state.sharedBoard
+                    image: this.state.image,
+                    // sharedBoard: this.state.sharedBoard,
                 }}),
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -112,20 +103,42 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
 
 
+     handleImageUpload = (event: any) => {
+      const data = new FormData()
+      const { files } = event.target
+      data.append('file', files[0])
+      data.append('upload_preset', 'visionitem')
+      fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
+          method: 'POST',
+          body: data,
+      })
+      .then((res) => res.json())
+      .then((file) =>
+             { this.setState({image: file.secure_url})
+            
+          }
+      )
+  }
+
+
+
+
 
   render() {
 
     const { classes }: any = this.props;
 
-        return ( <div >  
+        return ( <div>  
 
                  
-    <form className={classes.root} noValidate autoComplete="off">
+    <form className={classes.root} noValidate autoComplete="on">
 
 
       <Typography variant="h5" color="textSecondary" component="h2">
         Create your Board!
     </Typography>
+
+             
 
      <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
 <br />
@@ -152,7 +165,15 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         </Select> */}
       {/* </FormControl> */}
 
-
+        <br />
+       
+        <Input id="cloudinary"
+                placeholder="Upload an image"
+                type="file"
+                name="file"
+                onChange={this.handleImageUpload}
+              />
+       
         <br />
 
       <Button onClick={(event) => this.handleSubmit(event) }
@@ -163,18 +184,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         Submit
       </Button>
 
-        {/* //Example of delete/cancel
-      <Button outline color="secondary" type="cancel" className="buttonCancelUpdate"onClick={ () => props.toggle('1')}>Cancel</Button> */}
-
-        {/* <Button 
-        variant="contained"
-        color="secondary"
-        className={classes.button}
-        startIcon={<DeleteIcon />}>
-        Delete
-      </Button> */}
-
-
+  
       </form>
 
     </div>);

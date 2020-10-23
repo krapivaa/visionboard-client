@@ -20,8 +20,6 @@ export interface BoardUpdateProps {
     boardToUpdate: any;
     token: any
     fetchBoards: any 
-
-    // updateOff: boolean
    
 }
 
@@ -31,21 +29,9 @@ export interface BoardUpdateState {
     updateDescription: string;
     updateTags: string;
     // updateSharedBoard: boolean;
-    // boardId: number
-    
-    
+    // boardId: number   
 }
-// //DELETE board
-// const deleteBoard = (board: BoardResponse) => {
-//   fetch(`http://localhost:3000/api/board/${board.id}`, {
-//     method: 'DELETE',
-//     headers: new Headers({
-//       'Content-Type': 'application/json',
-//       'Authorization': props.token
-//     })
-//   })
-//     .then(() => props.fetchBoards())
-// }
+
 
 
 
@@ -58,8 +44,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
             updateDescription: props.boardToUpdate.description,
             updateTags: props.boardToUpdate.tags,
             // updateSharedBoard: props.boardToUpdate.sharedBoard,
-            // boardId: props.boardToUpdate.id
-            
+            // boardId: props.boardToUpdate.id        
           };
           console.log(this.state)
     }
@@ -71,7 +56,6 @@ console.log(this.props.boardToUpdate)
     fetch(`http://localhost:3000/api/board/update/${this.props.boardToUpdate.id}`, {
             method: 'PUT',
             body: JSON.stringify({
-                //CHANGE
                 board: {
                     boardTitle: this.state.updateBoardTitle, 
                     description: this.state.updateDescription,
@@ -85,9 +69,7 @@ console.log(this.props.boardToUpdate)
         }).then((res: any) => {
             this.props.fetchBoards()
         })
-        //  this.props.updateOff())
     }
-
 
 
 
@@ -96,15 +78,9 @@ console.log(this.props.boardToUpdate)
     //   };
 
 
-
-
-
     render() { 
 
     const { classes }: any = this.props;
-
-
-
 
         return (<div>
 
@@ -138,6 +114,7 @@ console.log(this.props.boardToUpdate)
                 <MenuItem value='true' >Yes</MenuItem>         
                 </Select> */}
              {/* </FormControl> */}
+
 
         <br />
 

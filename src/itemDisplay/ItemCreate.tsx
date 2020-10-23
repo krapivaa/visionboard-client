@@ -191,11 +191,6 @@ handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             Create your item!
             </Typography>
 
-        
-
-            {/* //Some tests */}
-            {/* <p>My item name is {this.state.title}</p> */}
-          
        
          <form className={classes.root} noValidate autoComplete="off">
      
@@ -257,3 +252,4 @@ handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
  
 export default withStyles(useStyles)(ItemCreate);
+
