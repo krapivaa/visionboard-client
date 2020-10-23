@@ -187,7 +187,7 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
-              <Link to="/home">Vision Board</Link>
+              <Link style={{ color: "white" }} to="/home">Vision Board</Link>
             </Typography>
           </Toolbar>
         </AppBar>
