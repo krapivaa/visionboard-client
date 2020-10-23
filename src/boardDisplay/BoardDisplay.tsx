@@ -12,14 +12,16 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Button, Grid } from '@material-ui/core';
+import { Box, Button, Fab, Grid } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Link, Route } from 'react-router-dom';
-
-
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import Input from '@material-ui/core/Input';
 
 export interface BoardDisplayProps {
   token: any
@@ -35,25 +37,28 @@ export interface BoardDisplayState {
 
 }
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
 
-      maxWidth: 450,
-      padding: 5,
-      margin: 10,
-    },
-    media: {
-      height: 150,
-    },
-    paper: {
-      position: 'absolute',
-      width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {      
+        maxWidth: 450,
+        padding: 5,
+        margin: 10,
+      },
+      media: {
+        height: 150,
+      },
+      paper: {
+        position: 'absolute',
+        width: 400,
+        height: 300,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
     },
   }),
 );
@@ -61,28 +66,17 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function BoardDisplay(props: any) {
 
-  const classes = useStyles();
-  // const [modalStyle] = React.useState(getModalStyle);
-  const [open, setOpen] = React.useState(false);
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  // const body = (
-  //   <div style={modalStyle} className={classes.paper}>
-  //     <h2 id="simple-modal-title">Text in a modal</h2>
-  //     <p id="simple-modal-description">
-  //       Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-  //     </p>
-  //     <SimpleModal />
-  //   </div>
-  // );
-
+    const handleOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+    };
 
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
@@ -96,32 +90,40 @@ export default function BoardDisplay(props: any) {
       .then(() => props.fetchBoards())
   }
 
-
-
-
-  //mapping through
-  const boardsMapping = () => {
+//mapping through
+  const boardsMapping =() => {
     return (props.boards.map((board: BoardResponse, index: number) => {
       var itemRouteUrl = `display-board-contents/${board.id}`
       console.log(itemRouteUrl)
       return (
         <Grid item xs={6}>
           <Card className={classes.root} key={index}>
-            <CardActionArea>
-              <CardMedia
-                className={classes.media}
-                image="https://thumbs.dreamstime.com/b/dream-big-set-goals-take-action-words-letter-motivational-business-typography-quotes-concept-142734995.jpg"
-              />
+      <CardActionArea>
+        {board.image ? 
+        <CardMedia
+          className={classes.media}
+          image={board.image}
+          /> :
+
+           <CloudinaryContext cloudName="verasenv"> 
+                <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />     
+           </CloudinaryContext>  
+}
               <CardContent>
-                <Typography variant="h3" color="textSecondary" component="p">
-                  {board.boardTitle}
-                </Typography>
-                <Typography variant="h4" color="textSecondary" component="p">
-                  {board.description}
-                </Typography>
-                <Typography variant="h6" color="textSecondary" component="p">
-                  {board.tags}
-                </Typography>
+
+
+         <Typography variant="h4" color="textSecondary" component="p">
+           {board.boardTitle}
+          </Typography>
+
+          <Typography variant="h5" color="textSecondary" component="p">
+           {board.description}
+          </Typography>
+
+          <Typography variant="h6" color="textSecondary" component="p">
+           {board.tags}
+          </Typography>
+
               </CardContent>
             </CardActionArea>
             <CardActions>
@@ -170,12 +172,73 @@ export default function BoardDisplay(props: any) {
     )
   }
 
-  return (
+        <CardActions style={{ alignItems: 'center', padding: '10px'}}>
+
+       
+        <Fab onClick={handleOpen}
+        size="small" 
+        type="button"
+        // variant="outlined"
+        color="primary" 
+        >
+        <EditIcon />
+        {/* Update */}
+       </Fab>
+     
+
+       <Fab onClick={() => {deleteBoard(board)}} 
+        // style={{ marginLeft: '3em'}}
+         size="small" 
+        // variant="outlined"
+        color="secondary" 
+        // startIcon={<DeleteIcon />}
+          >
+          <DeleteIcon />
+        </Fab>
+
+     
+      <Modal 
+      //  style={modalStyle}
+       className={classes.paper}
+        open={open}
+        onClose={handleClose}
+        // aria-labelledby="simple-modal-title"
+        // aria-describedby="simple-modal-description"
+
+      >
+
+     <Box>
+         <BoardUpdate
+              fetchBoards={props.fetchBoards}
+              token={props.token} 
+              boardToUpdate={board}
+              />
+
+      <Button
+           onClick={handleClose}
+           size="small"
+            variant="contained"
+            color="primary"
+        >
+          Close 
+        </Button>      
+      </Box>
+   
+
+        </Modal>
+
+      </CardActions>
+    </Card>
+</Grid>
+
+       );
+    })
+)}
+ 
+   return (
     <div>
-      {boardsMapping()}
-    </div>
-  )
-}
-
-
+      {boardsMapping()}   
+   </div>
+   )
+ }
 

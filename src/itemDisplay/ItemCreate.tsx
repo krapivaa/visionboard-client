@@ -124,11 +124,9 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
 
 
 
-    //CLOUDINARY WIDGET - WILL BE DELETED PROBABLY, does not work with typescript
 
-    // openWidget = () => {
-    //     window.cloudinary.createUploadWidget({
-
+         <form className={classes.root} noValidate autoComplete="off">
+     
 
     // uploadWidget() {
     //     cloudinary.openUploadWidget({    
@@ -231,5 +229,5 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
     }
 }
 
-
 export default withStyles(useStyles)(ItemCreate);
+

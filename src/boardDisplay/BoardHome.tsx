@@ -8,9 +8,13 @@ import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 // import { Container, Typography } from "@material-ui/core";
-import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
 import { BoardResponse, Board } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
+
+
+
+
+
 
 const useStyles = (theme: Theme) => ({
   root: {
@@ -18,13 +22,13 @@ const useStyles = (theme: Theme) => ({
       margin: theme.spacing(1),
     },
   },
+
+
+  
 });
 
-/* //TODO:
-- Styling
 
 
-*/
 
 export interface BoardHomeProps {
   token: any;
@@ -52,20 +56,6 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     this.fetchBoards();
   }
 
-  //CHANGE THOSE STATES TO CLASS
-  // editUpdateBoard = (board: any) => {
-  //     this.BoardToUpdate(board)
-  // }
-
-
-  // TOGGLE ??
-  // updateOn = () => {
-  //     this.UpdateActive(true);
-  // }
-
-  // updateOff = () => {
-  //     this.UpdateActive(false);
-  // }
 
   fetchBoards = () => {
     fetch("http://localhost:3000/api/board/mine", {
@@ -88,15 +78,24 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     const { classes }: any = this.props;
 
-    return (<div>
-      <Grid container spacing={5}  >
-        <Grid item xs={6} sm={6} md={4} >
-          <BoardCreate
-            fetchBoards={this.fetchBoards}
-            token={this.props.token} />
-        </Grid>
-        <Grid item xs={6} >
-          <BoardDisplay
+  return (<div>
+
+{/* <Grid container spacing={0} justify="space-around">
+        <Grid item xs={10} sm={5} md={4} lg={3}> */}
+
+
+        <Grid container spacing={2} >
+
+          <Grid item xs={4} sm={6} md={4} >
+
+            <BoardCreate
+              fetchBoards={this.fetchBoards}
+              token={this.props.token} />
+          </Grid>
+
+          
+       <Grid item xs={8} >
+            <BoardDisplay 
             token={this.props.token}
             fetchBoards={this.fetchBoards}
             boards={this.state.boards}
