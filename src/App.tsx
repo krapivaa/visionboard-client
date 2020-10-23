@@ -108,9 +108,11 @@ class App extends React.Component<AppProps, AppState> {
             </Router>
           </main>
         ) : (
-          <main className={classes.content}>
+          <main>
             <div className={classes.toolbar} />
+            {/* <Grid container spacing={0} justify="space-around"> */}
             <Auth setToken={this.setToken} setIsAdmin={this.setIsAdmin} />
+            {/* </Grid> */}
           </main>
         )
   }

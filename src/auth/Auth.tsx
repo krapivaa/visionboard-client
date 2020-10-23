@@ -16,7 +16,8 @@ const useStyles = (theme: Theme) => ({
       width: "30%",
       height: "auto"
     },
-    width: "auto"
+    width: "auto",
+    borderRadius: "7px"
   },
   img: {
     width: "5em",
@@ -24,7 +25,7 @@ const useStyles = (theme: Theme) => ({
     display: "block",
     backgroundColor: "white",
 
-    marginLeft: "20em"
+    marginLeft: "12em"
   },
   collage: {
     width: "auto",
@@ -64,8 +65,9 @@ class Auth extends React.Component<AuthProps, AuthState> {
       <div
       // className={classes.root}
       >
+      <Grid container spacing={0} justify="space-around" alignItems="center">
         <Grid
-
+        
           item className={classes.card}
         >
           <Card >
@@ -93,18 +95,21 @@ class Auth extends React.Component<AuthProps, AuthState> {
         <Grid
           item
         >
-          {/* <Box
-            // bgcolor="background.paper"
-            width="50%"
+          <Box
+          width="50em"
+            bgcolor="background.paper"
             color="text.primary"
             p={2}
             textAlign="center"
-          > */}
+            margin="2em"
+            borderRadius="7px"
+          >
             <Typography>Why you should use our App?</Typography>
+            <Typography>Vision Board is a place where you can keep inspirational ideas and pictures. Any ideas that you have, things you have made, or things that you want to make, you can store them here for when you are ready to use them.</Typography>
+          </Box>
             <img src={Collage} alt="Vision Board Intro Page Collage" className={classes.collage} />
-          {/* </Box> */}
         </Grid>
-        
+        </Grid>
       </div>
     );
   }

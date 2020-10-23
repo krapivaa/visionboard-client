@@ -47,7 +47,7 @@ const useStyles = (theme: Theme) => ({
       marginLeft: drawerWidth,
 
     },
-    backgroundColor: "brown",
+    backgroundColor: "#5D88D2",
     zIndex: theme.zIndex.drawer + 1,
   },
   menuButton: {

@@ -21,8 +21,6 @@ const useStyles = (theme: Theme) => ({
       backgroundColor: 'white',
       padding: 5,
       border: '2px solid brown',
-
-
     },
 });
 
