@@ -85,9 +85,11 @@ class App extends React.Component<AppProps, AppState> {
             <BoardHome token={this.state.token} />
           </main>
         ) : (
-          <main className={classes.content}>
+          <main>
             <div className={classes.toolbar} />
+            {/* <Grid container spacing={0} justify="space-around"> */}
             <Auth setToken={this.setToken} setIsAdmin={this.setIsAdmin} />
+            {/* </Grid> */}
           </main>
         )
   }
@@ -102,13 +104,13 @@ class App extends React.Component<AppProps, AppState> {
           <Router>
             <Navigation token={this.state.token} isAdmin={this.state.isAdmin} window={this.state.window} clearToken={this.clearToken} />
 
-            <Grid container
+            {/* <Grid container
               direction="row"
               wrap="wrap"
               justify="space-evenly"
-              alignItems="center">
+              alignItems="center"> */}
               {this.protectedViews()}
-            </Grid>
+            {/* </Grid> */}
           </Router>
         </div>
         <StickyFooter />

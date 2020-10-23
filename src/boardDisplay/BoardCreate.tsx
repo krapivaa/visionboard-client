@@ -19,7 +19,6 @@ const useStyles = (theme: Theme) => ({
       border: '2px solid brown',
 
 
-    },
   },
   // formControl: {
   //     margin: theme.spacing(1),

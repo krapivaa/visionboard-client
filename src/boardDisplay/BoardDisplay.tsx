@@ -51,7 +51,7 @@ export interface BoardDisplayProps {
         width: 400,
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
-        boxShadow: theme.shadows[5],
+        boxShadow: theme.shadows[6],
         padding: theme.spacing(2, 4, 3),
     },
   }),
@@ -100,7 +100,8 @@ export default function BoardDisplay(props: any) {
 
 //mapping through
   const boardsMapping =() => {
-    return (props.boards.map((board: BoardResponse, index: number) => {
+    console.log("hello")
+    return (props.boards !== undefined || props.boards !== null ? props.boards.map((board: BoardResponse, index: number) => {
    
    return ( 
 
@@ -212,7 +213,7 @@ export default function BoardDisplay(props: any) {
    </Grid>
        );
     })
-    
+    :<></>
     )}
  
    return (

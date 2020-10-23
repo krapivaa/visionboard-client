@@ -118,7 +118,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
               // updateOff={this.state.updateOff}
               />
         : <></>}    */}
-      {/* </Grid>  */}
+      </Grid> 
 
 
 
