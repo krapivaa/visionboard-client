@@ -12,7 +12,6 @@ import { Description } from '@material-ui/icons';
 import { ItemResponse } from './ItemInterface';
 // import Widget from 'react-cloudinary-upload-widget';
 
-
 const useStyles = (theme: Theme) => ({
 
     root: {
@@ -47,8 +46,6 @@ export interface ItemCreateState {
 
 }
 
-
-
 class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
 
     constructor(props: ItemCreateProps) {
@@ -80,11 +77,6 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
     //     )
     // }
 
-
-
-
-
-
     //handleSubmit and fetch
     handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -115,72 +107,8 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-         <form className={classes.root} noValidate autoComplete="off">
-     
-
-    // uploadWidget() {
-    //     cloudinary.openUploadWidget({    
-    //        cloudName: "verasenv",
-    //        uploadPreset: "visionitem",
-    //        sources: [
-    //            "image_search",
-    //            "instagram",
-    //            "camera",
-    //            "url",
-    //            "local"
-    //        ],
-    //        googleApiKey: "<image_search_google_api_key>",
-    //        showAdvancedOptions: true,
-    //        cropping: false,
-    //        multiple: true,
-    //        defaultSource: "local",
-    //        styles: {
-    //            palette: {
-    //                window: "#F5F5F5",
-    //                sourceBg: "#FFFFFF",
-    //                windowBorder: "#90a0b3",
-    //                tabIcon: "#0094c7",
-    //                inactiveTabIcon: "#69778A",
-    //                menuIcons: "#0094C7",
-    //                link: "#53ad9d",
-    //                action: "#8F5DA5",
-    //                inProgress: "#0194c7",
-    //                complete: "#53ad9d",
-    //                error: "#c43737",
-    //                textDark: "#000000",
-    //                textLight: "#FFFFFF"
-    //            },
-    //            fonts: {
-    //                default: null,
-    //                "'Poppins', sans-serif": {
-    //                    url: "https://fonts.googleapis.com/css?family=Poppins",
-    //                    active: true
-    //                }
-    //            }
-    //        }
-    //    },
-    //     (err: any, info: any) => {
-    //       if (!err) {    
-    //         console.log("Upload Widget event - ", info);
-    //       }
-    //      }).open();
-    //     };
-
-
     render() {
-
         const { classes }: any = this.props;
-
         return (
             <div style={{ backgroundColor: "white" }}>
                 <Typography variant="h5" color="textSecondary" component="h2">
@@ -228,6 +156,8 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
             </div>);
     }
 }
+
+
 
 export default withStyles(useStyles)(ItemCreate);
 
