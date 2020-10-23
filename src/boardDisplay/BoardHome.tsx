@@ -29,6 +29,7 @@ const useStyles = (theme: Theme) => ({
 export interface BoardHomeProps {
   token: any;
   setBoards: any;
+  setSelectedBoard: any;
 }
 
 export interface BoardHomeState {
@@ -88,28 +89,21 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     const { classes }: any = this.props;
 
     return (<div>
-      <Switch>
-        <Route exact path="/home" >
-          <Grid container spacing={5}  >
-            <Grid item xs={6} sm={6} md={4} >
-              <BoardCreate
-                fetchBoards={this.fetchBoards}
-                token={this.props.token} />
-            </Grid>
-            <Grid item xs={6} >
-              <BoardDisplay
-                token={this.props.token}
-                fetchBoards={this.fetchBoards}
-                boards={this.state.boards}
-                boardToUpdate={this.state.boardToUpdate}
-              />
-            </Grid>
-          </Grid>
-        </Route>
-        {/* <Route exact path="/display-board-contents" >
-          <ItemHomeinBoard token={this.props.token} boardSelected={this.state.boardToUpdate} />
-        </Route> */}
-      </Switch>
+      <Grid container spacing={5}  >
+        <Grid item xs={6} sm={6} md={4} >
+          <BoardCreate
+            fetchBoards={this.fetchBoards}
+            token={this.props.token} />
+        </Grid>
+        <Grid item xs={6} >
+          <BoardDisplay
+            token={this.props.token}
+            fetchBoards={this.fetchBoards}
+            boards={this.state.boards}
+            boardToUpdate={this.state.boardToUpdate}
+          />
+        </Grid>
+      </Grid>
     </div>);
   }
 }

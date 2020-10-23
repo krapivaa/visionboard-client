@@ -17,7 +17,7 @@ import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 
 
 
@@ -129,10 +129,7 @@ export default function BoardDisplay(props: any) {
                 size="small"
                 variant="outlined"
                 color="secondary">
-                View
-                <Route exact path={itemRouteUrl}>
-                  <ItemHomeinBoard token={props.token} boardSelected={board.id} />
-                </Route>
+                <Link to={itemRouteUrl} >View</Link>
               </Button>
               <Button onClick={() => { deleteBoard(board) }}
                 size="small"

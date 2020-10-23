@@ -183,61 +183,42 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
 
         const { classes }: any = this.props;
 
-        return (<div style={{ backgroundColor: "white" }}>
-
-            <Typography variant="h5" color="textSecondary" component="h2">
-                Create your item!
+        return (
+            <div style={{ backgroundColor: "white" }}>
+                <Typography variant="h5" color="textSecondary" component="h2">
+                    Create your item!
             </Typography>
-
-
-
-            {/* //Some tests */}
-            {/* <p>My item name is {this.state.title}</p> */}
-
-
-            <form className={classes.root} noValidate autoComplete="off">
-
-
-                <Input placeholder="Title" inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ itemTitle: e.target.value })} />
-
-                <br />
-
-                <Input placeholder="Notes" inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value })} />
-
-                <br />
-
-                <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
-
-
-
-
-                {/* WILL BE DELETED PROBABLY, does not work with typescript          */}
-                {/* <CloudinaryContext cloudName="verasenv"> */}
-                {/* <div>
+                {/* //Some tests */}
+                {/* <p>My item name is {this.state.title}</p> */}
+                <form className={classes.root} noValidate autoComplete="off">
+                    <Input placeholder="Title" inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ itemTitle: e.target.value })} />
+                    <br />
+                    <Input placeholder="Notes" inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value })} />
+                    <br />
+                    <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
+                    {/* WILL BE DELETED PROBABLY, does not work with typescript          */}
+                    {/* <CloudinaryContext cloudName="verasenv"> */}
+                    {/* <div>
                         //Some tests - will be deleted
                          {/* <Image publicId="sample" width="0.5" crop="scale" /> */}
 
-                {/* //CLOUDINARY WIDGET UPLOAD       */}
-                {/* <div className="upload">
+                    {/* //CLOUDINARY WIDGET UPLOAD       */}
+                    {/* <div className="upload">
                 <button onClick={this.uploadWidget.bind(this)} className="upload-button">
                     Add Image
                 </button>
               </div> */}
 
-                {/* </CloudinaryContext> */}
-
-                <br />
-
-                <Button onClick={(e) => this.handleSubmit(e)}
-                    variant="contained"
-                    color="primary"
-                    className={classes.button}>
-                    Submit
+                    {/* </CloudinaryContext> */}
+                    <br />
+                    <Button onClick={(e) => this.handleSubmit(e)}
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}>
+                        Submit
             </Button>
-
-
-                {/* //DELETE ? CANCEl ? */}
-                {/* <Button 
+                    {/* //DELETE ? CANCEl ? */}
+                    {/* <Button 
              variant="contained"
              color="secondary"
              className={classes.button}
@@ -245,11 +226,8 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
              >
              Delete
             </Button> */}
-
-
-            </form>
-
-        </div>);
+                </form>
+            </div>);
     }
 }
 

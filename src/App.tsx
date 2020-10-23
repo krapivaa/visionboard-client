@@ -7,8 +7,9 @@ import Admin from "./admin/Admin";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { Theme, withStyles } from "@material-ui/core/styles"
 import StickyFooter from "./home/Footer";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { BoardResponse } from "./boardDisplay/BoardInterface";
+import ItemHomeinBoard from "./itemDisplay/ItemHomeinBoard";
 
 const drawerWidth = 240;
 
@@ -37,13 +38,14 @@ export interface AppProps { }
 export interface AppState {
   token: any;
   isAdmin: boolean | undefined;
-  boards: BoardResponse[]
+  boards: BoardResponse[];
+  boardSelected: {};
 }
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { token: "", isAdmin: undefined, boards: [] };
+    this.state = { token: "", isAdmin: undefined, boards: [], boardSelected: {} };
   }
 
 
@@ -74,6 +76,10 @@ class App extends React.Component<AppProps, AppState> {
     console.log("THIS IS BOARDS LIST!:", this.state.boards)
   }
 
+  setSelectedBoard = (board: BoardResponse) => {
+    this.setState({ boardSelected: board })
+  }
+
   protectedViews = () => {
     const { classes }: any = this.props;
 
@@ -88,7 +94,18 @@ class App extends React.Component<AppProps, AppState> {
         ? (
           <main className={classes.content}>
             <div className={classes.toolbar} />
-            <BoardHome token={this.state.token} setBoards={this.setBoards} />
+            <Router>
+              <div>
+                <Switch>
+                  <Route exact path="/home">
+                    <BoardHome token={this.state.token} setBoards={this.setBoards} setSelectedBoard={this.setSelectedBoard} />
+                  </Route>
+                  <Route exact path="/display-board-contents">
+                    <ItemHomeinBoard token={this.state.token} boardSelected={this.state.boardSelected} />
+                  </Route>
+                </Switch>
+              </div>
+            </Router>
           </main>
         ) : (
           <main className={classes.content}>
@@ -106,15 +123,8 @@ class App extends React.Component<AppProps, AppState> {
         <div className="App">
           <CssBaseline />
           <Router>
-            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} clearToken={this.clearToken} boards={this.state.boards} />
-
-            <Grid container
-              direction="row"
-              wrap="wrap"
-              justify="space-evenly"
-              alignItems="center">
-              {this.protectedViews()}
-            </Grid>
+            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} clearToken={this.clearToken} boards={this.state.boards} boardSelected={this.state.boardSelected} />
+            {this.protectedViews()}
           </Router>
         </div>
         <StickyFooter />
