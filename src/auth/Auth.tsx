@@ -17,7 +17,6 @@ const useStyles = (theme: Theme) => ({
       height: "auto"
     },
     width: "auto",
-    border: "solid 3px brown",
     borderRadius: "7px"
   },
   img: {
@@ -103,7 +102,6 @@ class Auth extends React.Component<AuthProps, AuthState> {
             p={2}
             textAlign="center"
             margin="2em"
-            border="solid 3px brown"
             borderRadius="7px"
           >
             <Typography>Why you should use our App?</Typography>
