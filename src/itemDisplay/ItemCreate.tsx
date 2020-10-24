@@ -3,15 +3,9 @@ import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
-// import Widget from 'react-cloudinary-upload-widget';
-// import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
-// import Cloudinary from 'cloudinary-core'
-// import DeleteIcon from '@material-ui/icons/Delete';
-// import { Description } from '@material-ui/icons';
-// import TextField from '@material-ui/core/TextField';
-
+// import { CloudinaryContext } from 'cloudinary-react';
 
 const useStyles = (theme: Theme) => ({
 
@@ -22,15 +16,6 @@ const useStyles = (theme: Theme) => ({
         }
     },
 });
-
-/*//TODO
-endpoint fix
-cloudinary
-form wrap up in modal
-
-//DONE!
-Have return object in console, but with hardcoded boardId
-*/
 
 
 export interface ItemCreateProps {

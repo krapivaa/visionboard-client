@@ -21,10 +21,9 @@ import HomeIcon from "@material-ui/icons/Home";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Link, Route, useRouteMatch, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles";
 import { BoardResponse } from "../boardDisplay/BoardInterface";
-import ItemHomeinBoard from "../itemDisplay/ItemHomeinBoard";
 
 const drawerWidth = 240;
 

@@ -33,8 +33,9 @@ class ItemHomeinBoard extends React.Component<
     };
   }
 
-  componentDidMount() {
-    this.fetchItems();
+  componentDidUpdate(prevProps: ItemHomeinBoardProps) {
+    if (this.props.boardSelected == prevProps.boardSelected)
+      this.fetchItems();
   }
 
   fetchItems = () => {

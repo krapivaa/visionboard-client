@@ -7,6 +7,7 @@ import { GridList, GridListTile, GridListTileBar, IconButton, Typography } from 
 import { ItemResponse } from './ItemInterface';
 import ItemCreate from './ItemCreate';
 import ItemUpdate from './ItemUpdate';
+import DeleteItem from './ItemDelete';
 
 export interface ItemDisplayProps {
   token: any,
@@ -44,18 +45,21 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                   src={item.photo}
                   alt={item.itemTitle} />
                 <GridListTileBar
+                  actionIcon={
+                    // <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={item} />
+                    <DeleteItem token={this.props.token} fetchItems={this.props.fetchItems} itemToDelete={item} />
+                  }
                   title={item.itemTitle}
+                  titlePosition="top"
                   subtitle={item.notes}
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,
                   }}
-                  actionIcon={
-                    <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={item} />
-                  }
+                // IconButton={<DeleteItem token={this.props.token} />}
                 />
               </GridListTile>) : (
-                <GridListTile style={{ backgroundColor: "white", padding: "1em" }} >
+                <GridListTile style={{ backgroundColor: "white", padding: "1em" }} key={item.id}>
                   <Typography variant="h5">{item.itemTitle}</Typography>
                   <Typography variant="body1">{item.notes}</Typography>
                 </GridListTile>
@@ -79,6 +83,7 @@ export default withStyles((theme: Theme) => ({
     // backgroundColor: theme.palette.background.paper,
   },
   gridList: {
+    minWidth: 850,
     // width: 500,
     // height: "auto",
     // flexWrap: 'nowrap',
