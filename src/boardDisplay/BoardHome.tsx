@@ -2,17 +2,11 @@
 import React from "react";
 import "../App.css";
 import BoardCreate from "./BoardCreate";
-import BoardUpdate from "./BoardUpdate";
 import { Route, Switch } from "react-router-dom";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-// import { Container, Typography } from "@material-ui/core";
 import { BoardResponse, Board } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
-
-
-
 
 
 
@@ -21,13 +15,9 @@ const useStyles = (theme: Theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
-  },
 
-
-  
+  },  
 });
-
-
 
 
 export interface BoardHomeProps {
@@ -66,10 +56,10 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
       }),
     })
       .then((res: any) => res.json())
-      .then((json: any) => {
+      .then((json: BoardResponse[]) => {
         console.log(json)
-        this.setState({ boards: json })
-        console.log(this.state.boards);
+        this.setState({ boards: json.sort((a, b) => b.id - a.id) })
+        console.log(this.state.boards)
         this.props.setBoards(json)
       });
   };
@@ -80,29 +70,16 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
   return (<div>
 
-{/* <Grid container spacing={0} justify="space-around">
-        <Grid item xs={10} sm={5} md={4} lg={3}> */}
-
-
-        <Grid container spacing={2} >
-
-          <Grid item xs={4} sm={6} md={4} >
-
-            <BoardCreate
-              fetchBoards={this.fetchBoards}
-              token={this.props.token} />
-          </Grid>
-
-          
-       <Grid item xs={8} >
+           <BoardCreate
+            fetchBoards={this.fetchBoards}
+            token={this.props.token} />
+           
             <BoardDisplay 
             token={this.props.token}
             fetchBoards={this.fetchBoards}
             boards={this.state.boards}
-            boardToUpdate={this.state.boardToUpdate}
           />
-        </Grid>
-      </Grid>
+   
     </div>);
   }
 }

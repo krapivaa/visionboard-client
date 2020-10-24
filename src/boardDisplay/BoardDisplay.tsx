@@ -2,8 +2,6 @@
 //Responsible for mapping through all the boards and displaying them in cards
 import React from 'react';
 import '../App.css';
-import ItemHomeinBoard from '../itemDisplay/ItemHomeinBoard';
-import BoardCreate from './BoardCreate';
 import { withStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -12,7 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Box, Button, Fab, Grid } from '@material-ui/core';
+import {  Button, Fab, GridList, GridListTile } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -20,8 +18,9 @@ import Modal from '@material-ui/core/Modal';
 import { Link, Route } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
-import Input from '@material-ui/core/Input';
+import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 export interface BoardDisplayProps {
   token: any
@@ -37,32 +36,41 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       maxWidth: 450,
-      padding: 5,
+      height: 500,
+      padding: 15,
       margin: 10,
+      
     },
     media: {
-      height: 150,
+      height: 250,
+    },
+    modal: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     paper: {
-      position: 'absolute',
+      // position: 'absolute',
       width: 400,
-      height: 300,
+      height: 500,
+      padding: 15,
+      margin: 10,
       backgroundColor: theme.palette.background.paper,
       border: '2px solid #000',
-      boxShadow: theme.shadows[6],
-      padding: theme.spacing(2, 4, 3),
+      boxShadow: theme.shadows[5],
     },
   }),
 );
-
 
 export default function BoardDisplay(props: any) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [boardRow, setBoardRow] = React.useState({})
 
 
-  const handleOpen = () => {
+  const handleOpen = (board: BoardResponse) => {
+    setBoardRow(board)
     setOpen(true);
   };
 
@@ -88,7 +96,10 @@ export default function BoardDisplay(props: any) {
       var itemRouteUrl = `display-board-contents/${board.id}`
       console.log(itemRouteUrl)
       return (
-        <Grid item xs={6}>
+
+
+        
+        <GridListTile>
           <Card className={classes.root} key={index}>
             <CardActionArea>
               {board.image ?
@@ -96,81 +107,112 @@ export default function BoardDisplay(props: any) {
                   className={classes.media}
                   image={board.image}
                 /> :
-                <CloudinaryContext cloudName="verasenv">
-                  <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
-                </CloudinaryContext>
+                <CardMedia
+                className={classes.media}
+                image="https://www.aconsciousrethink.com/wp-content/uploads/2016/12/vision-board-wide.jpg"
+
+                // <CloudinaryContext cloudName="verasenv">
+                //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
+                // </CloudinaryContext>
+               
+                />
               }
-              <CardContent>
-                <Typography variant="h4" color="textSecondary" component="p">
-                  {board.boardTitle}
-                </Typography>
-                <Typography variant="h5" color="textSecondary" component="p">
-                  {board.description}
-                </Typography>
-                <Typography variant="h6" color="textSecondary" component="p">
-                  {board.tags}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-            <CardActions style={{ alignItems: 'center', padding: '10px' }}>
+ 
+      <CardActions style={{ alignItems: 'center', padding: '10px' }}>
               <Button
                 size="small"
                 variant="outlined"
                 color="secondary">
                 <Link to={itemRouteUrl} >View</Link>
               </Button>
-              <Fab onClick={handleOpen}
+
+
+               <Fab onClick={() => handleOpen(board)}
                 size="small"
                 type="button"
                 // variant="outlined"
                 color="primary"
-              >
+                  >
                 <EditIcon />
                 {/* Update */}
-              </Fab>
+              </Fab>  
+
+
               <Fab onClick={() => { deleteBoard(board) }}
                 // style={{ marginLeft: '3em'}}
                 size="small"
                 // variant="outlined"
                 color="secondary"
               // startIcon={<DeleteIcon />}
-              >
+                >
                 <DeleteIcon />
               </Fab>
-              <Modal
-                //  style={modalStyle}
-                className={classes.paper}
+
+
+               <Modal 
+               aria-labelledby="transition-modal-title"
+               aria-describedby="transition-modal-description"
+               className={classes.modal}
+               BackdropComponent={Backdrop}
+               BackdropProps={{
+                 timeout: 500,
+               }}
                 open={open}
                 onClose={handleClose}
-              // aria-labelledby="simple-modal-title"
-              // aria-describedby="simple-modal-description"
-              >
-                <Box>
+              > 
+
+               <Fade in={open}> 
+                 <Container className={classes.paper}> 
+              
+
                   <BoardUpdate
                     fetchBoards={props.fetchBoards}
                     token={props.token}
-                    boardToUpdate={board}
-                  />
-                  <Button
+                    boardToUpdate={boardRow}
+                    />
+                  <br />
+                  <br />
+                     <Fab 
+                    style={{margin: '5px', alignItems: 'right'}}
                     onClick={handleClose}
                     size="small"
-                    variant="contained"
-                    color="primary"
-                  >
-                    Close
-                      </Button>
-                </Box>
+                   >
+                    <CancelOutlinedIcon />
+                      </Fab>
+
+                </Container>
+                </Fade> 
               </Modal>
             </CardActions>
+            
+             
+              <CardContent >
+                <Typography variant="h5" color="textSecondary" component="p">
+                  {board.boardTitle}
+                </Typography>
+
+                <Typography variant="h6" style={{textOverflow: 'hidden'}}
+                color="textSecondary" component="p">
+                  {board.description}
+                </Typography>
+
+                <Typography variant="h6" color="textSecondary" component="p">
+                  {board.tags}
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+                      
           </Card >
-        </Grid >
+        </GridListTile>
       )
     })
     )
   }
   return (
     <div>
+      <GridList cellHeight={500} cols={3}>      
       {boardsMapping()}
+      </GridList>
     </div>
   )
 }

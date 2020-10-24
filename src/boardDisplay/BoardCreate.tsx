@@ -1,13 +1,14 @@
 //Responsibele for creating a board
-import React from 'react';
+import React, { Fragment } from 'react';
 import '../App.css';
 import { BoardResponse } from './BoardInterface';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
-import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Description } from '@material-ui/icons';
+import { Button, CardMedia,  Grid, Typography } from '@material-ui/core';
+import Pin from "../assets/pushpin-147918_960_720.webp";
+import Icon from '@material-ui/core/Icon';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = (theme: Theme) => ({
 
@@ -15,16 +16,19 @@ const useStyles = (theme: Theme) => ({
       '& > *': {
         margin: theme.spacing(2),
         // width: '25ch',
-        
-
       },
       backgroundColor: 'white',
       padding: 5,
-      border: '2px solid brown',
+      margin: 5,
+      border: '0.2em solid chocolate',
+    },
+    img: {
+      width: "3em",
+      height: "auto",
+      display: "block",
+      backgroundColor: "white",
     },
 });
-
-
 
 export interface BoardCreateProps {
   token: any
@@ -36,8 +40,7 @@ export interface BoardCreateState {
     description: string;
     tags: string;
     image: string;
-    // sharedBoard: boolean;
-   
+    // sharedBoard: boolean; 
 }
 
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
@@ -52,10 +55,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
             // sharedBoard: false,
           };
     }
-//Example from Material UI
-    // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    //     setAge(event.target.value as string);
-    //   };
 
     // handleChange = (event: {target: {sharedBoard: boolean, value: boolean }}) => {
     //     this.setState({sharedBoard: event.target.value});
@@ -93,6 +92,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 boardTitle: '',
                 description: '',
                 tags: '',
+                image: ''
                 // sharedBoard: false, 
                 }) 
 
@@ -100,12 +100,12 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         })    
     }
 
-
      handleImageUpload = (event: any) => {
+      event.preventDefault();
       const data = new FormData()
       const { files } = event.target
       data.append('file', files[0])
-      data.append('upload_preset', 'visionitem')
+      data.append('upload_preset', 'boardImage')
       fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
           method: 'POST',
           body: data,
@@ -119,27 +119,30 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
   }
 
 
-
-
-
   render() {
 
     const { classes }: any = this.props;
 
-        return ( <div>  
+        return ( <Fragment >  
+    <Grid container spacing={0} justify="space-around" alignItems="center">
 
-                 
-    <form className={classes.root} noValidate autoComplete="on">
+       <Grid item >            
+       <form className={classes.root}>
+          <CardMedia
+              className={classes.img}
+              component="img"
+              image={Pin}
+            />
 
-
-        <Typography variant="h5" color="textSecondary" component="h2">
+        <Typography variant="h5" color="primary" component="p">
           Create your Board!
-    </Typography>     
+        </Typography>     
+    
 
-     <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
-<br />
+       <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
+      <br />
       <Input placeholder="Description"  value={this.state.description}  inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ description: e.target.value})}/>
-<br />
+      <br />
       <Input placeholder="Tags"  value={this.state.tags}   inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
 
         {/* <FormControl className={classes.formControl}> */}
@@ -163,7 +166,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
         <br />
        
         <Input id="cloudinary"
-                placeholder="Upload an image"
+                // placeholder="Upload an image"
                 type="file"
                 name="file"
                 onChange={this.handleImageUpload}
@@ -175,14 +178,18 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
           variant="contained"
           color="primary"
           type="submit"
-          className={classes.button}>
-          Submit
-      </Button>
+          size="small"
+          className={classes.button}
+          startIcon={<SaveIcon />}
+          >
+          Save
+        </Button>
 
   
-      </form>
-
-    </div>);
+       </form>
+      </Grid> 
+      </Grid>
+    </Fragment>);
   }
 }
 
