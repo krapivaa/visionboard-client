@@ -3,21 +3,23 @@ import React from 'react';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
-import { Button, FormControl, Input, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import { BoardResponse } from './BoardInterface';
-import BoardDisplay from './BoardDisplay';
+import { Button, Input, Typography } from '@material-ui/core';
+
 
 const useStyles = (theme: Theme) => ({
   root: {
     '& > *': {
       margin: theme.spacing(1),
+       width: '40ch',
+       
     },
   },
+  
 
 });
 
 export interface BoardUpdateProps {
-    boardToUpdate: any;
+    boardToUpdate: any
     token: any
     fetchBoards: any 
    
@@ -28,12 +30,10 @@ export interface BoardUpdateState {
     updateBoardTitle: string;
     updateDescription: string;
     updateTags: string;
+    updateImage: string
     // updateSharedBoard: boolean;
     // boardId: number   
 }
-
-
-
 
 class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
 
@@ -43,6 +43,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
             updateBoardTitle: props.boardToUpdate.boardTitle,
             updateDescription: props.boardToUpdate.description,
             updateTags: props.boardToUpdate.tags,
+            updateImage: props.boardToUpdate.image
             // updateSharedBoard: props.boardToUpdate.sharedBoard,
             // boardId: props.boardToUpdate.id        
           };
@@ -50,10 +51,9 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
     }
 
 
-
    handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();  
-console.log(this.props.boardToUpdate)
+    // console.log(this.props.boardToUpdate)
     fetch(`http://localhost:3000/api/board/update/${this.props.boardToUpdate.id}`, {
             method: 'PUT',
             body: JSON.stringify({
@@ -61,6 +61,7 @@ console.log(this.props.boardToUpdate)
                     boardTitle: this.state.updateBoardTitle, 
                     description: this.state.updateDescription,
                     tags: this.state.updateTags, 
+                    image: this.state.updateImage
                     // sharedBoard: this.state.updateSharedBoard
                 }}),
             headers: new Headers({
@@ -69,11 +70,11 @@ console.log(this.props.boardToUpdate)
             })
         }).then((res: any) => {
             this.props.fetchBoards()
+            
         })
     }
 
     
-
     // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
     //     this.setState({updateSharedBoard: event.target.value});
     //   };
@@ -85,8 +86,7 @@ console.log(this.props.boardToUpdate)
 
         return (<div>
 
-
-             <Typography variant="h5" color="textSecondary" component="h2">
+             <Typography variant="h5" color="primary" component="h2">
                     Update your Board!
             </Typography>
 
@@ -116,18 +116,19 @@ console.log(this.props.boardToUpdate)
                 </Select> */}
              {/* </FormControl> */}
 
+             <Input placeholder="Edit Image:" defaultValue={this.state.updateImage}  inputProps={{ 'aria-label': 'image' }} onChange={(e) => this.setState({ updateImage: e.target.value})} />
 
         <br />
-
+        
                 <Button 
                 onClick={(e) => this.handleSubmit(e) }
                     variant="contained"
-                    color="secondary"
+                    color="primary"
+                   
                     className={classes.button}>
-                        Update
+                        Send to update 
                 </Button>
-
-          
+      
             </form>
         </div>);
     }

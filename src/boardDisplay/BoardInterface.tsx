@@ -13,7 +13,7 @@
 
 
     export interface BoardResponse {
-        id?: number;
+        id: number;
         owner?: number;
         boardTitle: string;
         description: string;
