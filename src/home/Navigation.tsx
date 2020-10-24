@@ -21,10 +21,9 @@ import HomeIcon from "@material-ui/icons/Home";
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Link, Route, useRouteMatch, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withStyles } from "@material-ui/core/styles";
 import { BoardResponse } from "../boardDisplay/BoardInterface";
-import ItemHomeinBoard from "../itemDisplay/ItemHomeinBoard";
 
 const drawerWidth = 240;
 
@@ -72,7 +71,7 @@ export interface NavigationProps {
   isAdmin: boolean | undefined;
   clearToken: any;
   boards: BoardResponse[];
-  boardSelected: {};
+  setSelectedBoard: any;
 }
 
 export interface NavigationState {
@@ -111,7 +110,7 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText>
-              <Link to={itemRouteUrl}>
+              <Link to={itemRouteUrl} onClick={() => this.props.setSelectedBoard(board)} >
                 {board.boardTitle}
               </Link>
             </ListItemText>
@@ -122,19 +121,6 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
     )
   }
 
-  // itemSwitch = () => {
-  //   console.log(this.props.boardSelected)
-  //   let match = useRouteMatch();
-  //   let itemRoutePath = `${match.path}/${this.props.boardSelected}`
-
-  //   return (
-  //     <Switch>
-  //       <Route path={itemRoutePath} >
-  //         <ItemHomeinBoard token={this.props.token} boardSelected={this.props.boardSelected} />
-  //       </Route>
-  //     </Switch>
-  //   )
-  // }
 
   render() {
     const { classes }: any = this.props;
@@ -162,7 +148,6 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
                 </List>
               </Collapse>
             </List>
-            {/* {this.itemSwitch()} */}
           </>
         ) : <></>
         }

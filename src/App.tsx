@@ -15,7 +15,7 @@ const drawerWidth = 240;
 
 const useStyles = (theme: Theme) => ({
   root: {
-    display: 'inline-flex',
+    display: 'flex',
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -94,18 +94,18 @@ class App extends React.Component<AppProps, AppState> {
         ? (
           <main className={classes.content}>
             <div className={classes.toolbar} />
-            <Router>
-              <div>
-                <Switch>
-                  <Route exact path="/home">
-                    <BoardHome token={this.state.token} setBoards={this.setBoards} setSelectedBoard={this.setSelectedBoard} />
-                  </Route>
-                  <Route exact path="/display-board-contents">
-                    <ItemHomeinBoard token={this.state.token} boardSelected={this.state.boardSelected} />
-                  </Route>
-                </Switch>
-              </div>
-            </Router>
+            {/* <Router> */}
+            <div>
+              <Switch>
+                <Route exact path="/home">
+                  <BoardHome token={this.state.token} setBoards={this.setBoards} setSelectedBoard={this.setSelectedBoard} />
+                </Route>
+                <Route path="/display-board-contents">
+                  <ItemHomeinBoard token={this.state.token} boardSelected={this.state.boardSelected} />
+                </Route>
+              </Switch>
+            </div>
+            {/* </Router> */}
           </main>
         ) : (
           <main>
@@ -125,7 +125,7 @@ class App extends React.Component<AppProps, AppState> {
         <div className="App">
           <CssBaseline />
           <Router>
-            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} clearToken={this.clearToken} boards={this.state.boards} boardSelected={this.state.boardSelected} />
+            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} clearToken={this.clearToken} boards={this.state.boards} setSelectedBoard={this.setSelectedBoard} />
             {this.protectedViews()}
           </Router>
         </div>
