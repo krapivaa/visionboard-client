@@ -24,7 +24,7 @@ const useStyles = (theme: Theme) => ({
   },
 
 
-  
+
 });
 
 
@@ -39,7 +39,7 @@ export interface BoardHomeProps {
 export interface BoardHomeState {
   boards: BoardResponse[];
   updateActive: boolean;
-  boardToUpdate: object
+  // boardToUpdate: BoardResponse | undefined
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
@@ -48,7 +48,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     this.state = {
       boards: [],
       updateActive: false,
-      boardToUpdate: {}
+      // boardToUpdate: undefined
     };
   }
 
@@ -78,28 +78,29 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     const { classes }: any = this.props;
 
-  return (<div>
+    return (<div>
 
-{/* <Grid container spacing={0} justify="space-around">
+      {/* <Grid container spacing={0} justify="space-around">
         <Grid item xs={10} sm={5} md={4} lg={3}> */}
 
 
-        <Grid container spacing={2} >
+      <Grid container spacing={2} >
 
-          <Grid item xs={4} sm={6} md={4} >
+        <Grid item xs={4} sm={6} md={4} >
 
-            <BoardCreate
-              fetchBoards={this.fetchBoards}
-              token={this.props.token} />
-          </Grid>
+          <BoardCreate
+            fetchBoards={this.fetchBoards}
+            token={this.props.token} />
+        </Grid>
 
-          
-       <Grid item xs={8} >
-            <BoardDisplay 
+
+        <Grid item xs={8} >
+          <BoardDisplay
             token={this.props.token}
             fetchBoards={this.fetchBoards}
             boards={this.state.boards}
-            boardToUpdate={this.state.boardToUpdate}
+            // boardToUpdate={this.state.boardToUpdate}
+            setSelectedBoard={this.props.setSelectedBoard}
           />
         </Grid>
       </Grid>
