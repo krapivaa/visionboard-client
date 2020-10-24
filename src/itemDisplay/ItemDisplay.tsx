@@ -3,13 +3,16 @@ import React from 'react';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
-import { GridList, GridListTile, GridListTileBar, IconButton } from '@material-ui/core';
+import { GridList, GridListTile, GridListTileBar, IconButton, Typography } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
+import ItemCreate from './ItemCreate';
+import ItemUpdate from './ItemUpdate';
 
 export interface ItemDisplayProps {
   token: any,
   items: ItemResponse[],
-  fetchItems: any
+  fetchItems: any,
+  boardSelected: any,
 }
 
 export interface ItemDisplayState {
@@ -30,27 +33,36 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
 
     return (
       <div className={classes.root} >
-        <GridList className={classes.gridList} cols={2.5}>
+        <GridList className={classes.gridList} cellHeight={250} cols={4}>
+          <GridListTile>
+            <ItemCreate token={this.props.token} boardSelected={this.props.boardSelected} fetchItems={this.props.fetchItems} />
+          </GridListTile>
           {this.props.items.map((item) => (
-            <GridListTile key={item.photo}>
-              <img src={item.photo} alt={item.itemTitle} />
-              <GridListTileBar
-                title={item.itemTitle}
-                subtitle={item.notes}
-                classes={{
-                  root: classes.titleBar,
-                  title: classes.title,
-                }}
-              // actionIcon={
-              //   <IconButton aria-label={`star ${tile.title}`}>
-              //     <StarBorderIcon className={classes.title} />
-              //   </IconButton>
-              // }
-              />
-            </GridListTile>
+            item.photo ? (
+              <GridListTile key={item.id}>
+                <img
+                  src={item.photo}
+                  alt={item.itemTitle} />
+                <GridListTileBar
+                  title={item.itemTitle}
+                  subtitle={item.notes}
+                  classes={{
+                    root: classes.titleBar,
+                    title: classes.title,
+                  }}
+                  actionIcon={
+                    <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={item} />
+                  }
+                />
+              </GridListTile>) : (
+                <GridListTile style={{ backgroundColor: "white", padding: "1em" }} >
+                  <Typography variant="h5">{item.itemTitle}</Typography>
+                  <Typography variant="body1">{item.notes}</Typography>
+                </GridListTile>
+              )
           ))}
         </GridList>
-      </div>);
+      </div >);
   }
 }
 
@@ -64,10 +76,12 @@ export default withStyles((theme: Theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    // backgroundColor: theme.palette.background.paper,
   },
   gridList: {
-    flexWrap: 'nowrap',
+    // width: 500,
+    // height: "auto",
+    // flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },

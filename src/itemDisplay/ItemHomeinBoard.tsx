@@ -1,16 +1,9 @@
-//This is inside of the one board where all items are displayed (like workoutlog index)
-
 import React from "react";
 import "../App.css";
-import Container from "@material-ui/core/Container";
-import ItemCreate from "./ItemCreate";
-import ItemUpdate from "./ItemUpdate";
 import ItemDisplay from "./ItemDisplay";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import { ItemResponse } from "./ItemInterface";
-import { BoardResponse } from "../boardDisplay/BoardInterface";
-
-
+import { Grid } from "@material-ui/core";
 
 const useStyles = (theme: Theme) => ({
   root: {
@@ -43,12 +36,12 @@ class ItemHomeinBoard extends React.Component<
   componentDidMount() {
     this.fetchItems();
   }
-  // `http://localhost:3000/api/board/${board.id}` does not work  :(
 
   fetchItems = () => {
-    var boardId = this.props.boardSelected.id
-    console.log(boardId)
-    fetch(`http://localhost:3000/api/board/${boardId}`, {
+    console.log(this.props.boardSelected.id)
+    fetch(`http://localhost:3000/api/board/${this.props.boardSelected.id}`, {
+      // fetch(`http://localhost:3000/api/board/1`, {
+
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -56,13 +49,11 @@ class ItemHomeinBoard extends React.Component<
       }),
     })
       .then((res: any) => res.json())
-      .then((json: ItemResponse) => {
+      .then((json: ItemResponse[]) => {
         console.log(json);
-
+        this.setState({ items: json })
       });
   };
-
-
 
   render() {
 
@@ -71,12 +62,9 @@ class ItemHomeinBoard extends React.Component<
     return (
 
       <div>
-        <ItemCreate
-          fetchItems={this.fetchItems}
-          token={this.props.token}
-          boardSelected={this.props.boardSelected}
-        />
-        <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} />
+        <Grid container>
+          <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} boardSelected={this.props.boardSelected} />
+        </Grid>
       </div>
     );
   }

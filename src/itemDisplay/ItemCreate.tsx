@@ -1,16 +1,17 @@
 import React from 'react';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import { withStyles } from "@material-ui/core/styles";
-import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
-// import Cloudinary from 'cloudinary-core'
 import Input from '@material-ui/core/Input';
 import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
-import { Description } from '@material-ui/icons';
 import { ItemResponse } from './ItemInterface';
 // import Widget from 'react-cloudinary-upload-widget';
+// import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
+// import Cloudinary from 'cloudinary-core'
+// import DeleteIcon from '@material-ui/icons/Delete';
+// import { Description } from '@material-ui/icons';
+// import TextField from '@material-ui/core/TextField';
+
 
 const useStyles = (theme: Theme) => ({
 
@@ -43,7 +44,6 @@ export interface ItemCreateState {
     itemTitle: string;
     notes: string;
     photo: string;
-
 }
 
 class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
@@ -57,26 +57,6 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
         };
 
     }
-    //Cloudinary direct REST API upload IN THE PROCESS
-    //   https://api.cloudinary.com/v1_1/verasenv/auto/upload
-
-    // handleImageUpload = (event: { target: { files: any; }; }) => {
-    //     const data = new FormData()
-    //     const { files } = event.target
-    //     data.append('file', files[0])
-    //     data.append('upload_preset', 'visionitem')
-    //     fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
-    //         method: 'POST',
-    //         body: data,
-    //     })
-    //     .then((res) => res.json())
-    //     .then((file) =>
-    //         this.setState({
-    //             image: file.secure_url,
-    //         })
-    //     )
-    // }
-
     //handleSubmit and fetch
     handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
@@ -100,49 +80,56 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                 this.setState({
                     itemTitle: '',
                     notes: '',
-                    photo: '',
                 })
             })
             .then(this.props.fetchItems())
+    }
+
+    handleImageUpload = (event: any) => {
+        const data = new FormData()
+        const { files } = event.target
+        data.append('file', files[0])
+        data.append('upload_preset', 'visionitem')
+        fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
+            method: 'POST',
+            body: data,
+        })
+            .then((res) => res.json())
+            .then((file) => {
+                this.setState({ photo: file.secure_url })
+
+            }
+            )
     }
 
 
     render() {
         const { classes }: any = this.props;
         return (
-            <div style={{ backgroundColor: "white" }}>
-                <Typography variant="h5" color="textSecondary" component="h2">
-                    Create your item!
-            </Typography>
-                {/* //Some tests */}
-                {/* <p>My item name is {this.state.title}</p> */}
-                <form className={classes.root} noValidate autoComplete="off">
+            <div style={{ backgroundColor: "white", padding: ".7em 0em .6em 0em" }}>
+                <Typography variant="h6" color="textSecondary" component="h2">
+                    Add New Inspiration!
+                </Typography>
+                <form className={classes.root} noValidate autoComplete="off" style={{ padding: "0em .2em 0em .2em" }} >
                     <Input placeholder="Title" inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ itemTitle: e.target.value })} />
                     <br />
                     <Input placeholder="Notes" inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value })} />
                     <br />
-                    <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
-                    {/* WILL BE DELETED PROBABLY, does not work with typescript          */}
-                    {/* <CloudinaryContext cloudName="verasenv"> */}
-                    {/* <div>
-                        //Some tests - will be deleted
-                         {/* <Image publicId="sample" width="0.5" crop="scale" /> */}
-
-                    {/* //CLOUDINARY WIDGET UPLOAD       */}
-                    {/* <div className="upload">
-                <button onClick={this.uploadWidget.bind(this)} className="upload-button">
-                    Add Image
-                </button>
-              </div> */}
-
-                    {/* </CloudinaryContext> */}
+                    {/* <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
+                    <br /> */}
+                    <Input id="cloudinary"
+                        placeholder="Upload an image"
+                        type="file"
+                        name="file"
+                        onChange={this.handleImageUpload}
+                    />
                     <br />
                     <Button onClick={(e) => this.handleSubmit(e)}
                         variant="contained"
                         color="primary"
                         className={classes.button}>
                         Submit
-            </Button>
+                    </Button>
                     {/* //DELETE ? CANCEl ? */}
                     {/* <Button 
              variant="contained"

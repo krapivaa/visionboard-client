@@ -26,7 +26,8 @@ import Input from '@material-ui/core/Input';
 export interface BoardDisplayProps {
   token: any
   fetchBoards: any
-  boards: BoardResponse
+  boards: BoardResponse[]
+  setSelectedBoard: any
 }
 
 export interface BoardDisplayState {
@@ -56,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function BoardDisplay(props: any) {
+export default function BoardDisplay(props: BoardDisplayProps) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -116,7 +117,9 @@ export default function BoardDisplay(props: any) {
               <Button
                 size="small"
                 variant="outlined"
-                color="secondary">
+                color="secondary"
+                onClick={() => props.setSelectedBoard(board)}
+              >
                 <Link to={itemRouteUrl} >View</Link>
               </Button>
               <Fab onClick={handleOpen}
