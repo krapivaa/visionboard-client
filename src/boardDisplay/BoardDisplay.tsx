@@ -53,9 +53,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     paper: {
-      // position: 'absolute',
-      width: 400,
-      height: 500,
+      position: 'absolute',
+      width: 350,
+      maxheight: 400,
       padding: 15,
       margin: 10,
       backgroundColor: theme.palette.background.paper,
@@ -112,8 +112,10 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                   image={board.image}
                 /> :
                 <CardMedia
-                  className={classes.media}
-                  image="https://www.aconsciousrethink.com/wp-content/uploads/2016/12/vision-board-wide.jpg"
+
+                className={classes.media}
+                image="https://static1.squarespace.com/static/560309e1e4b0dd583fafe589/5605a566e4b0a8eb13ffebc7/593c4247ebbd1af61fbb5a25/1590610373216/create-crazy-vision-700.jpg?format=1500w"
+
 
                 // <CloudinaryContext cloudName="verasenv">
                 //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
@@ -215,13 +217,15 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   }
   return (
     <div>
-      <GridList cellHeight={500} cols={3}>
-        <GridListTile>
-          <BoardCreate
+
+      <GridList cellHeight={500} cols={3}> 
+      <GridListTile>
+      <BoardCreate
             fetchBoards={props.fetchBoards}
             token={props.token} />
-        </GridListTile>
-        {boardsMapping()}
+        </GridListTile>     
+      {boardsMapping()}
+
       </GridList>
     </div>
   )

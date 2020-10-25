@@ -10,6 +10,7 @@ import BoardDisplay from "./BoardDisplay";
 
 
 
+
 const useStyles = (theme: Theme) => ({
   root: {
     "& > *": {
@@ -28,6 +29,7 @@ export interface BoardHomeProps {
 export interface BoardHomeState {
   boards: BoardResponse[];
   updateActive: boolean;
+  boardToUpdate: object
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
@@ -36,6 +38,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     this.state = {
       boards: [],
       updateActive: false,
+      boardToUpdate: {}
     };
   }
 
@@ -65,19 +68,15 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     const { classes }: any = this.props;
 
-    return (<div>
-
-      {/* <BoardCreate
+  return (<div>
+          
+            <BoardDisplay 
+            token={this.props.token}
             fetchBoards={this.fetchBoards}
-            token={this.props.token} />
-            */}
-      <BoardDisplay
-        token={this.props.token}
-        fetchBoards={this.fetchBoards}
-        boards={this.state.boards}
-        setSelectedBoard={this.props.setSelectedBoard}
-      />
-
+            boards={this.state.boards}
+            setSelectedBoard={this.props.setSelectedBoard}
+          />
+  
     </div>);
   }
 }
