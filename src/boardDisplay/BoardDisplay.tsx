@@ -52,9 +52,9 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     paper: {
-      // position: 'absolute',
-      maxwidth: 350,
-      maxheight: 500,
+      position: 'absolute',
+      width: 350,
+      maxheight: 400,
       padding: 15,
       margin: 10,
       backgroundColor: theme.palette.background.paper,
