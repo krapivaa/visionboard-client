@@ -18,9 +18,11 @@ const useStyles = (theme: Theme) => ({
         // width: '25ch',
       },
       backgroundColor: 'white',
-      padding: 5,
+      padding: 10,
       margin: 5,
-      border: '0.2em solid chocolate',
+      border: '0.5em solid chocolate',
+      maxwidth: 400,
+      maxheight: 500,
     },
     img: {
       width: "3em",

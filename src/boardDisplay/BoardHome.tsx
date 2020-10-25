@@ -10,11 +10,13 @@ import BoardDisplay from "./BoardDisplay";
 
 
 
+
 const useStyles = (theme: Theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
     },
+
   },  
 });
 
@@ -28,6 +30,7 @@ export interface BoardHomeProps {
 export interface BoardHomeState {
   boards: BoardResponse[];
   updateActive: boolean;
+  boardToUpdate: object
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
@@ -36,6 +39,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     this.state = {
       boards: [],
       updateActive: false,
+      boardToUpdate: {}
     };
   }
 
@@ -65,11 +69,11 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     const { classes }: any = this.props;
 
-    return (<div>
+  return (<div>
 
-           <BoardCreate
+            {/* <BoardCreate
             fetchBoards={this.fetchBoards}
-            token={this.props.token} />
+            token={this.props.token} />  */}
            
             <BoardDisplay 
             token={this.props.token}

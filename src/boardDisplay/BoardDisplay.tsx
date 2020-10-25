@@ -21,6 +21,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import BoardCreate from './BoardCreate';
 
 export interface BoardDisplayProps {
   token: any
@@ -52,8 +53,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     paper: {
       // position: 'absolute',
-      width: 400,
-      height: 500,
+      maxwidth: 350,
+      maxheight: 500,
       padding: 15,
       margin: 10,
       backgroundColor: theme.palette.background.paper,
@@ -111,7 +112,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 /> :
                 <CardMedia
                 className={classes.media}
-                image="https://www.aconsciousrethink.com/wp-content/uploads/2016/12/vision-board-wide.jpg"
+                image="https://static1.squarespace.com/static/560309e1e4b0dd583fafe589/5605a566e4b0a8eb13ffebc7/593c4247ebbd1af61fbb5a25/1590610373216/create-crazy-vision-700.jpg?format=1500w"
 
                 // <CloudinaryContext cloudName="verasenv">
                 //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
@@ -214,7 +215,12 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   }
   return (
     <div>
-      <GridList cellHeight={500} cols={3}>      
+      <GridList cellHeight={500} cols={3}> 
+      <GridListTile>
+      <BoardCreate
+            fetchBoards={props.fetchBoards}
+            token={props.token} />
+        </GridListTile>     
       {boardsMapping()}
       </GridList>
     </div>
