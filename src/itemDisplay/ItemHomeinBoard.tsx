@@ -20,6 +20,7 @@ export interface ItemHomeinBoardProps {
 
 export interface ItemHomeinBoardState {
   items: ItemResponse[];
+  boardSelectedId: any;
 }
 
 class ItemHomeinBoard extends React.Component<
@@ -30,16 +31,24 @@ class ItemHomeinBoard extends React.Component<
     super(props);
     this.state = {
       items: [],
+      // boardSelectedId: JSON.parse(localStorage.getItem('boardSelectedId')) ? JSON.parse(localStorage.getItem('boardSelectedId'))
+      boardSelectedId: 0,
     };
   }
 
-  componentDidUpdate(prevProps: ItemHomeinBoardProps) {
-    if (this.props.boardSelected == prevProps.boardSelected)
-      this.fetchItems();
+  // componentDidUpdate(prevProps: ItemHomeinBoardProps) {
+  //   if (this.props.boardSelected == prevProps.boardSelected)
+  //     this.fetchItems();
+  // }
+
+  componentDidMount() {
+    this.setState({ boardSelectedId: this.props.boardSelected.id }, () => { localStorage.setItem('boardSelectedId', JSON.stringify(this.state.boardSelectedId)) })
+    this.fetchItems()
   }
 
   fetchItems = () => {
-    console.log(this.props.boardSelected.id)
+    // console.log(this.props.boardSelected.id)
+    // this.setState({ boardSelectedId: this.props.boardSelected.id })
     fetch(`http://localhost:3000/api/board/${this.props.boardSelected.id}`, {
       // fetch(`http://localhost:3000/api/board/1`, {
 
@@ -51,7 +60,7 @@ class ItemHomeinBoard extends React.Component<
     })
       .then((res: any) => res.json())
       .then((json: ItemResponse[]) => {
-        console.log(json);
+        console.log("THIS IS ITEMS!: ", json);
         this.setState({ items: json })
       });
   };
@@ -64,7 +73,7 @@ class ItemHomeinBoard extends React.Component<
 
       <div>
         <Grid container>
-          <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} boardSelected={this.props.boardSelected} />
+          <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} boardSelectedId={this.state.boardSelectedId} />
         </Grid>
       </div>
     );

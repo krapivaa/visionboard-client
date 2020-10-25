@@ -10,7 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import {  Button, Fab, GridList, GridListTile } from '@material-ui/core';
+import { Button, Fab, GridList, GridListTile } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -41,8 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 500,
       padding: 15,
       margin: 10,
-      
+
     },
+
     media: {
       height: 250,
     },
@@ -97,11 +98,11 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   const boardsMapping = () => {
     return (props.boards.map((board: BoardResponse, index: number) => {
       var itemRouteUrl = `display-board-contents/${board.id}`
-      console.log(itemRouteUrl)
+      // console.log(itemRouteUrl)
       return (
 
 
-        
+
         <GridListTile>
           <Card className={classes.root} key={index}>
             <CardActionArea>
@@ -111,93 +112,94 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                   image={board.image}
                 /> :
                 <CardMedia
+
                 className={classes.media}
                 image="https://static1.squarespace.com/static/560309e1e4b0dd583fafe589/5605a566e4b0a8eb13ffebc7/593c4247ebbd1af61fbb5a25/1590610373216/create-crazy-vision-700.jpg?format=1500w"
+
 
                 // <CloudinaryContext cloudName="verasenv">
                 //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
                 // </CloudinaryContext>
-               
+
                 />
               }
- 
-      <CardActions style={{ alignItems: 'center', padding: '10px' }}>
-              <Button
-                size="small"
-                variant="outlined"
-                color="secondary"
-                onClick={() => props.setSelectedBoard(board)}
-              >
-                <Link to={itemRouteUrl} >View</Link>
-              </Button>
 
-
-               <Fab onClick={() => handleOpen(board)}
-                size="small"
-                type="button"
-                // variant="outlined"
-                color="primary"
-                  >
-                <EditIcon />
-                {/* Update */}
-              </Fab>  
-
-
-              <Fab onClick={() => { deleteBoard(board) }}
-                // style={{ marginLeft: '3em'}}
-                size="small"
-                // variant="outlined"
-                color="secondary"
-              // startIcon={<DeleteIcon />}
+              <CardActions style={{ alignItems: 'center', padding: '10px' }}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  color="secondary"
                 >
-                <DeleteIcon />
-              </Fab>
+                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoard(board)} >View</Link>
+                </Button>
 
 
-               <Modal 
-               aria-labelledby="transition-modal-title"
-               aria-describedby="transition-modal-description"
-               className={classes.modal}
-               BackdropComponent={Backdrop}
-               BackdropProps={{
-                 timeout: 500,
-               }}
-                open={open}
-                onClose={handleClose}
-              > 
+                <Fab onClick={() => handleOpen(board)}
+                  size="small"
+                  type="button"
+                  // variant="outlined"
+                  color="primary"
+                >
+                  <EditIcon />
+                  {/* Update */}
+                </Fab>
 
-               <Fade in={open}> 
-                 <Container className={classes.paper}> 
-              
 
-                  <BoardUpdate
-                    fetchBoards={props.fetchBoards}
-                    token={props.token}
-                    boardToUpdate={boardRow}
-                    />
-                  <br />
-                  <br />
-                     <Fab 
-                    style={{margin: '5px', alignItems: 'right'}}
-                    onClick={handleClose}
-                    size="small"
-                   >
-                    <CancelOutlinedIcon />
+                <Fab onClick={() => { deleteBoard(board) }}
+                  // style={{ marginLeft: '3em'}}
+                  size="small"
+                  // variant="outlined"
+                  color="secondary"
+                // startIcon={<DeleteIcon />}
+                >
+                  <DeleteIcon />
+                </Fab>
+
+
+                <Modal
+                  aria-labelledby="transition-modal-title"
+                  aria-describedby="transition-modal-description"
+                  className={classes.modal}
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{
+                    timeout: 500,
+                  }}
+                  open={open}
+                  onClose={handleClose}
+                >
+
+                  <Fade in={open}>
+                    <Container className={classes.paper}>
+
+
+                      <BoardUpdate
+                        fetchBoards={props.fetchBoards}
+                        token={props.token}
+                        boardToUpdate={boardRow}
+                      />
+                      <br />
+                      <br />
+                      <Fab
+                        style={{ margin: '5px', alignItems: 'right' }}
+                        onClick={handleClose}
+                        size="small"
+                      >
+                        <CancelOutlinedIcon />
                       </Fab>
 
-                </Container>
-                </Fade> 
-              </Modal>
-            </CardActions>
-            
-             
+                    </Container>
+                  </Fade>
+                </Modal>
+              </CardActions>
+
+
               <CardContent >
                 <Typography variant="h5" color="textSecondary" component="p">
                   {board.boardTitle}
                 </Typography>
 
-                <Typography variant="h6" style={{textOverflow: 'hidden'}}
-                color="textSecondary" component="p">
+                <Typography variant="h6" style={{ textOverflow: 'hidden' }}
+                  color="textSecondary" component="p">
                   {board.description}
                 </Typography>
 
@@ -206,7 +208,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 </Typography>
               </CardContent>
             </CardActionArea>
-                      
+
           </Card >
         </GridListTile>
       )
@@ -215,6 +217,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   }
   return (
     <div>
+
       <GridList cellHeight={500} cols={3}> 
       <GridListTile>
       <BoardCreate
@@ -222,6 +225,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
             token={props.token} />
         </GridListTile>     
       {boardsMapping()}
+
       </GridList>
     </div>
   )

@@ -16,8 +16,7 @@ const useStyles = (theme: Theme) => ({
     "& > *": {
       margin: theme.spacing(1),
     },
-
-  },  
+  },
 });
 
 
@@ -70,18 +69,14 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     const { classes }: any = this.props;
 
   return (<div>
-
-            {/* <BoardCreate
-            fetchBoards={this.fetchBoards}
-            token={this.props.token} />  */}
-           
+          
             <BoardDisplay 
             token={this.props.token}
             fetchBoards={this.fetchBoards}
             boards={this.state.boards}
             setSelectedBoard={this.props.setSelectedBoard}
           />
-   
+  
     </div>);
   }
 }

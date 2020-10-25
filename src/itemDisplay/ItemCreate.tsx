@@ -21,7 +21,7 @@ const useStyles = (theme: Theme) => ({
 export interface ItemCreateProps {
     token: any;
     fetchItems: any;
-    boardSelected: any;
+    boardSelectedId: any;
 }
 
 export interface ItemCreateState {
@@ -45,7 +45,7 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
     //handleSubmit and fetch
     handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        var boardId = this.props.boardSelected.id
+        var boardId = this.props.boardSelectedId
         fetch(`http://localhost:3000/api/item/create-new-on-board/${boardId}`, {
             method: 'POST',
             body: JSON.stringify({
