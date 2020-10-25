@@ -99,7 +99,7 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
       // let match = useRouteMatch();
       // var itemRouteUrl = `${match.url}/${board.id}`
       var itemRouteUrl = `/display-board-contents/${board.id}`
-      console.log(itemRouteUrl)
+      // console.log(itemRouteUrl)
       return (
         <li>
           <ListItem button
