@@ -1,4 +1,5 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
@@ -46,7 +47,7 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
     handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         var boardId = this.props.boardSelectedId
-        fetch(`http://localhost:3000/api/item/create-new-on-board/${boardId}`, {
+        fetch(`${APIURL}/api/item/create-new-on-board/${boardId}`, {
             method: 'POST',
             body: JSON.stringify({
                 item: {

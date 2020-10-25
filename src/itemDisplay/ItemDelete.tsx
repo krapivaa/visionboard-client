@@ -1,9 +1,11 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import { withStyles } from "@material-ui/core/styles"
 import { Theme, createStyles } from '@material-ui/core/styles';
 import { Button, Fab, Fade, Modal, Typography } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
 import DeleteIcon from '@material-ui/icons/Delete';
+
 
 
 const useStyles = (theme: Theme) => ({
@@ -43,7 +45,7 @@ class DeleteItem extends React.Component<DeleteItemProps, DeleteItemState> {
 
     deleteItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/api/item/delete/${this.props.itemToDelete.id}`, {
+        fetch(`${APIURL}/api/item/delete/${this.props.itemToDelete.id}`, {
             method: 'DELETE',
             headers: new Headers({
                 "Content-Type": 'application/json',

@@ -1,9 +1,11 @@
 //Responsibel for editing a board
 import React from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Input, Typography } from '@material-ui/core';
+
 
 
 const useStyles = (theme: Theme) => ({
@@ -54,7 +56,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
    handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();  
     // console.log(this.props.boardToUpdate)
-    fetch(`http://localhost:3000/api/board/update/${this.props.boardToUpdate.id}`, {
+    fetch(`${APIURL}/api/board/update/${this.props.boardToUpdate.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 board: {

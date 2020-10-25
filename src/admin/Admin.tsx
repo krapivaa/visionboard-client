@@ -1,9 +1,11 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import AdminCreate from './AdminCreate';
 import { UserResponse } from './AdminInterface';
 import EditUser from './EditUser';
 import AdminTable from './AdminTable';
 import DeleteUser from './DeleteUser';
+
 
 export interface AdminProps {
     token: any
@@ -32,7 +34,7 @@ class Admin extends React.Component<AdminProps, AdminState> {
         this.fetchUsers()
     }
     fetchUsers = () => {
-        fetch("http://localhost:3000/api/user/admin/view-all", {
+        fetch(`${APIURL}/api/user/admin/view-all`, {
             method: "GET",
             headers: new Headers({
                 "Content-Type": "application/json",

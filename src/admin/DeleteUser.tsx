@@ -1,7 +1,9 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import { withStyles } from "@material-ui/core/styles"
 import { Theme, createStyles } from '@material-ui/core/styles';
-import { Box, Button, Modal, TextField, Typography } from '@material-ui/core';
+import { Box, Button, Modal, Typography } from '@material-ui/core';
+
 
 const useStyles = (theme: Theme) =>
   createStyles({
@@ -34,7 +36,7 @@ class DeleteUser extends React.Component<DeleteUserProps, DeleteUserState> {
     this.state = { open: false, password: "", isAdmin: false };
   }
   onSubmit() {
-    const urlEndpoint = `http://localhost:3000/api/user/admin/delete/${this.props.userId}`;
+    const urlEndpoint = `${APIURL}/api/user/admin/delete/${this.props.userId}`;
     const body = {
       user: {
         password: this.state.password,

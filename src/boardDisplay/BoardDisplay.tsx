@@ -1,6 +1,5 @@
-//worklog Table
-//Responsible for mapping through all the boards and displaying them in cards
 import React from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import { withStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
@@ -84,7 +83,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
 
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
-    fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
+    fetch(`${APIURL}/api/board/delete/${board.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',

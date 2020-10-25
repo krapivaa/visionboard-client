@@ -1,7 +1,9 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import { withStyles } from "@material-ui/core/styles"
 import { Theme, createStyles } from '@material-ui/core/styles';
 import { Box, Button, Checkbox, FormControlLabel, Modal, TextField, Typography } from '@material-ui/core';
+
 
 // function rand() {
 //     return Math.round(Math.random() * 20) - 10;
@@ -52,7 +54,7 @@ class EditUser extends React.Component<EditUserProps, EditUserState> {
       console.log(this.props.isAdmin)
     }
       onSubmit() {
-        const urlEndpoint = `http://localhost:3000/api/user/admin/edit/${this.props.userId}`;
+        const urlEndpoint = `${APIURL}/api/user/admin/edit/${this.props.userId}`;
         const body = {
           user: {
             password: this.state.password,

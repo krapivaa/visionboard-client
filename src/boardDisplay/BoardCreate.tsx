@@ -1,5 +1,6 @@
 //Responsibele for creating a board
 import React, { Fragment } from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import { BoardResponse } from './BoardInterface';
 import { Theme } from '@material-ui/core/styles';
@@ -7,8 +8,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
 import { Button, CardMedia,  Grid, Typography } from '@material-ui/core';
 import Pin from "../assets/pushpin-147918_960_720.webp";
-import Icon from '@material-ui/core/Icon';
 import SaveIcon from '@material-ui/icons/Save';
+
 
 const useStyles = (theme: Theme) => ({
 
@@ -73,7 +74,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       //handleSubmit and fetch
       handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        fetch("http://localhost:3000/api/board/create", {
+        fetch(`${APIURL}/api/board/create`, {
             method: 'POST',
             body: JSON.stringify({
                 board: {
