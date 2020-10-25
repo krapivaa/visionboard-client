@@ -21,8 +21,8 @@ const useStyles = (theme: Theme) => ({
       padding: 10,
       margin: 5,
       border: '0.5em solid chocolate',
-      maxwidth: 400,
-      maxheight: 500,
+      
+      
     },
     img: {
       width: "3em",
@@ -174,7 +174,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 onChange={this.handleImageUpload}
               />
        
-        <br />
+        {/* <br /> */}
 
         <Button onClick={(event) => this.handleSubmit(event)}
           variant="contained"
