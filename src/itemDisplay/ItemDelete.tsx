@@ -1,22 +1,29 @@
 import React from 'react';
 import { withStyles } from "@material-ui/core/styles"
 import { Theme, createStyles } from '@material-ui/core/styles';
-import { Button, Fab, Modal, Typography } from '@material-ui/core';
+import { Button, Fab, Fade, Modal, Typography } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-const useStyles = (theme: Theme) =>
-    createStyles({
-        paper: {
-            position: 'absolute',
-            width: 400,
-            backgroundColor: theme.palette.background.paper,
-            border: '2px solid #000',
-            boxShadow: theme.shadows[5],
-            padding: theme.spacing(2, 4, 3),
+const useStyles = (theme: Theme) => ({
+    root: {
+        '& > *': {
+            margin: theme.spacing(1),
         },
-    });
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+    },
+});
 
 export interface DeleteItemProps {
     token: any,
@@ -68,18 +75,21 @@ class DeleteItem extends React.Component<DeleteItemProps, DeleteItemState> {
                     <DeleteIcon />
                 </Fab>
                 <Modal
+                    className={classes.modal}
                     open={this.state.open}
                     onClose={this.handleClose}>
-                    <>
-                        <Typography>Are you sure you want to delete this item?</Typography>
-                        {""}
-                        <Button size="small"
-                            onClick={(e) => this.deleteItem(e)}
-                            variant="contained">Submit</Button>
-                        <Button size="small"
-                            onClick={this.handleClose}
-                            variant="contained">Close X</Button>
-                    </>
+                    <Fade in={this.state.open}>
+                        <div className={classes.paper}>
+                            <Typography>Are you sure you want to delete this item?</Typography>
+                            {""}
+                            <Button size="small"
+                                onClick={(e) => this.deleteItem(e)}
+                                variant="contained">Submit</Button>
+                            <Button size="small"
+                                onClick={this.handleClose}
+                                variant="contained">Close X</Button>
+                        </div>
+                    </Fade>
                 </Modal>
             </>
         )
