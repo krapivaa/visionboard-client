@@ -48,7 +48,7 @@ class App extends React.Component<AppProps, AppState> {
     this.state = { token: "", isAdmin: undefined, boards: [], boardSelected: {} };
   }
 
-//comment
+
   componentDidMount() {
     if (localStorage.getItem('token')) {
       this.setState({ token: localStorage.getItem('token') })
