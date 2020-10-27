@@ -65,9 +65,9 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                     itemTitle: '',
                     notes: '',
                     photo: '',
-                })
+                })  
+                this.props.fetchItems(boardId)     
             })
-            .then(this.props.fetchItems(boardId))
     }
 
     handleImageUpload = (event: any) => {

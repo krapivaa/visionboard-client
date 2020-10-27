@@ -49,7 +49,7 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
             <ItemCreate token={this.props.token} boardSelectedId={this.props.boardSelectedId} fetchItems={this.props.fetchItems} />
           </GridListTile>
           {this.props.items.map((item: ItemResponse, index: number) => (
-            item.photo ? (
+            item.photo !== '' ? (
               <GridListTile key={index} cols={1}>
                 <img
                   src={item.photo}
@@ -124,13 +124,13 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                           onClose={this.handleClose}>
                           <Fade in={this.state.open} >
                             <div className={classes.paper}>
-                              <div>
+                              {/* <div>
                                 <img
                                   src={item.photo}
                                   alt={item.itemTitle}
                                   style={{ height: "75vh", width: "auto" }}
                                 />
-                              </div>
+                              </div> */}
                               <div>
                                 <Typography variant="h5" >{item.itemTitle}</Typography>
                                 <br />
@@ -155,7 +155,7 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                       </div>
                     }
                     actionPosition="right"
-                    titlePosition="top"
+                    titlePosition="bottom"
                     classes={{
                       root: classes.titleBar,
                       title: classes.title,
