@@ -45,7 +45,7 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
       <div className={classes.root} >
         <CssBaseline />
         <GridList className={classes.gridList} cellHeight={250}>
-          <GridListTile cols={1} style={{ height: 'auto' }} >
+          <GridListTile cols={1} style={{ height: 'auto', minWidth: '300px' }} >
             <ItemCreate token={this.props.token} boardSelectedId={this.props.boardSelectedId} fetchItems={this.props.fetchItems} />
           </GridListTile>
           {this.props.items.map((item: ItemResponse, index: number) => (

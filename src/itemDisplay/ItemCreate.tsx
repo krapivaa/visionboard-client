@@ -111,7 +111,9 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                     <Button onClick={(e) => this.handleSubmit(e)}
                         variant="contained"
                         color="primary"
-                        className={classes.button}>
+                        size='small'
+                        style={{maxWidth: '50px'}}
+                        >
                         Submit
                     </Button>
                 </form>

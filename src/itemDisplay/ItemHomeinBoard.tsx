@@ -44,7 +44,7 @@ class ItemHomeinBoard extends React.Component<
   }
 
   componentDidMount() {
-    this.setState({ boardSelectedId: localStorage.getItem('boardSelectedId') }, () => this.fetchItems(this.state.boardSelectedId))
+    this.setState({ boardSelectedId: localStorage.getItem('boardSelectedId') }, () => this.fetchItems(this.props.boardSelectedId))
   }
 
   fetchItems = (boardId: number) => {
