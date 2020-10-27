@@ -1,4 +1,3 @@
-//Responsibele for creating a board
 import React, { Fragment } from 'react';
 import APIURL from '../helpers/environment';
 import '../App.css';
@@ -10,8 +9,6 @@ import { Button, CardMedia,  Grid, Typography } from '@material-ui/core';
 import Pin from "../assets/pushpin-147918_960_720.webp";
 import SaveIcon from '@material-ui/icons/Save';
 
-
-
 const useStyles = (theme: Theme) => ({
 
     root: {
@@ -20,17 +17,15 @@ const useStyles = (theme: Theme) => ({
         // width: '25ch',
       },
       backgroundColor: 'white',
-      padding: 10,
-      margin: 5,
-      border: '0.5em solid chocolate',
-      
-      
+      padding: 3,
+      margin: 3,
+      border: '0.4em solid #5D88D2',     
     },
     img: {
       width: "3em",
       height: "auto",
       display: "block",
-      backgroundColor: "white",
+      // backgroundColor: "white",
     },
 });
 
@@ -72,7 +67,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     //     this.setState({sharedBoard: event.target.value});
     //   };
      
-      //handleSubmit and fetch
+     
       handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         fetch(`${APIURL}/api/board/create`, {
@@ -91,7 +86,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
             })
         }).then((res: any) => res.json())
         .then((json: BoardResponse) => {
-            console.log (json);
+            // console.log (json);
             this.setState ({
                 boardTitle: '',
                 description: '',
@@ -99,7 +94,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 image: ''
                 // sharedBoard: false, 
                 }) 
-
               this.props.fetchBoards()    
         })    
     }
@@ -117,7 +111,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       .then((res) => res.json())
       .then((file) =>
              { this.setState({image: file.secure_url})
-            
           }
       )
   }
@@ -128,7 +121,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
     const { classes }: any = this.props;
 
         return ( <Fragment >  
-    <Grid container spacing={0} justify="space-around" alignItems="center">
+    <Grid container spacing={0} justify="space-around" alignItems="center" style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'center'}}>
 
        <Grid item >            
        <form className={classes.root}>
@@ -142,7 +135,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
           Create your Board!
         </Typography>     
     
-
        <Input placeholder="Title"  value={this.state.boardTitle} inputProps={{ 'aria-label': 'boardTitle' }} onChange={(e) => this.setState({ boardTitle: e.target.value})} />
       <br />
       <Input placeholder="Description"  value={this.state.description}  inputProps={{ 'aria-label': 'description' }} onChange={(e) => this.setState({ description: e.target.value})}/>
