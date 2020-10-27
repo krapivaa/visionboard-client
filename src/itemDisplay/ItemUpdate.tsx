@@ -65,7 +65,7 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
   handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log(this.props.itemToUpdate)
-    fetch(`${APIURL}/api/item/update${this.props.itemToUpdate.id}`, {
+    fetch(`${APIURL}/api/item/update/${this.props.itemToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         item: {
