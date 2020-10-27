@@ -6,7 +6,6 @@ import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
 import { Button, Typography } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
-// import { CloudinaryContext } from 'cloudinary-react';
 
 const useStyles = (theme: Theme) => ({
 
@@ -26,7 +25,6 @@ export interface ItemCreateProps {
 }
 
 export interface ItemCreateState {
-    //item interface
     itemTitle: string;
     notes: string;
     photo: string;
@@ -66,9 +64,10 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                 this.setState({
                     itemTitle: '',
                     notes: '',
+                    photo: '',
                 })
             })
-            .then(this.props.fetchItems())
+            .then(this.props.fetchItems(boardId))
     }
 
     handleImageUpload = (event: any) => {
@@ -83,7 +82,6 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
             .then((res) => res.json())
             .then((file) => {
                 this.setState({ photo: file.secure_url })
-
             }
             )
     }
@@ -116,15 +114,6 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                         className={classes.button}>
                         Submit
                     </Button>
-                    {/* //DELETE ? CANCEl ? */}
-                    {/* <Button 
-             variant="contained"
-             color="secondary"
-             className={classes.button}
-             startIcon={<DeleteIcon />}
-             >
-             Delete
-            </Button> */}
                 </form>
             </div>);
     }

@@ -26,7 +26,7 @@ export interface BoardDisplayProps {
   token: any
   fetchBoards: any
   boards: BoardResponse[]
-  setSelectedBoard: any
+  setSelectedBoardId: any
 }
 
 export interface BoardDisplayState {
@@ -72,7 +72,6 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   const [open, setOpen] = React.useState(false);
   const [boardRow, setBoardRow] = React.useState({})
 
-
   const handleOpen = (board: BoardResponse) => {
     setBoardRow(board)
     setOpen(true);
@@ -97,8 +96,6 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   const boardsMapping = () => {
     return (props.boards.map((board: BoardResponse, index: number) => {
       var itemRouteUrl = `display-board-contents/${board.id}`
-      // console.log(itemRouteUrl)
-      
       return (
         <GridListTile>
           <Card className={classes.root} key={index}>
@@ -120,37 +117,24 @@ export default function BoardDisplay(props: BoardDisplayProps) {
               }
 
               <CardActions style={{ alignItems: 'center', padding: '10px', textAlign: 'center', display: 'flex', justifyContent: 'space-evenly' }}>
-
                 <Fab
                   size="small"
-                  // color="secondary"
                 >
                   <Link to={itemRouteUrl} onClick={() => props.setSelectedBoard(board)} ><OpenWithIcon  color='action'/></Link>
                 </Fab>
-
-
                 <Fab onClick={() => handleOpen(board)}
                   size="small"
                   type="button"
-                  // variant="outlined"
                   color="primary"
                 >
                   <EditIcon />
-                  {/* Update */}
                 </Fab>
-
-
                 <Fab onClick={() => { deleteBoard(board) }}
-                  // style={{ marginLeft: '3em'}}
                   size="small"
-                  // variant="outlined"
                   color="secondary"
-                // startIcon={<DeleteIcon />}
                 >
                   <DeleteIcon />
                 </Fab>
-
-
                 <Modal
                   aria-labelledby="transition-modal-title"
                   aria-describedby="transition-modal-description"
@@ -162,11 +146,8 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                   open={open}
                   onClose={handleClose}
                 >
-
                   <Fade in={open}>
-                    <Container   className={classes.paper}>
-
-
+                    <Container className={classes.paper}>
                       <BoardUpdate
                         fetchBoards={props.fetchBoards}
                         token={props.token}
@@ -182,29 +163,23 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                       >
                         <CancelOutlinedIcon />
                       </Fab>
-
                     </Container>
                   </Fade>
                 </Modal>
               </CardActions>
-
-
               <CardContent >
                 <Typography variant="h5" color="textSecondary" component="p">
                   {board.boardTitle}
                 </Typography>
-
                 <Typography variant="h6" style={{ textOverflow: 'hidden' }}
                   color="textSecondary" component="p">
                   {board.description}
                 </Typography>
-
                 <Typography variant="h6" color="textSecondary" component="p">
                   {board.tags}
                 </Typography>
               </CardContent>
             </CardActionArea>
-
           </Card >
         </GridListTile>
       )

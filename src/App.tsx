@@ -39,13 +39,14 @@ export interface AppState {
   token: any;
   isAdmin: boolean | undefined;
   boards: BoardResponse[];
-  boardSelected: {};
+  boardSelectedId: any;
+  window: number;
 }
 
 class App extends React.Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
-    this.state = { token: "", isAdmin: undefined, boards: [], boardSelected: {} };
+    this.state = { token: "", isAdmin: undefined, boards: [], boardSelectedId: "", window: window.innerWidth };
   }
 
 
@@ -76,8 +77,18 @@ class App extends React.Component<AppProps, AppState> {
     console.log("THIS IS BOARDS LIST!:", this.state.boards)
   }
 
-  setSelectedBoard = (board: BoardResponse) => {
-    this.setState({ boardSelected: board })
+  setSelectedBoardId = (newBoardId: any) => {
+    this.state.boardSelectedId !== localStorage.getItem('boardSelectedId') ?
+      this.setState({ boardSelectedId: newBoardId },
+        () => {
+          localStorage.setItem('boardSelectedId',
+            this.state.boardSelectedId)
+        }) : this.setState({ boardSelectedId: localStorage.getItem('boardSelectedId') })
+  }
+
+  clearSelectedBoardId = () => {
+    localStorage.setItem('boardSelectedId', "")
+    this.setState({ boardSelectedId: "" })
   }
 
   protectedViews = () => {
@@ -85,7 +96,6 @@ class App extends React.Component<AppProps, AppState> {
 
     return this.state.token === localStorage.getItem('token')
       && this.state.isAdmin ? (
-
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Admin token={this.state.token} />
@@ -94,25 +104,21 @@ class App extends React.Component<AppProps, AppState> {
         ? (
           <main className={classes.content}>
             <div className={classes.toolbar} />
-            {/* <Router> */}
             <div>
               <Switch>
                 <Route exact path="/home">
-                  <BoardHome token={this.state.token} setBoards={this.setBoards} setSelectedBoard={this.setSelectedBoard} />
+                  <BoardHome token={this.state.token} setBoards={this.setBoards} setSelectedBoardId={this.setSelectedBoardId} />
                 </Route>
                 <Route path="/display-board-contents">
-                  <ItemHomeinBoard token={this.state.token} boardSelected={this.state.boardSelected} />
+                  <ItemHomeinBoard token={this.state.token} boardSelectedId={this.state.boardSelectedId} />
                 </Route>
               </Switch>
             </div>
-            {/* </Router> */}
           </main>
         ) : (
           <main>
             <div className={classes.toolbar} />
-            {/* <Grid container spacing={0} justify="space-around"> */}
             <Auth setToken={this.setToken} setIsAdmin={this.setIsAdmin} />
-            {/* </Grid> */}
           </main>
         )
   }
@@ -125,7 +131,7 @@ class App extends React.Component<AppProps, AppState> {
         <div className="App">
           <CssBaseline />
           <Router>
-            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} clearToken={this.clearToken} boards={this.state.boards} setSelectedBoard={this.setSelectedBoard} />
+            <Navigation token={this.state.token} isAdmin={this.state.isAdmin} clearToken={this.clearToken} boards={this.state.boards} setSelectedBoardId={this.setSelectedBoardId} />
             {this.protectedViews()}
           </Router>
         </div>

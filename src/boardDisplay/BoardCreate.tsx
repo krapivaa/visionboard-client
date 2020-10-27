@@ -5,7 +5,7 @@ import { BoardResponse } from './BoardInterface';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
-import { Button, CardMedia,  Grid, Typography } from '@material-ui/core';
+import { Button, CardMedia, Grid, Typography } from '@material-ui/core';
 import Pin from "../assets/pushpin-147918_960_720.webp";
 import SaveIcon from '@material-ui/icons/Save';
 
@@ -25,8 +25,18 @@ const useStyles = (theme: Theme) => ({
       width: "3em",
       height: "auto",
       display: "block",
-      // backgroundColor: "white",
     },
+    backgroundColor: 'white',
+    padding: 5,
+    margin: 5,
+    border: '0.2em solid chocolate',
+  },
+  img: {
+    width: "3em",
+    height: "auto",
+    display: "block",
+    backgroundColor: "white",
+  },
 });
 
 export interface BoardCreateProps {
@@ -35,15 +45,14 @@ export interface BoardCreateProps {
 }
 
 export interface BoardCreateState {
-    boardTitle: string;
-    description: string;
-    tags: string;
-    image: string;
-    // sharedBoard: boolean; 
+  boardTitle: string;
+  description: string;
+  tags: string;
+  image: string;
+  // sharedBoard: boolean; 
 }
 
 class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
- 
     constructor(props: BoardCreateProps) {
         super(props);
         this.state = {  
@@ -61,12 +70,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
 
       // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
       //   this.setState({sharedBoard: event.target.value});
-      // };
-
-    // handleChange = (event: { target: { value: any; }; }) => {
-    //     this.setState({sharedBoard: event.target.value});
-    //   };
-     
+      // }; 
      
       handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
@@ -108,6 +112,31 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
           method: 'POST',
           body: data,
       })
+    }).then((res: any) => res.json())
+      .then((json: BoardResponse) => {
+        console.log(json);
+        this.setState({
+          boardTitle: '',
+          description: '',
+          tags: '',
+          image: ''
+          // sharedBoard: false, 
+        })
+
+        this.props.fetchBoards()
+      })
+  }
+
+  handleImageUpload = (event: any) => {
+    event.preventDefault();
+    const data = new FormData()
+    const { files } = event.target
+    data.append('file', files[0])
+    data.append('upload_preset', 'boardImage')
+    fetch('https://api.cloudinary.com/v1_1/verasenv/auto/upload', {
+      method: 'POST',
+      body: data,
+    })
       .then((res) => res.json())
       .then((file) =>
              { this.setState({image: file.secure_url})
@@ -119,13 +148,11 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
   render() {
 
     const { classes }: any = this.props;
-
         return ( <Fragment >  
     <Grid container spacing={0} justify="space-around" alignItems="center" style={{ position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', justifyContent: 'center'}}>
-
-       <Grid item >            
-       <form className={classes.root}>
-          <CardMedia
+        <Grid item >
+          <form className={classes.root}>
+            <CardMedia
               className={classes.img}
               component="img"
               image={Pin}
@@ -141,8 +168,8 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       <br />
       <Input placeholder="Tags"  value={this.state.tags}   inputProps={{ 'aria-label': 'tags' }} onChange={(e) => this.setState({ tags: e.target.value})} />
 
-        {/* <FormControl className={classes.formControl}> */}
-        {/* <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
+            {/* <FormControl className={classes.formControl}> */}
+            {/* <InputLabel id="boardCreate-select-label">Share with other users?</InputLabel>
 
         <Select
           labelId="yes-no-simple-select"
@@ -150,14 +177,13 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
           value={this.state.sharedBoard}
           onChange={this.handleChange}
         > */}
-        {/* <MenuItem value="">
+            {/* <MenuItem value="">
             <em></em>
           </MenuItem> */}
-        {/* value={false} */}
-        {/* <MenuItem value='false'>No</MenuItem>
+            {/* value={false} */}
+            {/* <MenuItem value='false'>No</MenuItem>
           <MenuItem value='true' >Yes</MenuItem>         
         </Select> */}
-        {/* </FormControl> */}
 
         <br />
        
@@ -168,8 +194,6 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
                 onChange={this.handleImageUpload}
               />
        
-        {/* <br /> */}
-
         <Button onClick={(event) => this.handleSubmit(event)}
           variant="contained"
           color="primary"
@@ -181,9 +205,8 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
           Save
         </Button>
 
-  
-       </form>
-      </Grid> 
+          </form>
+        </Grid>
       </Grid>
     </Fragment>);
   }
