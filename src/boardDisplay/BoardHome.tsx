@@ -1,14 +1,10 @@
-//Example of Worklog Index - responsible for loading other board components. It is like "board landing page"
 import React from "react";
+import APIURL from "../helpers/environment";
 import "../App.css";
-import BoardCreate from "./BoardCreate";
-import { Route, Switch } from "react-router-dom";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-import { BoardResponse, Board } from "./BoardInterface";
+import { BoardResponse } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
-
-
 
 
 const useStyles = (theme: Theme) => ({
@@ -48,7 +44,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
 
   fetchBoards = () => {
-    fetch("http://localhost:3000/api/board/mine", {
+    fetch(`${APIURL}/api/board/mine`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",

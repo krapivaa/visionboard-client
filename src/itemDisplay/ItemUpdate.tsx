@@ -1,4 +1,5 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -7,6 +8,7 @@ import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Fab, Input, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+
 
 
 const useStyles = (theme: Theme) => ({
@@ -62,7 +64,7 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
   handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log(this.props.itemToUpdate)
-    fetch(`http://localhost:3000/api/item/update${this.props.itemToUpdate.id}`, {
+    fetch(`${APIURL}/api/item/update${this.props.itemToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         board: {

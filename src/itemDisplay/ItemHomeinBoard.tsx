@@ -1,9 +1,11 @@
 import React from "react";
+import APIURL from "../helpers/environment";
 import "../App.css";
 import ItemDisplay from "./ItemDisplay";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import { ItemResponse } from "./ItemInterface";
 import { Grid } from "@material-ui/core";
+
 
 const useStyles = (theme: Theme) => ({
   root: {
@@ -49,9 +51,7 @@ class ItemHomeinBoard extends React.Component<
   fetchItems = () => {
     // console.log(this.props.boardSelected.id)
     // this.setState({ boardSelectedId: this.props.boardSelected.id })
-    fetch(`http://localhost:3000/api/board/${this.props.boardSelected.id}`, {
-      // fetch(`http://localhost:3000/api/board/1`, {
-
+    fetch(`${APIURL}/api/board/${this.props.boardSelected.id}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",

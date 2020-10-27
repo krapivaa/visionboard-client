@@ -1,5 +1,6 @@
-import { TextField, Button, Typography, Box, Modal, createStyles, Theme, withStyles } from '@material-ui/core';
 import React from 'react';
+import APIURL from '../helpers/environment';
+import { TextField, Button, Typography, Box, Modal, createStyles, Theme, withStyles } from '@material-ui/core';
 
 const useStyles = (theme: Theme) =>
     createStyles({
@@ -33,7 +34,7 @@ class AdminCreate extends React.Component<AdminCreateProps, AdminCreateState> {
   }
 
   onSubmit() {
-    const urlEndpoint = "http://localhost:3000/api/user/admin/signup";
+    const urlEndpoint = `${APIURL}/api/user/admin/signup`;
     const body: RequestBodySignup = {
       user: {
         firstName: this.state.firstName,

@@ -1,5 +1,6 @@
-import { Box, Button, Card, TextField, Typography } from "@material-ui/core";
 import React from "react";
+import APIURL from "../helpers/environment";
+import { Button, TextField, Typography } from "@material-ui/core";
 
 export interface SignupProps {
   setToken: any;
@@ -21,7 +22,7 @@ class Signup extends React.Component<SignupProps, SignupState> {
   }
 
   onSubmit() {
-    const urlEndpoint = "http://localhost:3000/api/user/signup";
+    const urlEndpoint = `${APIURL}/api/user/signup`;
     const body: RequestBodySignup = {
       user: {
         firstName: this.state.firstName,
