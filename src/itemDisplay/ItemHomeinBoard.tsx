@@ -17,12 +17,12 @@ const useStyles = (theme: Theme) => ({
 
 export interface ItemHomeinBoardProps {
   token: any;
-  boardSelected: any;
+  boardSelectedId: any;
 }
 
 export interface ItemHomeinBoardState {
   items: ItemResponse[];
-  boardSelectedId: any;
+  boardSelectedId?: any;
 }
 
 class ItemHomeinBoard extends React.Component<
@@ -33,25 +33,23 @@ class ItemHomeinBoard extends React.Component<
     super(props);
     this.state = {
       items: [],
-      // boardSelectedId: JSON.parse(localStorage.getItem('boardSelectedId')) ? JSON.parse(localStorage.getItem('boardSelectedId'))
-      boardSelectedId: 0,
+      boardSelectedId: localStorage.getItem('boardSelectedId'),
     };
   }
 
-  // componentDidUpdate(prevProps: ItemHomeinBoardProps) {
-  //   if (this.props.boardSelected == prevProps.boardSelected)
-  //     this.fetchItems();
-  // }
-
-  componentDidMount() {
-    this.setState({ boardSelectedId: this.props.boardSelected.id }, () => { localStorage.setItem('boardSelectedId', JSON.stringify(this.state.boardSelectedId)) })
-    this.fetchItems()
+  componentDidUpdate(prevProps: ItemHomeinBoardProps, prevState: ItemHomeinBoardState) {
+    if (this.props.boardSelectedId !== prevProps.boardSelectedId) {
+      this.fetchItems(this.props.boardSelectedId);
+    }
   }
 
-  fetchItems = () => {
-    // console.log(this.props.boardSelected.id)
-    // this.setState({ boardSelectedId: this.props.boardSelected.id })
-    fetch(`${APIURL}/api/board/${this.props.boardSelected.id}`, {
+  componentDidMount() {
+    this.setState({ boardSelectedId: localStorage.getItem('boardSelectedId') }, () => this.fetchItems(this.state.boardSelectedId))
+  }
+
+  fetchItems = (boardId: number) => {
+    boardId = this.props.boardSelectedId
+    fetch(`${APIURL}/api/board/${boardId}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -61,7 +59,10 @@ class ItemHomeinBoard extends React.Component<
       .then((res: any) => res.json())
       .then((json: ItemResponse[]) => {
         console.log("THIS IS ITEMS!: ", json);
-        this.setState({ items: json })
+        this.setState({
+          items: json
+            .sort((a, b) => b.id - a.id)
+        })
       });
   };
 
@@ -73,7 +74,7 @@ class ItemHomeinBoard extends React.Component<
 
       <div>
         <Grid container>
-          <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} boardSelectedId={this.state.boardSelectedId} />
+          <ItemDisplay fetchItems={this.fetchItems} token={this.props.token} items={this.state.items} boardSelectedId={this.props.boardSelectedId} />
         </Grid>
       </div>
     );

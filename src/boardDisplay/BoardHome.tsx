@@ -6,11 +6,6 @@ import { withStyles } from "@material-ui/core/styles";
 import { BoardResponse } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
 
-
-
-
-
-
 const useStyles = (theme: Theme) => ({
   root: {
     "& > *": {
@@ -23,7 +18,7 @@ const useStyles = (theme: Theme) => ({
 export interface BoardHomeProps {
   token: any;
   setBoards: any;
-  setSelectedBoard: any;
+  setSelectedBoardId: any;
 }
 
 export interface BoardHomeState {
@@ -45,7 +40,6 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
   componentDidMount() {
     this.fetchBoards();
   }
-
 
   fetchBoards = () => {
     fetch(`${APIURL}/api/board/mine`, {
@@ -69,14 +63,14 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     const { classes }: any = this.props;
 
   return (<div>
-          
-            <BoardDisplay 
-            token={this.props.token}
-            fetchBoards={this.fetchBoards}
-            boards={this.state.boards}
-            setSelectedBoard={this.props.setSelectedBoard}
-          />
-  
+      
+      <BoardDisplay
+        token={this.props.token}
+        fetchBoards={this.fetchBoards}
+        boards={this.state.boards}
+        setSelectedBoardId={this.props.setSelectedBoardId}
+      />
+      
     </div>);
   }
 }
