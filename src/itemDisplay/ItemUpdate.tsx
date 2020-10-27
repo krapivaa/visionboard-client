@@ -7,6 +7,7 @@ import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Fab, Input, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import { ItemResponse } from './ItemInterface';
 
 
 const useStyles = (theme: Theme) => ({
@@ -30,7 +31,7 @@ const useStyles = (theme: Theme) => ({
 
 
 export interface ItemUpdateProps {
-  itemToUpdate: any,
+  itemToUpdate: ItemResponse,
   token: any,
   fetchItems: any
 }
@@ -46,8 +47,8 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
     super(props);
     this.state = {
       open: false,
-      updateItemTitle: props.itemToUpdate.itemTitle,
-      updateNotes: props.itemToUpdate.notes
+      updateItemTitle: this.props.itemToUpdate.itemTitle,
+      updateNotes: this.props.itemToUpdate.notes
     };
   }
 
@@ -62,13 +63,12 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
   handleSubmit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     console.log(this.props.itemToUpdate)
-    fetch(`http://localhost:3000/api/item/update${this.props.itemToUpdate.id}`, {
+    fetch(`http://localhost:3000/api/item/update/${this.props.itemToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
-        board: {
+        item: {
           itemTitle: this.state.updateItemTitle,
           notes: this.state.updateNotes,
-
         }
       }),
       headers: new Headers({
@@ -77,6 +77,7 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
       })
     }).then((res: any) => {
       this.props.fetchItems()
+      this.handleClose()
     })
   }
 
@@ -85,7 +86,7 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
     const { classes }: any = this.props;
 
     return (
-      <div>
+      <>
         <Fab color="primary" size="small" aria-label="edit" onClick={this.handleOpen}>
           <EditIcon />
         </Fab>
@@ -107,39 +108,28 @@ class ItemUpdate extends React.Component<ItemUpdateProps, ItemUpdateState> {
                 Update Info:
                 </Typography>
               <form className={classes.root} noValidate autoComplete="off">
-                <Input placeholder="Title" inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ updateItemTitle: e.target.value })} />
+                <Input placeholder="Title" defaultValue={this.props.itemToUpdate.itemTitle} inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ updateItemTitle: e.target.value })} />
                 <br />
-                <Input placeholder="Notes" inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ updateNotes: e.target.value })} />
+                <Input placeholder="Notes" defaultValue={this.props.itemToUpdate.notes} inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ updateNotes: e.target.value })} />
                 <br />
-                {/* <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
-                    <br /> */}
-                {/* <Input id="cloudinary"
-                  placeholder="Upload an image"
-                  type="file"
-                  name="file"
-                  onChange={this.handleImageUpload}
-                />
-                <br /> */}
                 <Button onClick={(e) => this.handleSubmit(e)}
                   variant="contained"
                   color="primary"
                   className={classes.button}>
                   Submit
                     </Button>
-                {/* //DELETE ? CANCEl ? */}
-                {/* <Button 
-             variant="contained"
-             color="secondary"
-             className={classes.button}
-             startIcon={<DeleteIcon />}
-             >
-             Delete
-            </Button> */}
+                <Button onClick={() => this.handleClose()}
+                  variant="contained"
+                  className={classes.button}
+
+                >
+                  Cancel
+            </Button>
               </form>
             </div>
           </Fade>
         </Modal>
-      </div>
+      </>
     );
   }
 }

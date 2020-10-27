@@ -1,14 +1,9 @@
-//Example of Worklog Index - responsible for loading other board components. It is like "board landing page"
 import React from "react";
 import "../App.css";
-import BoardCreate from "./BoardCreate";
-import { Route, Switch } from "react-router-dom";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
-import { BoardResponse, Board } from "./BoardInterface";
+import { BoardResponse } from "./BoardInterface";
 import BoardDisplay from "./BoardDisplay";
-
-
 
 const useStyles = (theme: Theme) => ({
   root: {
@@ -22,7 +17,7 @@ const useStyles = (theme: Theme) => ({
 export interface BoardHomeProps {
   token: any;
   setBoards: any;
-  setSelectedBoard: any;
+  setSelectedBoardId: any;
 }
 
 export interface BoardHomeState {
@@ -42,7 +37,6 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
   componentDidMount() {
     this.fetchBoards();
   }
-
 
   fetchBoards = () => {
     fetch("http://localhost:3000/api/board/mine", {
@@ -75,7 +69,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
         token={this.props.token}
         fetchBoards={this.fetchBoards}
         boards={this.state.boards}
-        setSelectedBoard={this.props.setSelectedBoard}
+        setSelectedBoardId={this.props.setSelectedBoardId}
       />
 
     </div>);

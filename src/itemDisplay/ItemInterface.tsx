@@ -7,11 +7,11 @@ export interface Item {
 export interface RequestBodyItem {
     item: Item;
 }
-    
-    
-    
+
+
+
 export interface ItemResponse {
-    id?: number;
+    id: number;
     boardId?: number;
     itemTitle: string;
     notes: string;

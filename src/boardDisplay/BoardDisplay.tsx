@@ -1,8 +1,5 @@
-//worklog Table
-//Responsible for mapping through all the boards and displaying them in cards
 import React from 'react';
 import '../App.css';
-import { withStyles } from "@material-ui/core/styles";
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -15,7 +12,7 @@ import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
@@ -27,7 +24,7 @@ export interface BoardDisplayProps {
   token: any
   fetchBoards: any
   boards: BoardResponse[]
-  setSelectedBoard: any
+  setSelectedBoardId: any
 }
 
 export interface BoardDisplayState {
@@ -72,7 +69,6 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   const [open, setOpen] = React.useState(false);
   const [boardRow, setBoardRow] = React.useState({})
 
-
   const handleOpen = (board: BoardResponse) => {
     setBoardRow(board)
     setOpen(true);
@@ -98,11 +94,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   const boardsMapping = () => {
     return (props.boards.map((board: BoardResponse, index: number) => {
       var itemRouteUrl = `display-board-contents/${board.id}`
-      // console.log(itemRouteUrl)
       return (
-
-
-
         <GridListTile>
           <Card className={classes.root} key={index}>
             <CardActionArea>
@@ -118,20 +110,16 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 // <CloudinaryContext cloudName="verasenv">
                 //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
                 // </CloudinaryContext>
-
                 />
               }
-
               <CardActions style={{ alignItems: 'center', padding: '10px' }}>
                 <Button
                   size="small"
                   variant="outlined"
                   color="secondary"
                 >
-                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoard(board)} >View</Link>
+                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoardId(board.id)} >View</Link>
                 </Button>
-
-
                 <Fab onClick={() => handleOpen(board)}
                   size="small"
                   type="button"
@@ -139,10 +127,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                   color="primary"
                 >
                   <EditIcon />
-                  {/* Update */}
                 </Fab>
-
-
                 <Fab onClick={() => { deleteBoard(board) }}
                   // style={{ marginLeft: '3em'}}
                   size="small"
@@ -152,8 +137,6 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 >
                   <DeleteIcon />
                 </Fab>
-
-
                 <Modal
                   aria-labelledby="transition-modal-title"
                   aria-describedby="transition-modal-description"
@@ -165,11 +148,8 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                   open={open}
                   onClose={handleClose}
                 >
-
                   <Fade in={open}>
                     <Container className={classes.paper}>
-
-
                       <BoardUpdate
                         fetchBoards={props.fetchBoards}
                         token={props.token}
@@ -184,29 +164,23 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                       >
                         <CancelOutlinedIcon />
                       </Fab>
-
                     </Container>
                   </Fade>
                 </Modal>
               </CardActions>
-
-
               <CardContent >
                 <Typography variant="h5" color="textSecondary" component="p">
                   {board.boardTitle}
                 </Typography>
-
                 <Typography variant="h6" style={{ textOverflow: 'hidden' }}
                   color="textSecondary" component="p">
                   {board.description}
                 </Typography>
-
                 <Typography variant="h6" color="textSecondary" component="p">
                   {board.tags}
                 </Typography>
               </CardContent>
             </CardActionArea>
-
           </Card >
         </GridListTile>
       )

@@ -71,7 +71,7 @@ export interface NavigationProps {
   isAdmin: boolean | undefined;
   clearToken: any;
   boards: BoardResponse[];
-  setSelectedBoard: any;
+  setSelectedBoardId: any;
 }
 
 export interface NavigationState {
@@ -96,10 +96,7 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
 
   boardListMapping = () => {
     return (this.props.boards.map((board: BoardResponse, index: number) => {
-      // let match = useRouteMatch();
-      // var itemRouteUrl = `${match.url}/${board.id}`
       var itemRouteUrl = `/display-board-contents/${board.id}`
-      // console.log(itemRouteUrl)
       return (
         <li>
           <ListItem button
@@ -110,7 +107,7 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText>
-              <Link to={itemRouteUrl} onClick={() => this.props.setSelectedBoard(board)} >
+              <Link to={itemRouteUrl} onClick={() => this.props.setSelectedBoardId(board.id)} >
                 {board.boardTitle}
               </Link>
             </ListItemText>
@@ -121,6 +118,11 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
     )
   }
 
+  componentDidUpdate(prevProps: NavigationProps) {
+    if (this.props.boards.length !== prevProps.boards.length) {
+      this.boardListMapping()
+    }
+  }
 
   render() {
     const { classes }: any = this.props;
