@@ -19,23 +19,33 @@ export interface ItemDisplayProps {
 
 export interface ItemDisplayState {
   boardSelectedId: any,
-  open: boolean,
+  openPhoto: boolean,
+  openText: boolean,
   selectedItem: any,
 }
 
 class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
   constructor(props: ItemDisplayProps) {
     super(props);
-    this.state = { boardSelectedId: localStorage.getItem('boardSelectedId'), open: false, selectedItem: {} }
+    this.state = { boardSelectedId: localStorage.getItem('boardSelectedId'), openText: false, openPhoto: false, selectedItem: {} }
   }
 
-  handleOpen = (item: ItemResponse) => {
+  handleOpenPhoto = (item: ItemResponse) => {
     this.setState({ selectedItem: item })
-    this.setState({ open: true })
+    this.setState({ openPhoto: true })
   };
 
-  handleClose = () => {
-    this.setState({ open: false })
+  handleOpenTextOnly = (item: ItemResponse) => {
+    this.setState({ selectedItem: item })
+    this.setState({ openText: true })
+  };
+
+  handleClosePhoto = () => {
+    this.setState({ openPhoto: false })
+  };
+
+  handleCloseText = () => {
+    this.setState({ openText: false })
   };
 
   render() {
@@ -45,20 +55,18 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
       <div className={classes.root} >
         <CssBaseline />
         <GridList className={classes.gridList} cellHeight={250}>
-          <GridListTile cols={1} style={{ height: 'auto' }} >
+          <GridListTile cols={1} style={{ height: 'auto', minWidth: '300px', border: '0.4em solid #5D88D2', backgroundColor: 'white' }} >
             <ItemCreate token={this.props.token} boardSelectedId={this.props.boardSelectedId} fetchItems={this.props.fetchItems} />
           </GridListTile>
           {this.props.items.map((item: ItemResponse, index: number) => (
-            item.photo ? (
-              <GridListTile key={index} cols={1}>
-                <img
-                  src={item.photo}
-                  alt={item.itemTitle} />
+            item.photo === "" ?
+              (<GridListTile style={{ backgroundColor: "white", padding: "1em" }} key={item.id}>
+                <Typography variant="body1">{item.notes}</Typography>
                 <GridListTileBar
                   actionIcon={
                     <div>
                       <Fab
-                        onClick={() => this.handleOpen(item)}
+                        onClick={() => this.handleOpenTextOnly(item)}
                         size="small"
                         style={{ backgroundColor: "rgba(229,229,229,0.7)" }}
                       >
@@ -66,53 +74,51 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                       </Fab>
                       <Modal
                         className={classes.modal}
-                        open={this.state.open}
-                        onClose={this.handleClose}>
-                        <Fade in={this.state.open} >
+                        open={this.state.openText}
+                        onClose={this.handleCloseText}>
+                        <Fade in={this.state.openText} >
                           <div className={classes.paper}>
-                            <div>
-                              <img
-                                src={this.state.selectedItem.photo}
-                                alt={this.state.selectedItem.itemTitle}
-                                style={{ height: "75vh", width: "auto" }}
-                              />
-                            </div>
-                            <div>
-                              <Typography variant="h5" >{this.state.selectedItem.itemTitle}</Typography>
+                            <Typography variant="h5" >{item.itemTitle}</Typography>
+                            <br />
+                            <Typography variant="body1">{item.notes}</Typography>
+                            <br />
+                            <span style={{ display: 'inline' }}>
+                              <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={item} />
                               <br />
-                              <Typography variant="body1">{this.state.selectedItem.notes}</Typography>
-                            </div>
-                            <span >
-                              <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={this.state.selectedItem} />
-                              <Fab
-                                size="small"
-                                onClick={this.handleClose}>
-                                <CloseIcon />
-                              </Fab>
-                              <DeleteItem token={this.props.token} fetchItems={this.props.fetchItems} itemToDelete={this.state.selectedItem} />
+                              <DeleteItem token={this.props.token} fetchItems={this.props.fetchItems} itemToDelete={item} />
+                              <br />
+                              <>
+                                <Fab
+                                  size="small"
+                                  onClick={this.handleCloseText}>
+                                  <CloseIcon />
+                                </Fab>
+                              </>
                             </span>
                           </div>
                         </Fade>
                       </Modal>
-                    </div>}
+                    </div>
+                  }
                   actionPosition="right"
                   title={item.itemTitle}
                   titlePosition="bottom"
-                  subtitle={item.notes}
                   classes={{
                     root: classes.titleBar,
                     title: classes.title,
                   }}
                 />
-              </GridListTile>) : (
-                <GridListTile style={{ backgroundColor: "white", padding: "1em" }} key={item.id}>
-                  <Typography variant="h5">{item.itemTitle}</Typography>
-                  <Typography variant="body1">{item.notes}</Typography>
+              </GridListTile>
+              ) : (
+                <GridListTile key={index} cols={1}>
+                  <img
+                    src={item.photo}
+                    alt={item.itemTitle} />
                   <GridListTileBar
                     actionIcon={
                       <div>
                         <Fab
-                          onClick={() => this.handleOpen(item)}
+                          onClick={() => this.handleOpenPhoto(item)}
                           size="small"
                           style={{ backgroundColor: "rgba(229,229,229,0.7)" }}
                         >
@@ -120,49 +126,45 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                         </Fab>
                         <Modal
                           className={classes.modal}
-                          open={this.state.open}
-                          onClose={this.handleClose}>
-                          <Fade in={this.state.open} >
+                          open={this.state.openPhoto}
+                          onClose={this.handleClosePhoto}>
+                          <Fade in={this.state.openPhoto} >
                             <div className={classes.paper}>
                               <div>
                                 <img
-                                  src={item.photo}
-                                  alt={item.itemTitle}
+                                  src={this.state.selectedItem.photo}
+                                  alt={this.state.selectedItem.itemTitle}
                                   style={{ height: "75vh", width: "auto" }}
                                 />
                               </div>
                               <div>
-                                <Typography variant="h5" >{item.itemTitle}</Typography>
+                                <Typography variant="h5" >{this.state.selectedItem.itemTitle}</Typography>
                                 <br />
-                                <Typography variant="body1">{item.notes}</Typography>
+                                <Typography variant="body1">{this.state.selectedItem.notes}</Typography>
                               </div>
-                              <Box style={{ display: 'flex', justifyContent: 'space-around', padding: '1em' }}>
-                                <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={item} />
-                                <br />
-                                <DeleteItem token={this.props.token} fetchItems={this.props.fetchItems} itemToDelete={item} />
-                                <br />
-                                <>
-                                  <Fab
-                                    size="small"
-                                    onClick={this.handleClose}>
-                                    <CloseIcon />
-                                  </Fab>
-                                </>
-                              </Box>
+                              <span >
+                                <ItemUpdate token={this.props.token} fetchItems={this.props.fetchItems} itemToUpdate={this.state.selectedItem} />
+                                <Fab
+                                  size="small"
+                                  onClick={this.handleClosePhoto}>
+                                  <CloseIcon />
+                                </Fab>
+                                <DeleteItem token={this.props.token} fetchItems={this.props.fetchItems} itemToDelete={this.state.selectedItem} />
+                              </span>
                             </div>
                           </Fade>
                         </Modal>
-                      </div>
-                    }
+                      </div>}
                     actionPosition="right"
-                    titlePosition="top"
+                    title={item.itemTitle}
+                    titlePosition="bottom"
+                    subtitle={item.notes}
                     classes={{
                       root: classes.titleBar,
                       title: classes.title,
                     }}
                   />
-                </GridListTile>
-              )
+                </GridListTile>)
           ))}
         </GridList>
       </div >);

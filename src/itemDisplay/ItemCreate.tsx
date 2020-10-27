@@ -58,7 +58,8 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                 'Content-Type': 'application/json',
                 'Authorization': this.props.token
             })
-        }).then((res: any) => res.json())
+        })
+            .then((res: any) => res.json())
             .then((json: ItemResponse) => {
                 console.log(json);
                 this.setState({
@@ -66,8 +67,9 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                     notes: '',
                     photo: '',
                 })
+                this.props.fetchItems(boardId)
             })
-            .then(this.props.fetchItems(boardId))
+
     }
 
     handleImageUpload = (event: any) => {
@@ -95,9 +97,9 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                     Add New Inspiration!
                 </Typography>
                 <form className={classes.root} noValidate autoComplete="off" style={{ padding: "0em .2em 0em .2em" }} >
-                    <Input placeholder="Title" inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ itemTitle: e.target.value })} />
+                    <Input placeholder="Title" value={this.state.itemTitle} inputProps={{ 'aria-label': 'itemTitle' }} onChange={(e) => this.setState({ itemTitle: e.target.value })} />
                     <br />
-                    <Input placeholder="Notes" inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value })} />
+                    <Input placeholder="Notes" value={this.state.notes} inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value })} />
                     <br />
                     {/* <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
                     <br /> */}
@@ -109,6 +111,8 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                     />
                     <br />
                     <Button onClick={(e) => this.handleSubmit(e)}
+                        style={{ maxWidth: '50px' }}
+                        size='small'
                         variant="contained"
                         color="primary"
                         className={classes.button}>

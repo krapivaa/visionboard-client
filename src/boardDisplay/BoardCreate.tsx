@@ -80,7 +80,7 @@ class BoardCreate extends React.Component<BoardCreateProps, BoardCreateState> {
       })
     }).then((res: any) => res.json())
       .then((json: BoardResponse) => {
-        // console.log (json);
+        console.log(json);
         this.setState({
           boardTitle: '',
           description: '',
