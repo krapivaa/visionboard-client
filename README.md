@@ -63,23 +63,23 @@ DELETE  /delete/:itemId             => Delete existing item
 
 ### Login & Signup
 
-![Auth Page](./assets/screenshots/visionboard-login-signup.png)
+![Auth Page](https://raw.githubusercontent.com/krapivaa/visionboard-client/master/src/assets/screenshots/visionboard-login-signup.png)
 
 ### Board Display
 
-![Board Display](./assets/screenshots/visionboard-boardDisplay.png)
+![Board Display](https://raw.githubusercontent.com/krapivaa/visionboard-client/master/src/assets/screenshots/visionboard-boardDisplay.png)
 
 ### Item Display
 
-![Item Display](./assets/screenshots/visionboard-itemDisplay.png)
+![Item Display](https://raw.githubusercontent.com/krapivaa/visionboard-client/master/src/assets/screenshots/visionboard-itemDisplay.png)
 
 ### Image Modal
 
-![Image Modal](./assets/screenshots/visionboard-itemviewmodal.png)
+![Image Modal](https://raw.githubusercontent.com/krapivaa/visionboard-client/master/src/assets/screenshots/visionboard-itemviewmodal.png)
 
 ### Admin Page
 
-![Admin Page](./assets/screenshots/visionboard-adminview.png)
+![Admin Page](https://raw.githubusercontent.com/krapivaa/visionboard-client/master/src/assets/screenshots/visionboard-adminview.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
