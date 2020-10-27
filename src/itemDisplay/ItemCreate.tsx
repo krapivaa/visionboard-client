@@ -69,7 +69,6 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                 })
                 this.props.fetchItems(boardId)
             })
-
     }
 
     handleImageUpload = (event: any) => {
@@ -115,7 +114,7 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                         size='small'
                         variant="contained"
                         color="primary"
-                        className={classes.button}>
+                    >
                         Submit
                     </Button>
                 </form>

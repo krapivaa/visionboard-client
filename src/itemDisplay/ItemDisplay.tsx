@@ -2,7 +2,7 @@ import React from 'react';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
-import { Box, CssBaseline, Fab, Fade, GridList, GridListTile, GridListTileBar, Modal, Typography } from '@material-ui/core';
+import { CssBaseline, Fab, Fade, GridList, GridListTile, GridListTileBar, Modal, Typography } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
 import ZoomInIcon from '@material-ui/icons/ZoomIn';
 import CloseIcon from '@material-ui/icons/Close';
@@ -130,13 +130,13 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                           onClose={this.handleClosePhoto}>
                           <Fade in={this.state.openPhoto} >
                             <div className={classes.paper}>
-                              <div>
+                              {/* <div>
                                 <img
                                   src={this.state.selectedItem.photo}
                                   alt={this.state.selectedItem.itemTitle}
                                   style={{ height: "75vh", width: "auto" }}
                                 />
-                              </div>
+                              </div> */}
                               <div>
                                 <Typography variant="h5" >{this.state.selectedItem.itemTitle}</Typography>
                                 <br />

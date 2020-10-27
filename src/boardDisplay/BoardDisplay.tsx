@@ -8,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Fab, GridList, GridListTile } from '@material-ui/core';
+import { Button, Fab, GridList, GridListTile } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -62,6 +62,12 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
       textAlign: 'center'
     },
+    paper1: {
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    }
   }),
 );
 
@@ -70,6 +76,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [openDelete, setOpenDelete] = React.useState(false);
   const [boardRow, setBoardRow] = React.useState({})
 
   const handleOpen = (board: BoardResponse) => {
@@ -81,16 +88,26 @@ export default function BoardDisplay(props: BoardDisplayProps) {
     setOpen(false);
   };
 
+  const handleOpenDelete = (board: BoardResponse) => {
+    setBoardRow(board);
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
   //DELETE board
-  const deleteBoard = (board: BoardResponse) => {
-    fetch(`${APIURL}/api/board/delete/${board.id}`, {
+  const deleteBoard = (boardRow: any) => {
+    fetch(`${APIURL}/api/board/delete/${boardRow.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': props.token
       })
     })
-      .then(() => props.fetchBoards())
+      .then(() => props.fetchBoards());
+      handleCloseDelete();
   }
 
   const boardsMapping = () => {
@@ -129,12 +146,15 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 >
                   <EditIcon />
                 </Fab>
-                <Fab onClick={() => { deleteBoard(board) }}
+
+            
+                <Fab onClick={() => handleOpenDelete(board)}
                   size="small"
                   color="secondary"
                 >
                   <DeleteIcon />
                 </Fab>
+
                 <Modal
                   aria-labelledby="transition-modal-title"
                   aria-describedby="transition-modal-description"
@@ -166,6 +186,34 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                     </Container>
                   </Fade>
                 </Modal>
+
+                <Modal
+                    className={classes.modal}
+                    open={openDelete}
+                    onClose={handleCloseDelete}>
+                    <Fade in={openDelete}>
+                        <div className={classes.paper1}>
+                            <Typography variant="h5" color="textSecondary" component="p">
+                              Are you sure you want to delete this board and all items?</Typography>
+              
+                            <Button onClick={() => deleteBoard(boardRow)}
+                            size="small"
+                            variant="contained"
+                            style={{margin: '10px'}}>
+                            Yes
+                            </Button>
+
+                            <Button onClick={handleCloseDelete}
+                            size="small"
+                            color='secondary'
+                            variant="contained">
+                              No
+                              </Button>
+                        </div>
+                    </Fade>
+                </Modal>
+
+
               </CardActions>
               <CardContent >
                 <Typography variant="h5" color="textSecondary" component="p">
