@@ -1,4 +1,5 @@
 import React from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import Container from '@material-ui/core/Container';
 import Card from '@material-ui/core/Card';
@@ -7,7 +8,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import { Button, Fab, GridList, GridListTile } from '@material-ui/core';
+import { Fab, GridList, GridListTile } from '@material-ui/core';
 import { BoardResponse } from './BoardInterface';
 import BoardUpdate from './BoardUpdate';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -19,6 +20,7 @@ import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import BoardCreate from './BoardCreate';
+import OpenWithIcon from '@material-ui/icons/OpenWith';
 
 export interface BoardDisplayProps {
   token: any
@@ -50,14 +52,15 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
     },
     paper: {
-      // position: 'absolute',
-      width: 400,
-      height: 500,
-      padding: 15,
+      position: 'absolute',
+      maxWidth: 450,
+      height: 400,
+      padding: 10,
       margin: 10,
       backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
+      border: '0.4em solid #5D88D2',
       boxShadow: theme.shadows[5],
+      textAlign: 'center'
     },
   }),
 );
@@ -80,7 +83,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
 
   //DELETE board
   const deleteBoard = (board: BoardResponse) => {
-    fetch(`http://localhost:3000/api/board/delete/${board.id}`, {
+    fetch(`${APIURL}/api/board/delete/${board.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -90,7 +93,6 @@ export default function BoardDisplay(props: BoardDisplayProps) {
       .then(() => props.fetchBoards())
   }
 
-  //mapping through
   const boardsMapping = () => {
     return (props.boards.map((board: BoardResponse, index: number) => {
       var itemRouteUrl = `display-board-contents/${board.id}`
@@ -104,36 +106,32 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                   image={board.image}
                 /> :
                 <CardMedia
-                  className={classes.media}
-                  image="https://www.aconsciousrethink.com/wp-content/uploads/2016/12/vision-board-wide.jpg"
+
+                className={classes.media}
+                image="https://miro.medium.com/max/11232/0*QU7D58Yw4z8sjXEx"
 
                 // <CloudinaryContext cloudName="verasenv">
                 //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
                 // </CloudinaryContext>
                 />
               }
-              <CardActions style={{ alignItems: 'center', padding: '10px' }}>
-                <Button
+
+              <CardActions style={{ alignItems: 'center', padding: '10px', textAlign: 'center', display: 'flex', justifyContent: 'space-evenly' }}>
+                <Fab
                   size="small"
-                  variant="outlined"
-                  color="secondary"
                 >
-                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoardId(board.id)} >View</Link>
-                </Button>
+                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoard(board)} ><OpenWithIcon  color='action'/></Link>
+                </Fab>
                 <Fab onClick={() => handleOpen(board)}
                   size="small"
                   type="button"
-                  // variant="outlined"
                   color="primary"
                 >
                   <EditIcon />
                 </Fab>
                 <Fab onClick={() => { deleteBoard(board) }}
-                  // style={{ marginLeft: '3em'}}
                   size="small"
-                  // variant="outlined"
                   color="secondary"
-                // startIcon={<DeleteIcon />}
                 >
                   <DeleteIcon />
                 </Fab>
@@ -154,6 +152,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                         fetchBoards={props.fetchBoards}
                         token={props.token}
                         boardToUpdate={boardRow}
+                        handleClose={handleClose}
                       />
                       <br />
                       <br />
@@ -189,13 +188,15 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   }
   return (
     <div>
-      <GridList cellHeight={500} cols={3}>
-        <GridListTile>
-          <BoardCreate
+
+      <GridList cellHeight={500} cols={2}> 
+      <GridListTile>
+      <BoardCreate
             fetchBoards={props.fetchBoards}
             token={props.token} />
-        </GridListTile>
-        {boardsMapping()}
+        </GridListTile>     
+      {boardsMapping()}
+
       </GridList>
     </div>
   )

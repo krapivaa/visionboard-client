@@ -1,4 +1,5 @@
 import React from "react";
+import APIURL from "../helpers/environment";
 import "../App.css";
 import { Theme } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
@@ -23,6 +24,7 @@ export interface BoardHomeProps {
 export interface BoardHomeState {
   boards: BoardResponse[];
   updateActive: boolean;
+  boardToUpdate: object
 }
 
 class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
@@ -31,6 +33,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
     this.state = {
       boards: [],
       updateActive: false,
+      boardToUpdate: {}
     };
   }
 
@@ -39,7 +42,7 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
   }
 
   fetchBoards = () => {
-    fetch("http://localhost:3000/api/board/mine", {
+    fetch(`${APIURL}/api/board/mine`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -59,19 +62,15 @@ class BoardHome extends React.Component<BoardHomeProps, BoardHomeState> {
 
     const { classes }: any = this.props;
 
-    return (<div>
-
-      {/* <BoardCreate
-            fetchBoards={this.fetchBoards}
-            token={this.props.token} />
-            */}
+  return (<div>
+      
       <BoardDisplay
         token={this.props.token}
         fetchBoards={this.fetchBoards}
         boards={this.state.boards}
         setSelectedBoardId={this.props.setSelectedBoardId}
       />
-
+      
     </div>);
   }
 }

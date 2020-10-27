@@ -1,5 +1,5 @@
-//Responsibel for editing a board
 import React from 'react';
+import APIURL from '../helpers/environment';
 import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
@@ -14,15 +14,13 @@ const useStyles = (theme: Theme) => ({
        
     },
   },
-  
-
 });
 
 export interface BoardUpdateProps {
     boardToUpdate: any
     token: any
     fetchBoards: any 
-   
+    handleClose: any
 }
 
 export interface BoardUpdateState {
@@ -54,7 +52,7 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
    handleSubmit = (e: { preventDefault: () => void; }) => {
         e.preventDefault();  
     // console.log(this.props.boardToUpdate)
-    fetch(`http://localhost:3000/api/board/update/${this.props.boardToUpdate.id}`, {
+    fetch(`${APIURL}/api/board/update/${this.props.boardToUpdate.id}`, {
             method: 'PUT',
             body: JSON.stringify({
                 board: {
@@ -70,11 +68,10 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
             })
         }).then((res: any) => {
             this.props.fetchBoards()
-            
+            this.props.handleClose()
         })
     }
 
-    
     // handleChange = (event: React.ChangeEvent<{ value: any }>) => {
     //     this.setState({updateSharedBoard: event.target.value});
     //   };
@@ -120,13 +117,14 @@ class BoardUpdate extends React.Component<BoardUpdateProps, BoardUpdateState> {
 
         <br />
         
-                <Button 
+                <Button style={{maxWidth: '50px'}}
                 onClick={(e) => this.handleSubmit(e) }
                     variant="contained"
                     color="primary"
+                    size="small"
                    
                     className={classes.button}>
-                        Send to update 
+                        Submit
                 </Button>
       
             </form>
