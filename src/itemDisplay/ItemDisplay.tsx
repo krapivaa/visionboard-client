@@ -54,7 +54,7 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
     return (
       <div className={classes.root} >
         <CssBaseline />
-        <GridList className={classes.gridList} cellHeight={250}>
+        <GridList className={classes.gridList} cellHeight={300}>
           <GridListTile cols={1} style={{ height: 'auto', minWidth: '300px', border: '0.4em solid #5D88D2', backgroundColor: 'white' }} >
             <ItemCreate token={this.props.token} boardSelectedId={this.props.boardSelectedId} fetchItems={this.props.fetchItems} />
           </GridListTile>
@@ -130,13 +130,13 @@ class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
                           onClose={this.handleClosePhoto}>
                           <Fade in={this.state.openPhoto} >
                             <div className={classes.paper}>
-                              {/* <div>
+                              <div>
                                 <img
                                   src={this.state.selectedItem.photo}
                                   alt={this.state.selectedItem.itemTitle}
                                   style={{ height: "75vh", width: "auto" }}
                                 />
-                              </div> */}
+                              </div>
                               <div>
                                 <Typography variant="h5" >{this.state.selectedItem.itemTitle}</Typography>
                                 <br />

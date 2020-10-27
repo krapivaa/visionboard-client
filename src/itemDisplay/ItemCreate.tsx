@@ -4,7 +4,7 @@ import '../App.css';
 import { Theme } from '@material-ui/core/styles';
 import { withStyles } from "@material-ui/core/styles";
 import Input from '@material-ui/core/Input';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, Switch } from '@material-ui/core';
 import { ItemResponse } from './ItemInterface';
 
 const useStyles = (theme: Theme) => ({
@@ -12,7 +12,6 @@ const useStyles = (theme: Theme) => ({
     root: {
         '& > *': {
             margin: theme.spacing(1),
-            width: '25ch',
         }
     },
 });
@@ -28,6 +27,7 @@ export interface ItemCreateState {
     itemTitle: string;
     notes: string;
     photo: string;
+    uploadSwitch: boolean;
 }
 
 class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
@@ -38,10 +38,15 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
             itemTitle: "",
             notes: "",
             photo: "",
+            uploadSwitch: false
         };
 
     }
-    //handleSubmit and fetch
+
+    setUploadSwitch = () => {
+        this.setState({ uploadSwitch: !this.state.uploadSwitch })
+    }
+
     handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
         var boardId = this.props.boardSelectedId
@@ -100,14 +105,29 @@ class ItemCreate extends React.Component<ItemCreateProps, ItemCreateState> {
                     <br />
                     <Input placeholder="Notes" value={this.state.notes} inputProps={{ 'aria-label': 'notes' }} onChange={(e) => this.setState({ notes: e.target.value })} />
                     <br />
-                    {/* <Input placeholder="Photo" inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
-                    <br /> */}
-                    <Input id="cloudinary"
-                        placeholder="Upload an image"
-                        type="file"
-                        name="file"
-                        onChange={this.handleImageUpload}
-                    />
+                    <p>
+                        <Switch
+                            checked={this.state.uploadSwitch}
+                            onChange={() => this.setUploadSwitch()}
+                            color="primary"
+                        />
+                    Upload?
+                    </p>
+                    {!this.state.uploadSwitch ? (
+                        <>
+                            <Input placeholder="Photo URL" value={this.state.photo} inputProps={{ 'aria-label': 'photo' }} onChange={(e) => this.setState({ photo: e.target.value })} />
+                        </>
+                    ) : (
+                            <>
+                                <Input id="cloudinary"
+                                    placeholder="Upload an image"
+                                    type="file"
+                                    name="file"
+                                    onChange={this.handleImageUpload}
+                                    style={{ width: '25ch' }}
+                                />
+                            </>
+                        )}
                     <br />
                     <Button onClick={(e) => this.handleSubmit(e)}
                         style={{ maxWidth: '50px' }}
