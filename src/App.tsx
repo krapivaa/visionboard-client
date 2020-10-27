@@ -98,9 +98,9 @@ class App extends React.Component<AppProps, AppState> {
       && this.state.isAdmin ? (
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path="/admin">
-            <Admin token={this.state.token} />
-          </Route>
+          {/* <Route exact path="/admin"> */}
+          <Admin token={this.state.token} />
+          {/* </Route> */}
         </main>
       ) : this.state.token === localStorage.getItem('token')
         ? (
@@ -120,9 +120,9 @@ class App extends React.Component<AppProps, AppState> {
         ) : (
           <main>
             <div className={classes.toolbar} />
-            <Route exact path="/" >
-              <Auth setToken={this.setToken} setIsAdmin={this.setIsAdmin} />
-            </Route>
+            {/* <Route exact path="/" > */}
+            <Auth setToken={this.setToken} setIsAdmin={this.setIsAdmin} />
+            {/* </Route> */}
           </main>
         )
   }
