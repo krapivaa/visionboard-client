@@ -88,7 +88,8 @@ export default function BoardDisplay(props: BoardDisplayProps) {
     setOpen(false);
   };
 
-  const handleOpenDelete = () => {
+  const handleOpenDelete = (board: BoardResponse) => {
+    setBoardRow(board);
     setOpenDelete(true);
   };
 
@@ -147,7 +148,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 </Fab>
 
             
-                <Fab onClick={() => handleOpenDelete()}
+                <Fab onClick={() => handleOpenDelete(board)}
                   size="small"
                   color="secondary"
                 >
