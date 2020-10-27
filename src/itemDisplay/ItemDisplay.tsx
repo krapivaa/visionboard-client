@@ -18,7 +18,7 @@ export interface ItemDisplayProps {
 }
 
 export interface ItemDisplayState {
-  boardSelectedId: number,
+  boardSelectedId: any,
   open: boolean,
   selectedItem: any,
 }
@@ -26,7 +26,7 @@ export interface ItemDisplayState {
 class ItemDisplay extends React.Component<ItemDisplayProps, ItemDisplayState> {
   constructor(props: ItemDisplayProps) {
     super(props);
-    this.state = { boardSelectedId: JSON.parse(localStorage.getItem('boardSelectedId') || "{}"), open: false, selectedItem: {} }
+    this.state = { boardSelectedId: localStorage.getItem('boardSelectedId'), open: false, selectedItem: {} }
   }
 
   handleOpen = (item: ItemResponse) => {

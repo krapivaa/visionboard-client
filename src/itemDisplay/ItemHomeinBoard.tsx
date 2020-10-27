@@ -49,7 +49,7 @@ class ItemHomeinBoard extends React.Component<
 
   fetchItems = (boardId: number) => {
     boardId = this.props.boardSelectedId
-    fetch(`${APIURL}/api/board/${this.props.boardSelected.id}`, {
+    fetch(`${APIURL}/api/board/${boardId}`, {
       method: "GET",
       headers: new Headers({
         "Content-Type": "application/json",
@@ -58,7 +58,7 @@ class ItemHomeinBoard extends React.Component<
     })
       .then((res: any) => res.json())
       .then((json: ItemResponse[]) => {
-        // console.log("THIS IS ITEMS!: ", json);
+        console.log("THIS IS ITEMS!: ", json);
         this.setState({
           items: json
             .sort((a, b) => b.id - a.id)

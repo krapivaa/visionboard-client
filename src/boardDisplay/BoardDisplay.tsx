@@ -107,8 +107,8 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 /> :
                 <CardMedia
 
-                className={classes.media}
-                image="https://miro.medium.com/max/11232/0*QU7D58Yw4z8sjXEx"
+                  className={classes.media}
+                  image="https://miro.medium.com/max/11232/0*QU7D58Yw4z8sjXEx"
 
                 // <CloudinaryContext cloudName="verasenv">
                 //   <Image publicId="vision-board_svj19q" width="0.4" crop="scale" />
@@ -120,7 +120,7 @@ export default function BoardDisplay(props: BoardDisplayProps) {
                 <Fab
                   size="small"
                 >
-                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoard(board)} ><OpenWithIcon  color='action'/></Link>
+                  <Link to={itemRouteUrl} onClick={() => props.setSelectedBoardId(board.id)} ><OpenWithIcon color='action' /></Link>
                 </Fab>
                 <Fab onClick={() => handleOpen(board)}
                   size="small"
@@ -189,13 +189,13 @@ export default function BoardDisplay(props: BoardDisplayProps) {
   return (
     <div>
 
-      <GridList cellHeight={500} cols={2}> 
-      <GridListTile>
-      <BoardCreate
+      <GridList cellHeight={500} cols={2}>
+        <GridListTile>
+          <BoardCreate
             fetchBoards={props.fetchBoards}
             token={props.token} />
-        </GridListTile>     
-      {boardsMapping()}
+        </GridListTile>
+        {boardsMapping()}
 
       </GridList>
     </div>
